@@ -49,6 +49,11 @@ pnpm run lint       # ESLint
 
 - [Guía completa de componentes](docs/COMPONENTES.md)
 
+## Autor
+
+- **Alessandro Oszika** — Desarrollo y diseño
+- **[DeepSeek V4 Flash Free](https://deepseek.com) + [Opencode](https://opencode.ai)** — Asistencia y generación de código
+
 ## Licencia
 
 MIT
