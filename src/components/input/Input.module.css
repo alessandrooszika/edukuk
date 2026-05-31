@@ -5,6 +5,10 @@
   text-align: left;
 }
 
+.field {
+  position: relative;
+}
+
 /* — share — */
 
 .input {
