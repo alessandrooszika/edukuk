@@ -53,7 +53,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
         <input
           ref={ref}
           id={id}
-          className={styles.input}
+          className={`${styles.input} ${label && !float ? styles.placeholderHidden : ""}`}
           aria-invalid={!!error}
           aria-describedby={error ? errorId : undefined}
           onFocus={handleFocus}

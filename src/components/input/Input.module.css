@@ -32,6 +32,10 @@
   cursor: not-allowed;
 }
 
+.input.placeholderHidden::placeholder {
+  color: transparent;
+}
+
 .error {
   font-size: 0.75rem;
   color: var(--danger);
@@ -95,7 +99,7 @@
 /* — design: filled — */
 
 .filled {
-  background: color-mix(in srgb, var(--bg) 96%, var(--text));
+  background: color-mix(in srgb, var(--bg) 85%, var(--text));
   border-bottom: 2px solid var(--border);
   border-radius: 8px 8px 0 0;
   transition: border-color 0.2s ease, background 0.2s ease;
@@ -103,7 +107,7 @@
 
 .filled:focus-within {
   border-bottom-color: var(--input-color);
-  background: color-mix(in srgb, var(--bg) 93%, var(--text));
+  background: color-mix(in srgb, var(--bg) 78%, var(--text));
 }
 
 .filled .label.float {
