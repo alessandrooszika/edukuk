@@ -1,4 +1,4 @@
-import { useRef, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import type { Size } from "../../types";
 import styles from "./Rating.module.css";
 
@@ -30,6 +30,7 @@ export const Rating = ({
   className = "",
 }: RatingProps) => {
   const rootRef = useRef<HTMLSpanElement>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (readOnly || !onChange) return;
@@ -48,14 +49,16 @@ export const Rating = ({
       aria-label={readOnly ? `${value} de ${count} estrellas` : "Valoración"}
       tabIndex={readOnly ? -1 : 0}
       onKeyDown={handleKeyDown}
+      onPointerLeave={readOnly ? undefined : () => setHovered(null)}
     >
       {Array.from({ length: count }, (_, i) => {
-        const filled = i < value;
+        const filled = hovered != null ? i < hovered : i < value;
         return (
           <span
             key={i}
             className={`${styles.star} ${filled ? styles.filled : ""} ${readOnly ? styles.readOnly : ""}`}
             onClick={() => !readOnly && onChange?.(i + 1)}
+            onPointerEnter={readOnly ? undefined : () => setHovered(i + 1)}
             role={readOnly ? undefined : "radio"}
             aria-checked={readOnly ? undefined : i + 1 === value}
             aria-label={readOnly ? undefined : `${i + 1} estrella${i > 0 ? "s" : ""}`}

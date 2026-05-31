@@ -1,4 +1,4 @@
-import { useState, useRef, useId, type ReactNode } from "react";
+import { useState, useRef, useId, useMemo, type ReactNode } from "react";
 import { CloseIcon, UploadIcon, FileIcon } from "../icons";
 import type { Variant } from "../../types";
 import { Button } from "../button/Button";
@@ -48,6 +48,7 @@ export const FileInput = ({
   const id = `${generatedId}-file`;
   const files = externalFiles ?? internalFiles;
   const hasFiles = files.length > 0;
+  const isTouch = useMemo(() => "ontouchstart" in window, []);
 
   const handleFiles = (fileList: FileList) => {
     const incoming = Array.from(fileList).map((f) => ({ name: f.name, size: f.size }));
@@ -94,7 +95,11 @@ export const FileInput = ({
         <UploadIcon className={styles.uploadIcon} />
         {children ?? (
           <span className={styles.hint}>
-            <strong>Hacé clic</strong> o arrastrá un archivo{multiple ? "s" : ""} aquí
+            {isTouch ? (
+              <strong>Presioná para seleccionar</strong>
+            ) : (
+              <><strong>Hacé clic</strong> o arrastrá un archivo{multiple ? "s" : ""} aquí</>
+            )}
           </span>
         )}
       </Box>
