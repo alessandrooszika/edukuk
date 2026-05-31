@@ -1,5 +1,7 @@
 # edukuk 🎨
 
+<img src="https://raw.githubusercontent.com/alessandrooszika/edukuk/main/public/favicon-dark.webp" width="100" alt="edukuk">
+
 > Componentes UI en React 19 + TypeScript + Vite
 >
 > 52 componentes, 0 dependencias de UI externas
