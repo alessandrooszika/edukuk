@@ -46,6 +46,10 @@ import { FormField } from "../components/form-field";
 import { FormGroup } from "../components/form-group";
 import { DataTable } from "../components/data-table";
 import type { Column as DataColumn } from "../components/data-table";
+import { TreeView } from "../components/tree-view";
+import type { TreeNode } from "../components/tree-view";
+import { VirtualizedList } from "../components/virtualized-list";
+import { ToastProvider, useToast } from "../components/toast";
 import {
   MenuIcon, SearchIcon, ClearIcon, EyeIcon, EyeOffIcon,
   SunIcon, MoonIcon, ChevronUpIcon, ChevronDownIcon,
@@ -64,6 +68,7 @@ export const categories = [
   { id: "theme", label: "Theme" },
   { id: "icons", label: "Icons" },
   { id: "overlays", label: "Overlays" },
+  { id: "business", label: "Business" },
 ] as const;
 
 export type CategoryId = (typeof categories)[number]["id"];
@@ -1551,6 +1556,134 @@ export function renderOverlaysSection(st: OverlaysState, bs: Record<string, stri
           </figure>
         </CardFooter>
       </Card>
+    </Box>
+  );
+}
+
+/* ---------- Business ---------- */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function renderBusinessSection(_st: unknown, _bs: Record<string, string>) {
+  return (
+    <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
+      <Card>
+        <CardHeader>
+          <Typography variant="h3" gutterBottom>TreeView 🌳</Typography>
+        </CardHeader>
+        <CardBody>
+          <TreeViewDemo />
+        </CardBody>
+        <CardFooter>
+          <figure className={cardStyles.figure}>
+            <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
+              &#x1f4a1; <strong>TreeView</strong> árbol jerárquico con expand/colapse,
+              selección, navegación por teclado (ArrowUp/Down/Right/Left, Home/End).
+              <code>data</code> (TreeNode[]), <code>selectedId</code>, <code>onSelect</code>,
+              <code>defaultExpandedIds</code>. ARIA <code>tree</code>/<code>treeitem</code>.
+            </Typography>
+          </figure>
+        </CardFooter>
+      </Card>
+      <Card>
+        <CardHeader>
+          <Typography variant="h3" gutterBottom>VirtualizedList ⚡</Typography>
+        </CardHeader>
+        <CardBody>
+          <VirtualizedListDemo />
+        </CardBody>
+        <CardFooter>
+          <figure className={cardStyles.figure}>
+            <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
+              &#x1f4a1; <strong>VirtualizedList</strong> renderizado virtualizado
+              (solo elementos visibles + overscan). <code>items: T[]</code>,
+              <code>itemHeight</code>, <code>renderItem</code>, <code>height</code>,
+              <code>overscan</code>. Scroll sin lag para 1000+ items.
+            </Typography>
+          </figure>
+        </CardFooter>
+      </Card>
+      <Card>
+        <CardHeader>
+          <Typography variant="h3" gutterBottom>Toast 🔔</Typography>
+        </CardHeader>
+        <CardBody>
+          <ToastProvider>
+            <ToastDemo />
+          </ToastProvider>
+        </CardBody>
+        <CardFooter>
+          <figure className={cardStyles.figure}>
+            <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
+              &#x1f4a1; <strong>Toast</strong> sistema de notificaciones stackeables.
+              Provee <code>ToastProvider</code> + hook <code>useToast()</code>.
+              <code>addToast( {"{ message, variant?, duration?, position? }"} )</code>.
+              Variants: default/info/success/warning/danger. Auto-dismiss. Cierra con Escape.
+            </Typography>
+          </figure>
+        </CardFooter>
+      </Card>
+    </Box>
+  );
+}
+
+function TreeViewDemo() {
+  const [selectedId, setSelectedId] = useState("edukuk");
+  const treeData: TreeNode[] = [
+    {
+      id: "docs", label: "Documentos",
+      children: [
+        { id: "report", label: "Reporte Q1" },
+        {
+          id: "projects", label: "Proyectos",
+          children: [
+            { id: "edukuk", label: "edukuk" },
+            { id: "other", label: "otros" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "images", label: "Imágenes",
+      children: [
+        { id: "screenshot", label: "Captura.png" },
+        { id: "design", label: "Mockup.png" },
+      ],
+    },
+    { id: "readme", label: "README.md" },
+  ];
+  return (
+    <Box display="grid" gridTemplateColumns="1fr 1fr" gap="1rem" alignItems="start">
+      <TreeView data={treeData} selectedId={selectedId} onSelect={setSelectedId} defaultExpandedIds={["docs"]} />
+      <Typography variant="body2">Seleccionado: <code>{selectedId || "(ninguno)"}</code></Typography>
+    </Box>
+  );
+}
+
+function VirtualizedListDemo() {
+  const items = Array.from({ length: 1000 }, (_, i) => `Línea ${i + 1}`);
+  return (
+    <VirtualizedList
+      items={items}
+      itemHeight={36}
+      height={250}
+      renderItem={(item, index) => (
+        <div style={{ padding: "0 0.75rem", lineHeight: "36px", fontSize: "0.875rem", borderBottom: "1px solid var(--border)", color: "var(--text-h)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+          <span style={{ color: "var(--accent)", marginRight: "0.5rem", fontWeight: 600 }}>{index + 1}</span>
+          {item}
+        </div>
+      )}
+    />
+  );
+}
+
+function ToastDemo() {
+  const { addToast } = useToast();
+  return (
+    <Box display="flex" gap="0.5rem" flexWrap="wrap">
+      <Button onClick={() => addToast({ message: "Mensaje informativo" })}>Default</Button>
+      <Button variant="info" onClick={() => addToast({ message: "Cargando datos...", variant: "info" })}>Info</Button>
+      <Button variant="success" onClick={() => addToast({ message: "Operación exitosa", variant: "success" })}>Success</Button>
+      <Button variant="warning" onClick={() => addToast({ message: "Cuidado con esto", variant: "warning", duration: 10000 })}>Warning</Button>
+      <Button variant="danger" onClick={() => addToast({ message: "Error crítico", variant: "danger" })}>Danger</Button>
     </Box>
   );
 }

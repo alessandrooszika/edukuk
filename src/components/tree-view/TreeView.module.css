@@ -1,0 +1,82 @@
+.tree {
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+.node {
+  display: flex;
+  flex-direction: column;
+}
+
+.nodeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.nodeRow:hover {
+  background: var(--accent-bg);
+}
+
+.nodeRow:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.nodeRow.selected {
+  background: var(--accent-bg);
+  outline: 1px solid var(--accent-border);
+}
+
+.nodeRow.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.nodeRow.disabled:hover {
+  background: transparent;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  font-size: 0.65rem;
+  color: var(--text);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.toggle.expanded {
+  transform: rotate(90deg);
+}
+
+.togglePlaceholder {
+  width: 1.2rem;
+  flex-shrink: 0;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: var(--text-h);
+  line-height: 1.4;
+}
+
+.children {
+  display: flex;
+  flex-direction: column;
+}

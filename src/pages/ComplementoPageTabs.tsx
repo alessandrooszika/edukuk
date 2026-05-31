@@ -9,6 +9,7 @@ import {
   renderThemeSection,
   renderIconsSection,
   renderOverlaysSection,
+  renderBusinessSection,
 } from "../content/complementosContent";
 import { Tabs } from "../components/tabs";
 import { Typography } from "../components/typography";
@@ -39,6 +40,7 @@ export const ComplementoPageTabs = ({ defaultTab, onTabChange }: ComplementoPage
           { label: "Theme",          content: renderThemeSection(styles, baseStyles) },
           { label: "Icons",          content: renderIconsSection(styles, baseStyles) },
           { label: "Overlays",       content: renderOverlaysSection(st, baseStyles) },
+          { label: "Business",       content: renderBusinessSection(st, baseStyles) },
         ]}
       />
       <FloatingOverlays

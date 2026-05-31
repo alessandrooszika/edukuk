@@ -12,6 +12,7 @@ import {
   renderThemeSection,
   renderIconsSection,
   renderOverlaysSection,
+  renderBusinessSection,
 } from "../content/complementosContent";
 import { Drawer } from "../components/drawer";
 import { MenuIcon } from "../components/icons";
@@ -41,6 +42,7 @@ export const ComplementoPageDrawer = ({ defaultTab = 0, onTabChange }: Complemen
       case "theme":          return renderThemeSection(styles, baseStyles);
       case "icons":          return renderIconsSection(styles, baseStyles);
       case "overlays":       return renderOverlaysSection(st, baseStyles);
+      case "business":        return renderBusinessSection(st, baseStyles);
     }
   };
 
