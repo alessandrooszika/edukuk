@@ -203,6 +203,192 @@ Navegación de ruta jerárquica con `<nav aria-label="breadcrumb">` y `<ol>`. Si
 
 ---
 
+### Stack / HStack / VStack
+
+`src/components/stack/Stack.tsx`
+
+Thin wrappers de **Box** con `display:flex` predefinido. Cada uno exporta su propio componente.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `as` | `"div"` | `"div"` | Elemento raíz (siempre `"div"`, reservado para futura expansión) |
+| `children` | `ReactNode` | — | Contenido |
+| Resto | `BoxProps` | — | Layout: `gap`, `p`, `m`, `alignItems`, `justifyContent`, etc. |
+
+**Comportamiento:**
+- **Stack:** `display: flex`, `flexDirection: column` (sin gap default).
+- **HStack:** `display: flex`, `flexDirection: row`, `gap: 0.5rem`.
+- **VStack:** `display: flex`, `flexDirection: column`, `gap: 1rem`.
+
+Los valores booleanos en `BoxProps` se ignoran silenciosamente. Las props numéricas se convierten a `px`.
+
+```tsx
+<HStack gap={8}>
+  <span>Item 1</span>
+  <span>Item 2</span>
+</HStack>
+
+<VStack gap="0.5rem">
+  <p>Párrafo 1</p>
+  <p>Párrafo 2</p>
+</VStack>
+```
+
+---
+
+### Divider
+
+`src/components/divider/Divider.tsx`
+
+Línea divisoria horizontal (`<hr>`) o vertical (`<span>`). Sin JavaScript.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | Dirección |
+| `variant` | `Variant` | `"default"` | Color de la línea |
+| `size` | `Size` | `"md"` | Grosor |
+| `label` | `string` | — | Texto opcional centrado (solo horizontal) |
+| `className` | `string` | `""` | Clase adicional |
+
+**Comportamiento:** Horizontal usa `<hr>` con label optativo centrado vía `::before`/`::after`. Vertical usa `<span>`. En modo vertical, el label se ignora.
+
+```tsx
+<Divider />
+<Divider label="Sección" />
+<Divider orientation="vertical" size="lg" />
+```
+
+---
+
+### Stepper
+
+`src/components/stepper/Stepper.tsx`
+
+Indicador de progreso por pasos con checkmark en completados.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `steps` | `string[]` | **requerido** | Array de labels |
+| `activeStep` | `number` | **requerido** | Paso activo (0-indexed) |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | Dirección |
+| `alternativeLabel` | `boolean` | `false` | Label debajo del círculo (horizontal) |
+
+**Comportamiento:** Cada paso muestra un círculo con número, checkmark en completados, o número en activo. Los conectores usan `position: absolute`. Círculos con `background: var(--card-bg)` para ocultar la línea detrás. Keyboard: ArrowLeft/ArrowRight navega cuando `role="tablist"`.
+
+```tsx
+<Stepper
+  steps={["Registro", "Pago", "Confirmación"]}
+  activeStep={1}
+  alternativeLabel
+/>
+```
+
+---
+
+### Table
+
+`src/components/table/Table.tsx`
+
+Tabla HTML con variantes visuales. Sin JavaScript.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `columns` | `{ key: string; label: string }[]` | **requerido** | Definición de columnas |
+| `data` | `Record<string, any>[]` | **requerido** | Datos a renderizar |
+| `variant` | `Variant` | `"default"` | Color de acento |
+| `size` | `Size` | `"md"` | Tamaño de celdas |
+| `striped` | `boolean` | `false` | Filas alternadas |
+| `stickyHeader` | `boolean` | `false` | Header fijo al scrollear |
+
+**Comportamiento:** `<table>` semántica con `<thead>`/`<tbody>`. Columnas con `key` se mapean al data. Header usa `var(--accent-bg)`. Striped pares con `var(--border)`. Hover consistente en todas las filas.
+
+```tsx
+<Table
+  columns={[{ key: "name", label: "Nombre" }, { key: "age", label: "Edad" }]}
+  data={[{ name: "Ana", age: 30 }, { name: "Luis", age: 25 }]}
+  striped
+/>
+```
+
+---
+
+### AspectRatio
+
+`src/components/aspect-ratio/AspectRatio.tsx`
+
+Contenedor que mantiene una relación de aspecto fija sobre su contenido.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `ratio` | `number` | `16/9` | Relación ancho/alto (ej: `16/9`, `4/3`, `1`) |
+| `maxWidth` | `string \| number` | — | Ancho máximo (number → px) |
+| `children` | `ReactNode` | — | Contenido |
+
+**Comportamiento:** Usa CSS `aspect-ratio` en lugar del `padding-bottom` trick. Soporta `maxWidth` correctamente (no depende del ancho del padre).
+
+```tsx
+<AspectRatio ratio={4/3} maxWidth={400}>
+  <iframe src="..." />
+</AspectRatio>
+```
+
+---
+
+### DataTable
+
+`src/components/data-table/DataTable.tsx`
+
+Tabla de datos genérica (`<T>`) con sort, filter, selección, paginación y visibilidad de columnas.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `columns` | `DataColumn<T>[]` | **requerido** | Definición de columnas con key, label, sortable, filterable, visible |
+| `data` | `T[]` | **requerido** | Datos a renderizar |
+| `pageSize` | `number` | `10` | Filas por página |
+| `selectable` | `boolean` | `false` | Checkbox de selección |
+| `onSelectionChange` | `(selected: T[]) => void` | — | Callback al cambiar selección |
+| `striped` | `boolean` | `false` | Filas alternadas |
+| `stickyHeader` | `boolean` | `false` | Header fijo |
+| `emptyMessage` | `string` | `"No hay datos"` | Mensaje cuando no hay resultados |
+
+**DataColumn\<T\>:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `key` | `keyof T` | **requerido** | Campo del data |
+| `label` | `string` | **requerido** | Texto del header |
+| `sortable` | `boolean` | `false` | Permitir ordenamiento |
+| `filterable` | `boolean` | `false` | Incluir en búsqueda |
+| `visible` | `boolean` | `true` | Visible inicialmente |
+
+**Comportamiento:** Sort cíclico (asc → desc → none). Filter busca text en columnas filterable (case-insensitive). Paginación reusa componente Pagination. Select all usa checkbox indeterminado (`ref.indeterminate`). Col visibility toggle con dropdown. Hook form: compatible con `useController`.
+
+```tsx
+<DataTable
+  columns={[
+    { key: "name", label: "Nombre", sortable: true, filterable: true },
+    { key: "email", label: "Email", sortable: true },
+  ]}
+  data={users}
+  selectable
+  onSelectionChange={setSelected}
+/>
+```
+
+---
+
 ## 2. Botones
 
 ### Button
@@ -262,6 +448,7 @@ Campo de texto base con label, error, variantes y tamaños.
 | `size` | `Size` | `"md"` | Tamaño |
 | `label` | `string` | — | Texto del label (renderiza `<label htmlFor={id}>`) |
 | `error` | `string` | — | Mensaje de error (aria-invalid, role="alert") |
+| `hideErrorText` | `boolean` | `false` | Suprime el texto de error pero mantiene borde rojo + aria-invalid |
 | `id` | `string` | `useId()` | ID auto-generado |
 | Resto | `Omit<InputHTMLAttributes<HTMLInputElement>, "size">` | — | Atributos nativos |
 
@@ -520,6 +707,57 @@ Zona de carga con drag & drop, soporte para múltiples archivos.
 
 ---
 
+### FormField
+
+`src/components/form-field/FormField.tsx`
+
+Wrapper de campos de formulario con label, error, helperText y required.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `label` | `string` | — | Texto del label |
+| `htmlFor` | `string` | — | `htmlFor` del label (conecta al `id` del input) |
+| `error` | `string` | — | Mensaje de error (role="alert") |
+| `helperText` | `string` | — | Texto de ayuda adicional |
+| `required` | `boolean` | `false` | Muestra asterisco rojo |
+| `children` | `ReactNode` | **requerido** | Componente de input/envuelto |
+
+**Comportamiento:** Organiza label arriba, children en medio, error abajo. El error usa `role="alert"` con borde rojo. Compatible con cualquier componente que acepte `id` y `error` (Input, Select, etc.). Recomendado usar `hideErrorText` en Input cuando está dentro de FormField para evitar duplicar el mensaje.
+
+```tsx
+<FormField label="Email" htmlFor="email" error="Campo requerido" required>
+  <Input id="email" error="Campo requerido" hideErrorText />
+</FormField>
+```
+
+---
+
+### FormGroup
+
+`src/components/form-group/FormGroup.tsx`
+
+Agrupación visual de campos usando `<fieldset>` y `<legend>`.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `legend` | `string` | — | Título del grupo |
+| `children` | `ReactNode` | **requerido** | Campos del formulario |
+
+**Comportamiento:** Renderiza `<fieldset>` con borde y padding. `<legend>` con `font-weight: 600`. Sin JavaScript. Gap entre hijos con flex column.
+
+```tsx
+<FormGroup legend="Datos personales">
+  <Input label="Nombre" />
+  <Input label="Apellido" />
+</FormGroup>
+```
+
+---
+
 ## 4. Display
 
 ### Badge
@@ -685,6 +923,119 @@ Navegación por pestañas con indicador animado y keyboard navigation.
     { label: "CSS", content: "Cascading Style Sheets" },
   ]}
   variant="info"
+/>
+```
+
+---
+
+### Avatar
+
+`src/components/avatar/Avatar.tsx`
+
+Representación visual de usuario con imagen o iniciales.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `src` | `string` | — | URL de imagen (si falla, muestra initials) |
+| `alt` | `string` | — | Texto alternativo (genera initials desde la primera letra) |
+| `size` | `Size` | `"md"` | Tamaño |
+| `variant` | `"circle" \| "rounded" \| "square"` | `"circle"` | Forma |
+| `color` | `Variant` | `"default"` | Color de borde en foco |
+
+**Tamaños:** `sm` (32px), `md` (48px), `lg` (64px).
+
+```tsx
+<Avatar src="/user.jpg" alt="Ana García" />
+<Avatar alt="Luis Pérez" variant="rounded" size="lg" color="info" />
+```
+
+---
+
+### Rating
+
+`src/components/rating/Rating.tsx`
+
+Selector de calificación por estrellas con hover y keyboard.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `value` | `number` | **requerido** | Valor actual |
+| `onChange` | `(value: number) => void` | **requerido** | Callback |
+| `count` | `number` | `5` | Cantidad de estrellas |
+| `size` | `Size` | `"md"` | Tamaño |
+| `readOnly` | `boolean` | `false` | Solo lectura |
+
+**Tamaños:** `sm` (16px), `md` (24px), `lg` (32px).
+
+**Comportamiento:** SVG inline por estrella. Hover pinta estrellas temporalmente. Click fija el valor. Keyboard: ArrowLeft/ArrowRight navega, Enter confirma. ARIA: `role="radiogroup"`, cada estrella `role="radio"`, `aria-checked`, `aria-posinset`, `aria-setsize`.
+
+```tsx
+<Rating value={3} onChange={setRating} />
+<Rating value={4} readOnly size="lg" count={10} />
+```
+
+---
+
+### Timeline
+
+`src/components/timeline/Timeline.tsx`
+
+Línea de tiempo vertical con dots, conectores y cards de contenido.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `items` | `TimelineItem[]` | **requerido** | Array de eventos |
+
+**TimelineItem:**
+
+| Prop | Tipo | Descripción |
+|------|------|-------------|
+| `title` | `string` | Título del evento |
+| `description` | `string` | Descripción opcional |
+| `time` | `string` | Fecha/hora opcional |
+| `icon` | `ReactNode` | Icono personalizado (reemplaza el dot numérico) |
+| `color` | `Variant` | Color del dot y línea |
+
+**Comportamiento:** Dots con índice numérico o icono. Línea conectora vertical de 2px entre dots. Cada contenido dentro de un Card. Sin JavaScript.
+
+```tsx
+<Timeline items={[
+  { title: "Nace el proyecto", description: "Primer commit", time: "Ene 2024", color: "info" },
+  { title: "Release v1", time: "Mar 2024" },
+]} />
+```
+
+---
+
+### EmptyState
+
+`src/components/empty-state/EmptyState.tsx`
+
+Estado vacío con icono, título, descripción y acción.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `icon` | `ReactNode` | — | Icono grande (renderizado con `fontSize: 48px`) |
+| `title` | `string` | — | Título |
+| `description` | `string` | — | Descripción opcional |
+| `action` | `ReactNode` | — | Acción (botón, link, etc.) |
+
+**Comportamiento:** Centrado con flex column. Padding 3rem. El icono se renderiza dentro de un Box con `fontSize: 48px`. Sin JavaScript.
+
+```tsx
+<EmptyState
+  icon={<SearchIcon />}
+  title="Sin resultados"
+  description="No se encontraron elementos"
+  action={<Button>Crear nuevo</Button>}
 />
 ```
 

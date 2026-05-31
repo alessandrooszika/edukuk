@@ -10,13 +10,13 @@
 ## Estructura
 ```
 src/
-  components/    # 38 componentes, cada uno en su carpeta con index.ts (barrel export)
+  components/    # 49 componentes, cada uno en su carpeta con index.ts (barrel export)
   pages/         # HomePage, ComplementosPage (lazy-loaded)
   styles/        # index.css (variables CSS globales), breakpoints.ts
   types/         # index.ts (Variant, Size, ModalSize, AlertVariant, AlertPosition)
   hooks/         # hooks custom
   data/          # datos de ejemplo
-  content/       # contenido markdown/doc
+  content/       # contenido markdown/doc, showcase (complementosContent.tsx)
   test/          # setup.ts (importa @testing-library/jest-dom, mock scrollIntoView)
 ```
 
@@ -32,14 +32,26 @@ src/
 
 ## Componentes clave
 - **Box**: `forwardRef<HTMLDivElement, BoxProps>` — contenedor genérico, props de layout (display, gap, padding, margin, etc.), valores number → px
+- **Stack/HStack/VStack**: wrappers de Box con `display:flex` + `flexDirection` + `gap`
 - **Card**: compuesto por CardHeader, CardBody, CardFooter — extienden BoxProps
 - **Button**: extiende `ComponentPropsWithoutRef<"button">` con `...rest`
-- **Input**: `forwardRef<HTMLInputElement, InputProps>`
+- **Input**: `forwardRef<HTMLInputElement, InputProps>`, props: `variant`, `size`, `design`, `label`, `error`, `hideErrorText`
 - **Select**: trigger `<button>`, dropdown via `createPortal`, `role="listbox"`
 - **Autocomplete**: input `role="combobox"`, dropdown via `createPortal`, `aria-activedescendant`
 - **Popover**: click-triggered, `createPortal`, 4 posiciones, z-index 150
 - **Tooltip**: hover-triggered, texto-only (vs Popover que acepta ReactNode)
 - **Pagination**: elipsis con siblings, oculto si `< 2` páginas
+- **Divider**: `<hr>` horizontal o `<span>` vertical, con `label`, `size`, `variant`, `orientation`
+- **Avatar**: `src` (img) o initials desde `alt`, `size` (sm/md/lg), `variant` (circle/rounded/square), `color`
+- **Rating**: estrellas hover/click, `value`, `onChange`, `count`, `size`, `readOnly`, teclado + ARIA radiogroup
+- **Stepper**: `steps: string[]`, `activeStep`, `orientation` (h/v), `alternativeLabel`
+- **Table**: `columns`, `data: Record[]`, `variant`, `size`, `striped`, `stickyHeader`
+- **Timeline**: `items: { title, description?, time?, icon?, color? }[]`, dots + line + cards
+- **EmptyState**: `icon`, `title`, `description`, `action` (ReactNode)
+- **AspectRatio**: `ratio` (default 16/9), `children`, `maxWidth` — usa CSS `aspect-ratio`
+- **FormField**: `label`, `htmlFor`, `error` (role="alert"), `helperText`, `required`, wrapping children
+- **FormGroup**: `<fieldset>` + `legend`, border, gap
+- **DataTable**: `<T>` genérico — sortable, filter, selectable rows, col visibility, pagination, `onSelectionChange`
 
 ## Z-index ladder
 | Componente | z-index |
@@ -56,15 +68,15 @@ src/
 | LoaderOverlay | 1000 |
 
 ## Tests
-- 138 tests unitarios, 13 archivos, todos pasando
+- 165 tests unitarios, 17 archivos, todos pasando
 - E2E: Playwright con Chromium, 2 specs (navegación, overlays)
-- Componentes con test: Box, Button, Input, Select, Autocomplete, Chip, Switch, Alert, Tabs, Progress, Loader, Skeleton, Badge
+- Componentes con test: Box, Button, Input, Select, Autocomplete, Chip, Switch, Alert, Tabs, Progress, Loader, Skeleton, Badge, Stack, FormField, FormGroup, DataTable
 - Setup: `Element.prototype.scrollIntoView = vi.fn()` en setup.ts
 - CSS modules: `classNameStrategy: "non-scoped"` en vitest.config.ts
 
 ## Routing
 - Hash-based (`#home`, `#complementos`)
-- Hashes inválidos redirigen a `#home`
+- Hashes inválidos muestran NotFoundPage con mensajes irónicos contextuales
 - `overflow-x: clip` en `#root` (no `hidden`) para sticky navbar
 
 ## Build
@@ -74,3 +86,4 @@ src/
 - `pnpm run lint` = `eslint .`
 - Pre-commit hook: `lint-staged` corre eslint --fix + tsc --noEmit en staged files
 - 0 errores de compilación
+- `hideErrorText` en Input: suprime el texto de error pero mantiene borde rojo + aria-invalid (útil dentro de FormField)

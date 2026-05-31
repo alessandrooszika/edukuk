@@ -15,6 +15,7 @@ interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size">
   design?: InputDesign;
   label?: string;
   error?: string;
+  hideErrorText?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({
@@ -23,6 +24,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   design = "outlined",
   label,
   error,
+  hideErrorText,
   className = "",
   id: externalId,
   onFocus,
@@ -69,7 +71,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
           </label>
         )}
       </Box>
-      {error && <span id={errorId} className={styles.error} role="alert">{error}</span>}
+      {error && !hideErrorText && <span id={errorId} className={styles.error} role="alert">{error}</span>}
     </Box>
   );
 });

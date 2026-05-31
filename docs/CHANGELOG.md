@@ -1,5 +1,48 @@
 # Changelog
 
+## 0.2.0 (2026-05-31)
+
+### Componentes (49)
+- **Layout:** Box, Card (CardHeader, CardBody, CardFooter), Stack (HStack, VStack), Divider, Stepper, Table, AspectRatio, DataTable
+- **Formularios:** Button, Input, Textarea, Select, Autocomplete, PasswordInput, SearchInput, NumberInput, DateInput, ColorInput, RangeInput, FileInput, FormField, FormGroup
+- **Visualización:** Badge, Chip, Switch, Progress, Skeleton, Meter, Image, Avatar, Rating, Timeline, EmptyState
+- **Navegación:** Tabs, Accordion, Breadcrumbs, Pagination, Navbar, Footer
+- **Overlays:** Tooltip, Popover, Modal, Drawer, Alert, Loader, LoaderBar, LoaderOverlay
+- **Utilidades:** ThemeToggle, LogoWatermark, ErrorBoundary, Icons, FloatingOverlays
+
+### Componentes nuevos
+- **Stack/HStack/VStack:** thin wrappers de Box con `display:flex` + `flexDirection` + `gap` predefinidos
+- **Divider:** línea horizontal (`<hr>`) o vertical (`<span>`) con label opcional
+- **Stepper:** indicador de progreso por pasos con checkmark, orientation, alternativeLabel
+- **Table:** tabla HTML con variant, size, striped, stickyHeader
+- **AspectRatio:** contenedor con relación de aspecto fija vía CSS `aspect-ratio`
+- **DataTable:** tabla genérica `<T>` con sort, filter, paginación, selección y col visibility
+- **Avatar:** imagen o iniciales con size (sm/md/lg), variant (circle/rounded/square), color
+- **Rating:** estrellas hover/click con keyboard y ARIA radiogroup
+- **Timeline:** línea de tiempo vertical con dots + conectores + cards
+- **EmptyState:** estado vacío con icono, título, descripción, acción
+- **FormField:** wrapper de formulario con label, error, helperText, required
+- **FormGroup:** `<fieldset>` + `<legend>` para agrupar campos
+
+### Mejoras
+- **Input:** nueva prop `hideErrorText` — suprime el texto de error pero mantiene borde rojo + aria-invalid (útil dentro de FormField)
+- **DataTable:** sin `useMemo` (React 19 compiler), usa `Record<string, any>` con generic `<T>`
+- **Routing:** hashes inválidos ahora muestran página 404 en vez de redirigir silenciosamente a home
+- **NotFoundPage:** página 404 con mensajes irónicos personalizados para hashes como `#admin`, `#secret`, `#api`, etc.
+
+### Páginas
+- **NotFoundPage:** nueva página lazy-loaded con gradiente 404, Badge "Área restringida" para hashes especiales, y mensajes irónicos contextuales
+
+### Documentación
+- `docs/COMPONENTES.md`: +12 secciones (Stack, Divider, Stepper, Table, AspectRatio, DataTable, Avatar, Rating, Timeline, EmptyState, FormField, FormGroup)
+- `src/content/react-hook-form.md`: nueva guía de integración con React Hook Form
+
+### Testing (165 tests, 17 archivos)
+- **Nuevos tests:** Stack (7), FormField (5), FormGroup (4), DataTable (8)
+- **Total:** 165 tests pasando, 17 archivos de test
+
+---
+
 ## 0.1.0 (2026-05-31)
 
 ### Componentes (38)
