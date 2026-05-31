@@ -54,7 +54,7 @@ export const Select = ({
 
   useEffect(() => {
     if (!open) return;
-    const handleClick = (e: MouseEvent) => {
+    const handleClick = (e: PointerEvent) => {
       if (
         wrapperRef.current?.contains(e.target as Node) ||
         listRef.current?.contains(e.target as Node)
@@ -62,8 +62,8 @@ export const Select = ({
       setOpen(false);
       setHighlightIndex(-1);
     };
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    document.addEventListener("pointerdown", handleClick);
+    return () => document.removeEventListener("pointerdown", handleClick);
   }, [open]);
 
   useLayoutEffect(() => {

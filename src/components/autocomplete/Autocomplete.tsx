@@ -47,15 +47,15 @@ export const Autocomplete = ({
 
   useEffect(() => {
     if (!open) return;
-    const handleClick = (e: MouseEvent) => {
+    const handleClick = (e: PointerEvent) => {
       if (
         wrapperRef.current?.contains(e.target as Node) ||
         listRef.current?.contains(e.target as Node)
       ) return;
       setOpen(false);
     };
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    document.addEventListener("pointerdown", handleClick);
+    return () => document.removeEventListener("pointerdown", handleClick);
   }, [open]);
 
   useEffect(() => {

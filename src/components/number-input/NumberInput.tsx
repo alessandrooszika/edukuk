@@ -114,6 +114,9 @@ export const NumberInput = ({
             onMouseDown={() => startRepeat(1)}
             onMouseUp={stopRepeat}
             onMouseLeave={stopRepeat}
+            onTouchStart={(e) => { e.preventDefault(); startRepeat(1); }}
+            onTouchEnd={stopRepeat}
+            onTouchCancel={stopRepeat}
             aria-label="Incrementar"
             tabIndex={-1}
           >
@@ -123,6 +126,9 @@ export const NumberInput = ({
             onMouseDown={() => startRepeat(-1)}
             onMouseUp={stopRepeat}
             onMouseLeave={stopRepeat}
+            onTouchStart={(e) => { e.preventDefault(); startRepeat(-1); }}
+            onTouchEnd={stopRepeat}
+            onTouchCancel={stopRepeat}
             aria-label="Decrementar"
             tabIndex={-1}
           >

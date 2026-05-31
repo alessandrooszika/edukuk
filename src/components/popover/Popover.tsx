@@ -67,7 +67,7 @@ export const Popover = ({
       if (e.key === "Escape") setOpen(false);
     };
 
-    const onClickOutside = (e: MouseEvent) => {
+    const onClickOutside = (e: PointerEvent) => {
       if (
         triggerRef.current &&
         !triggerRef.current.contains(e.target as Node) &&
@@ -79,10 +79,10 @@ export const Popover = ({
     };
 
     document.addEventListener("keydown", onKey);
-    document.addEventListener("mousedown", onClickOutside);
+    document.addEventListener("pointerdown", onClickOutside);
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.removeEventListener("mousedown", onClickOutside);
+      document.removeEventListener("pointerdown", onClickOutside);
     };
   }, [open]);
 
