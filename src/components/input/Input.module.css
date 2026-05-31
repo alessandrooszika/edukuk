@@ -5,22 +5,17 @@
   text-align: left;
 }
 
-.label {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--text-h);
-  font-family: var(--sans);
-}
+/* — share — */
 
 .input {
   width: 100%;
   font-family: var(--sans);
   color: var(--text-h);
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  background: transparent;
+  border: none;
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  z-index: 0;
 }
 
 .input::placeholder {
@@ -28,27 +23,9 @@
   opacity: 0.6;
 }
 
-.input:hover {
-  border-color: var(--accent);
-}
-
-.input:focus {
-  border-color: var(--input-color);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-color) 20%, transparent);
-}
-
 .input:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.hasError {
-  border-color: var(--danger);
-}
-
-.hasError:focus {
-  border-color: var(--danger);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 20%, transparent);
 }
 
 .error {
@@ -57,42 +34,121 @@
   font-family: var(--sans);
 }
 
-/* sizes */
-.sm {
-  padding: 0.375rem 0.625rem;
-  font-size: 0.8125rem;
-  min-height: 32px;
+/* — floating label — */
+
+.label {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 0.25rem;
+  color: var(--text);
+  font-family: var(--sans);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  z-index: 1;
+  transform-origin: left center;
+  line-height: 1;
 }
 
-.md {
-  padding: 0.5rem 0.75rem;
-  font-size: 0.9375rem;
-  min-height: 40px;
+.label.float {
+  top: 0;
+  transform: translateY(-50%) scale(0.82);
+  color: var(--input-color);
 }
 
-.lg {
-  padding: 0.625rem 0.875rem;
-  font-size: 1.0625rem;
-  min-height: 48px;
+/* — sizes — */
+
+.sm { min-height: 32px; }
+.sm .input { padding: 0.625rem 0.625rem 0.25rem; font-size: 0.8125rem; }
+.sm .label { font-size: 0.8125rem; }
+
+.md { min-height: 40px; }
+.md .input { padding: 0.75rem 0.75rem 0.375rem; font-size: 0.9375rem; }
+.md .label { font-size: 0.9375rem; }
+
+.lg { min-height: 48px; }
+.lg .input { padding: 0.875rem 0.875rem 0.5rem; font-size: 1.0625rem; }
+.lg .label { font-size: 1.0625rem; }
+
+/* — design: outlined — */
+
+.outlined {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* variants */
-.default {
-  --input-color: var(--accent);
+.outlined:focus-within {
+  border-color: var(--input-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-color) 20%, transparent);
 }
 
-.info {
-  --input-color: var(--info);
+.outlined .label.float {
+  background: var(--bg);
 }
 
-.success {
-  --input-color: var(--success);
+/* — design: filled — */
+
+.filled {
+  background: color-mix(in srgb, var(--bg) 96%, var(--text));
+  border-bottom: 2px solid var(--border);
+  border-radius: 8px 8px 0 0;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.warning {
-  --input-color: var(--warning);
+.filled:focus-within {
+  border-bottom-color: var(--input-color);
+  background: color-mix(in srgb, var(--bg) 93%, var(--text));
 }
 
-.danger {
-  --input-color: var(--danger);
+.filled .label.float {
+  background: transparent;
 }
+
+/* — design: standard — */
+
+.standard {
+  border-bottom: 1px solid var(--border);
+  transition: border-color 0.2s ease;
+}
+
+.standard:focus-within {
+  border-bottom-color: var(--input-color);
+  border-bottom-width: 2px;
+}
+
+.standard .label.float {
+  background: transparent;
+}
+
+/* — error — */
+
+.hasError {
+  border-color: var(--danger);
+}
+
+.hasError:focus-within {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 20%, transparent);
+}
+
+.filled.hasError,
+.filled.hasError:focus-within {
+  border-bottom-color: var(--danger);
+  box-shadow: none;
+}
+
+.standard.hasError,
+.standard.hasError:focus-within {
+  border-bottom-color: var(--danger);
+  box-shadow: none;
+}
+
+/* — variants (color) — */
+
+.default { --input-color: var(--accent); }
+.info { --input-color: var(--info); }
+.success { --input-color: var(--success); }
+.warning { --input-color: var(--warning); }
+.danger { --input-color: var(--danger); }

@@ -170,12 +170,17 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
             <Input value="" onChange={() => {}} placeholder="Danger" variant="danger" />
           </Box>
           <Input value="" onChange={() => {}} placeholder="Con error..." error="Este campo es obligatorio" />
+          <Box display="flex" gap="0.5rem" flexWrap="wrap">
+            <Input value="" onChange={() => {}} label="Outlined" placeholder="default" />
+            <Input value="" onChange={() => {}} design="filled" label="Filled" placeholder="relleno" />
+            <Input value="" onChange={() => {}} design="standard" label="Standard" placeholder="linea" />
+          </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <figcaption className={bs.figcaption}>
               &#x1f4a1; <strong>Input</strong> base reutilizable con <code>variant</code>,{" "}
-              <code>size</code>, <code>label</code>, <code>error</code>. Usa
+              <code>size</code>, <code>label</code>, <code>error</code>, <code>design</code>. Usa
               las mismas variables semánticas que Button.
             </figcaption>
           </figure>
