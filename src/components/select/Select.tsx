@@ -195,7 +195,7 @@ export const Select = ({
                 key={opt.value}
                 className={`${styles.option} ${isSelected ? styles.optionSelected : ""} ${isHighlighted ? styles.optionHighlighted : ""}`}
                 onClick={() => selectOption(opt.value)}
-                onMouseEnter={() => setHighlightIndex(i)}
+                onPointerEnter={() => setHighlightIndex(i)}
                 role="option"
                 aria-selected={isSelected}
               >

@@ -195,7 +195,7 @@ export const Autocomplete = ({
                 id={`${optionBaseId}-${i}`}
                 className={`${styles.option} ${opt === value ? styles.optionSelected : ""} ${i === highlightIndex ? styles.optionHighlighted : ""}`}
                 onClick={() => selectOption(opt)}
-                onMouseEnter={() => setHighlightIndex(i)}
+                onPointerEnter={() => setHighlightIndex(i)}
                 role="option"
                 aria-selected={opt === value}
               >
