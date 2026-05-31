@@ -80,3 +80,12 @@
 .active {
   color: var(--accent);
 }
+
+.scrollProgress {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  gap: 0;
+  pointer-events: none;
+}

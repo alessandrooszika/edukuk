@@ -2,6 +2,8 @@ import { LogoWatermark } from "../logo-watermark/LogoWatermark";
 import { ThemeToggle } from "../theme-toggle/ThemeToggle";
 import { Tooltip } from "../tooltip/Tooltip";
 import { Button } from "../button/Button";
+import { Progress } from "../progress/Progress";
+import { useScrollProgress } from "../../hooks/useScrollProgress";
 import styles from "./Navbar.module.css";
 import { Box } from "../box/Box";
 
@@ -11,6 +13,8 @@ interface NavbarProps {
 }
 
 export const Navbar = ({ currentPage, onNavigate }: NavbarProps) => {
+  const scrollProgress = useScrollProgress();
+
   return (
     <nav className={styles.nav} aria-label="Navegación principal">
       <Box className={styles.inner}>
@@ -37,6 +41,7 @@ export const Navbar = ({ currentPage, onNavigate }: NavbarProps) => {
           </li>
         </ul>
       </Box>
+      <Progress value={scrollProgress} size="sm" className={styles.scrollProgress} />
     </nav>
   );
 };
