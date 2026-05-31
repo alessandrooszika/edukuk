@@ -70,20 +70,10 @@
   gap: 1rem;
 }
 
-.heading {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--text-h);
-}
-
 .figure {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin: 0;
-}
-
-.figcaption {
   margin: 0;
 }
 

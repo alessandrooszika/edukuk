@@ -1,4 +1,5 @@
 import { type ComponentPropsWithoutRef } from "react";
+import { Typography } from "../typography";
 import styles from "./Image.module.css";
 
 interface ImageProps extends Omit<ComponentPropsWithoutRef<"img">, "children"> {
@@ -8,6 +9,6 @@ interface ImageProps extends Omit<ComponentPropsWithoutRef<"img">, "children"> {
 export const Image = ({ caption, className = "", ...rest }: ImageProps) => (
   <figure className={styles.figure}>
     <img className={className} {...rest} />
-    {caption && <figcaption className={styles.figcaption}>{caption}</figcaption>}
+    {caption && <Typography variant="caption" component="figcaption">{caption}</Typography>}
   </figure>
 );

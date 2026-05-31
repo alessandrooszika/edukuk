@@ -1,0 +1,70 @@
+.wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+}
+
+.sm th,
+.sm td {
+  padding: 0.375rem 0.75rem;
+}
+
+.md th,
+.md td {
+  padding: 0.625rem 1rem;
+}
+
+.lg th,
+.lg td {
+  padding: 0.875rem 1.25rem;
+}
+
+.thead th {
+  font-weight: 600;
+  text-align: left;
+  background: var(--accent-bg);
+  color: var(--text);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+
+.tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.tbody tr:last-child {
+  border-bottom: none;
+}
+
+.tbody tr:hover,
+.striped tr:nth-child(even):hover {
+  background: var(--accent-bg);
+}
+
+.striped tr:nth-child(even) {
+  background: var(--border);
+}
+
+.stickyHeader thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.info .thead th { background: var(--info); color: #fff; }
+.success .thead th { background: var(--success); color: #fff; }
+.warning .thead th { background: var(--warning); color: #fff; }
+.danger .thead th { background: var(--danger); color: #fff; }
+
+.default tbody td { color: var(--text); }
+.info tbody td, .success tbody td, .warning tbody td, .danger tbody td {
+  color: var(--text);
+}

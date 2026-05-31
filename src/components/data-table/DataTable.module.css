@@ -1,0 +1,210 @@
+.wrapper {
+  font-family: var(--sans);
+  color: var(--text);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.sticky thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.sm th,
+.sm td {
+  padding: 0.375rem 0.75rem;
+}
+
+.md th,
+.md td {
+  padding: 0.625rem 1rem;
+}
+
+.lg th,
+.lg td {
+  padding: 0.875rem 1.25rem;
+}
+
+.thead th {
+  font-weight: 600;
+  text-align: left;
+  background: var(--accent-bg);
+  color: var(--text);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+
+.th {
+  position: relative;
+}
+
+.thInner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable:hover {
+  background: var(--border);
+}
+
+.sorted {
+  background: var(--accent-bg);
+}
+
+.arrow {
+  font-size: 0.625rem;
+  line-height: 1;
+  color: var(--text);
+  opacity: 0.35;
+}
+
+.arrowActive {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.tbody tr:last-child {
+  border-bottom: none;
+}
+
+.tbody tr:hover,
+.striped tr:nth-child(even):hover {
+  background: var(--accent-bg);
+}
+
+.striped tr:nth-child(even) {
+  background: var(--border);
+}
+
+.selected {
+  background: var(--accent-bg);
+}
+
+.checkCol {
+  width: 40px;
+  text-align: center;
+}
+
+.checkCol input {
+  cursor: pointer;
+}
+
+.empty {
+  text-align: center;
+  padding: 2rem 1rem !important;
+  color: var(--text);
+  opacity: 0.6;
+  font-size: 0.875rem;
+}
+
+.searchInput {
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card-bg);
+  color: var(--text);
+  outline: none;
+  min-width: 180px;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  border-color: var(--accent);
+}
+
+.colToggle {
+  position: relative;
+}
+
+.colToggleBtn {
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card-bg);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.colToggleBtn:hover {
+  background: var(--accent-bg);
+}
+
+.colDropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 4px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.375rem;
+  z-index: 20;
+  min-width: 160px;
+  box-shadow: var(--shadow);
+}
+
+.colToggle:hover .colDropdown,
+.colToggle:focus-within .colDropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.colOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  padding: 0.375rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.colOption:hover {
+  background: var(--accent-bg);
+}
+
+.colOption input {
+  margin: 0;
+  cursor: pointer;
+}
+
+.pageInfo {
+  font-size: 0.8125rem;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+.default .thead th { color: var(--text); }
+.info .thead th { background: var(--info); color: #fff; }
+.success .thead th { background: var(--success); color: #fff; }
+.warning .thead th { background: var(--warning); color: #fff; }
+.danger .thead th { background: var(--danger); color: #fff; }

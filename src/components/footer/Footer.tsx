@@ -72,7 +72,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </nav>
           </Box>
           <Box className={styles.col}>
-            <h4 className={styles.heading}>Redes</h4>
+            <Typography variant="h6" className={styles.heading} component="h4">Redes</Typography>
             <Box className={styles.socials}>
               {socials.map((s) => (
                 <Tooltip key={s.label} content={s.label}>
@@ -90,7 +90,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </Box>
           </Box>
           <Box className={styles.col}>
-            <h4 className={styles.heading}>Contacto</h4>
+            <Typography variant="h6" className={styles.heading} component="h4">Contacto</Typography>
             <Box className={styles.contactGroup}>
               <Typography variant="body2" align="left">
                 ¿Ideas, sugerencias o colaboración? Escríbenos y te
