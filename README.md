@@ -1,75 +1,52 @@
-# React + TypeScript + Vite
+# edukuk 🎨
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Componentes UI en React 19 + TypeScript + Vite
+>
+> 52 componentes, 0 dependencias de UI externas
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + TypeScript 6 + Vite 8
+- CSS Modules (sin Tailwind ni librerías UI)
+- pnpm, Vitest + Testing Library, Playwright
 
-## React Compiler
+## Componentes
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+| Categoría | Componentes |
+|-----------|------------|
+| **Layout** | Box, Card (Header/Body/Footer), Stack/HStack/VStack, AspectRatio, Divider, Stepper, Table, DataTable |
+| **Inputs** | Input, Textarea, Select, Autocomplete, PasswordInput, SearchInput, NumberInput, DateInput, ColorInput, RangeInput, FileInput, FormField, FormGroup |
+| **Display** | Badge, Chip, Switch, Progress, Skeleton, Tabs, Avatar, Rating, Timeline, EmptyState, Typography, Image, Meter, Accordion |
+| **Business** | TreeView, VirtualizedList, Toast |
+| **Overlays** | Modal, Drawer, Alert, Popover, Tooltip, Loader, LoaderBar, LoaderOverlay |
+| **Navegación** | Navbar, Footer, Pagination, Breadcrumbs |
+| **Theme** | ThemeToggle, LogoWatermark |
+| **Utils** | ErrorBoundary, 22 iconos SVG |
 
-Note: This will impact Vite dev & build performances.
+## Arrancar
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install
+pnpm run dev        # Dev server
+pnpm run test       # 445 tests
+pnpm run build      # 0 errores
+pnpm run lint       # ESLint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Features
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- 🌓 Tema claro/oscuro con variables CSS + `prefers-color-scheme`
+- ♿ ARIA completo, keyboard navigation, focus trapping
+- 📱 Touch + PointerEvents (hold-to-repeat, long-press tooltip)
+- 📦 Sin dependencias de UI externas
+- ⚡ React Compiler habilitado
+- 🧪 445 tests unitarios + E2E con Playwright
+- 🔧 Pre-commit hooks con lint-staged
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Docs
+
+- [Guía completa de componentes](docs/COMPONENTES.md)
+
+## Licencia
+
+MIT
