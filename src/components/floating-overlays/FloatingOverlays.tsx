@@ -5,6 +5,7 @@ import { Loader, LoaderOverlay } from "../loader";
 import { Drawer } from "../drawer";
 import { Box } from "../box/Box";
 import { Button } from "../button/Button";
+import { Typography } from "../typography";
 
 export interface FloatingOverlaysProps {
   modalSmall: boolean; setModalSmall: (v: boolean) => void;
@@ -25,7 +26,7 @@ export function FloatingOverlays(props: FloatingOverlaysProps) {
   return (
     <>
       <Modal isOpen={modalSmall} onClose={() => setModalSmall(false)} title="Modal pequeño" size="sm" footer={<Button onClick={() => setModalSmall(false)}>Cerrar</Button>}>
-        <p>Modal de tamaño <strong>sm</strong> (360px). Ideal para confirmaciones o alertas.</p>
+        <Typography variant="body1">Modal de tamaño <strong>sm</strong> (360px). Ideal para confirmaciones o alertas.</Typography>
       </Modal>
 
       <Modal isOpen={modalMedium} onClose={() => setModalMedium(false)} title="Modal mediano" size="md" footer={
@@ -34,21 +35,21 @@ export function FloatingOverlays(props: FloatingOverlaysProps) {
           <Button variant="success" onClick={() => setModalMedium(false)}>Aceptar</Button>
         </Box>
       }>
-        <p>Modal de tamaño <strong>md</strong> (500px). Incluye botones en el footer con variantes danger/success.</p>
+        <Typography variant="body1">Modal de tamaño <strong>md</strong> (500px). Incluye botones en el footer con variantes danger/success.</Typography>
       </Modal>
 
       <Modal isOpen={modalLarge} onClose={() => setModalLarge(false)} title="Modal grande" size="lg" closeOnOverlay={false}>
-        <p>Modal de tamaño <strong>lg</strong> (680px). <code>closeOnOverlay=false</code> — solo se cierra con el botón X o Escape.</p>
+        <Typography variant="body1">Modal de tamaño <strong>lg</strong> (680px). <code>closeOnOverlay=false</code> — solo se cierra con el botón X o Escape.</Typography>
       </Modal>
 
       <Modal isOpen={modalXl} onClose={() => setModalXl(false)} title="Modal extra grande" size="xl">
-        <p>Modal de tamaño <strong>xl</strong> (900px). Ideal para paneles amplios, dashboards o contenido extenso.</p>
+        <Typography variant="body1">Modal de tamaño <strong>xl</strong> (900px). Ideal para paneles amplios, dashboards o contenido extenso.</Typography>
       </Modal>
 
       <LoaderOverlay isOpen={overlayOpen} label="Cargando contenido…">
         <Box display="flex" flexDirection="column" alignItems="center" gap="1rem">
           <Loader size="lg" variant="success" />
-          <span style={{ color: "var(--text)", fontSize: "1rem" }}>Cargando contenido…</span>
+          <Typography variant="body1">Cargando contenido…</Typography>
           <Button variant="danger" onClick={() => setOverlayOpen(false)}>Cerrar</Button>
         </Box>
       </LoaderOverlay>
@@ -65,10 +66,10 @@ export function FloatingOverlays(props: FloatingOverlaysProps) {
       />
 
       <Drawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} position={drawerPosition} size="md" title="Panel lateral">
-        <p>Este es un <strong>Drawer</strong> desde la {drawerPosition === "right" ? "derecha" : "izquierda"}.</p>
-        <p style={{ marginTop: "1rem" }}>
+        <Typography variant="body1">Este es un <strong>Drawer</strong> desde la {drawerPosition === "right" ? "derecha" : "izquierda"}.</Typography>
+        <Typography variant="body1" style={{ marginTop: "1rem" }}>
           Usá el botón para cerrar, clickeá fuera del panel o presioná Escape.
-        </p>
+        </Typography>
         <Box mt="1rem">
           <Button variant="danger" onClick={() => setDrawerOpen(false)}>Cerrar</Button>
         </Box>

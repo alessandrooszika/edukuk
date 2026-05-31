@@ -94,6 +94,7 @@
 
 .outlined .label.float {
   background: var(--bg);
+  border-radius: calc(8px / 0.82);
 }
 
 /* — design: filled — */

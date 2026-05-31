@@ -2,6 +2,7 @@ import { Button } from "../button/Button";
 import { LogoWatermark } from "../logo-watermark/LogoWatermark";
 import { ThemeToggle } from "../theme-toggle/ThemeToggle";
 import { Tooltip } from "../tooltip/Tooltip";
+import { Typography } from "../typography";
 import { GitHubIcon, TwitterIcon, YouTubeIcon, LinkedInIcon } from "../icons";
 import styles from "./Footer.module.css";
 import { Box } from "../box/Box";
@@ -44,17 +45,17 @@ export const Footer = ({ onNavigate }: FooterProps) => {
       <Box className={styles.inner}>
         <Box className={styles.grid}>
           <Box className={`${styles.col} ${styles.colBrand}`}>
-            <h3 className={styles.brand}>
+            <Typography variant="h3" className={styles.brand}>
               <LogoWatermark size={56} />
-            </h3>
-            <p className={styles.desc}>
+            </Typography>
+            <Typography variant="body2">
               Espacio de aprendizaje donde exploramos tecnologías web modernas.
               Recursos, ejemplos y herramientas para complementar tu formación
               como desarrollador.
-            </p>
+            </Typography>
           </Box>
           <Box className={styles.col}>
-            <h4 className={styles.heading}>Navegación</h4>
+            <Typography variant="h6" className={styles.heading} component="h4">Navegación</Typography>
             <nav className={styles.nav}>
               {navLinks.map((link) => (
                 <Tooltip
@@ -91,10 +92,10 @@ export const Footer = ({ onNavigate }: FooterProps) => {
           <Box className={styles.col}>
             <h4 className={styles.heading}>Contacto</h4>
             <Box className={styles.contactGroup}>
-              <p className={styles.desc}>
+              <Typography variant="body2" align="left">
                 ¿Ideas, sugerencias o colaboración? Escríbenos y te
                 responderemos a la brevedad.
-              </p>
+              </Typography>
               <Tooltip content="Enviar correo">
                 <a href="mailto:hola@edukuk.dev" className={styles.email}>
                   hola@edukuk.dev
@@ -108,10 +109,10 @@ export const Footer = ({ onNavigate }: FooterProps) => {
         </Box>
       </Box>
       <Box className={styles.bottom}>
-        <p>
+        <Typography variant="caption" component="p">
           &copy; {new Date().getFullYear()} edukuk &mdash; Hecho con
           dedicaci&oacute;n para la comunidad dev.
-        </p>
+        </Typography>
       </Box>
     </footer>
   );

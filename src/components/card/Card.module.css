@@ -84,17 +84,10 @@
 }
 
 .figcaption {
-  color: var(--text);
-  font-size: 0.8rem;
-  line-height: 1.5;
+  margin: 0;
 }
 
 .figcaption strong {
   font-weight: 700;
   color: var(--accent);
-}
-
-.subtitle {
-  font-size: 0.85rem;
-  color: var(--text);
 }

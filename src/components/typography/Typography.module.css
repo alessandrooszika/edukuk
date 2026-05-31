@@ -1,0 +1,135 @@
+.root {
+  margin: 0;
+}
+
+.h1 {
+  font-family: var(--sans);
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 110%;
+  letter-spacing: -1.68px;
+  color: var(--text-h);
+}
+
+.h2 {
+  font-family: var(--sans);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 118%;
+  letter-spacing: -0.32px;
+  color: var(--text-h);
+}
+
+.h3 {
+  font-family: var(--sans);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: -0.24px;
+  color: var(--text-h);
+}
+
+.h4 {
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 125%;
+  letter-spacing: -0.1px;
+  color: var(--text-h);
+}
+
+.h5 {
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 130%;
+  color: var(--text-h);
+}
+
+.h6 {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 135%;
+  color: var(--text-h);
+}
+
+.body1 {
+  font-family: var(--sans);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 145%;
+  letter-spacing: 0.18px;
+  color: var(--text);
+}
+
+.body2 {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 145%;
+  color: var(--text);
+}
+
+.caption {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 135%;
+  color: var(--text);
+}
+
+.code {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 135%;
+  color: var(--text-h);
+  background: var(--code-bg);
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-flex;
+}
+
+.gutterBottom {
+  margin-bottom: 0.5em;
+}
+
+.noWrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 1024px) {
+  .h1 {
+    font-size: clamp(3rem, 9vw, 6rem);
+  }
+  .h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+  .h3 {
+    font-size: 22px;
+  }
+  .h4 {
+    font-size: 18px;
+  }
+  .h5 {
+    font-size: 16px;
+  }
+  .h6 {
+    font-size: 15px;
+  }
+  .body1 {
+    font-size: 16px;
+  }
+  .body2 {
+    font-size: 14px;
+  }
+  .caption {
+    font-size: 12px;
+  }
+  .code {
+    font-size: 14px;
+  }
+}

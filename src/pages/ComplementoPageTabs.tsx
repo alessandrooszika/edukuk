@@ -11,6 +11,7 @@ import {
   renderOverlaysSection,
 } from "../content/complementosContent";
 import { Tabs } from "../components/tabs";
+import { Typography } from "../components/typography";
 import baseStyles from "../components/card/Card.module.css";
 import styles from "./ComplementosPage.module.css";
 import { Box } from "../components/box/Box";
@@ -25,12 +26,12 @@ export const ComplementoPageTabs = ({ defaultTab, onTabChange }: ComplementoPage
 
   return (
     <Box className={styles.page}>
-      <h2 className={styles.title}>Complementos</h2>
+      <Typography variant="h2" className={styles.title}>Complementos</Typography>
       <Tabs
         defaultIndex={defaultTab}
         onChange={onTabChange}
         tabs={[
-          { label: "Overview",       content: renderOverviewSection(baseStyles) },
+          { label: "Overview",       content: renderOverviewSection() },
           { label: "Buttons",        content: renderButtonsSection(baseStyles) },
           { label: "Inputs",         content: renderInputsSection(st, baseStyles) },
           { label: "Layout",         content: renderLayoutSection(styles, baseStyles) },

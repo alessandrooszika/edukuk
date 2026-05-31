@@ -2,6 +2,7 @@
 import { useState } from "react";
 import type { AlertVariant, AlertPosition } from "../types";
 import { Box } from "../components/box/Box";
+import { Typography } from "../components/typography";
 import { Card, CardHeader, CardBody, CardFooter } from "../components/card";
 import { Image } from "../components/image/Image";
 import { Meter } from "../components/meter/Meter";
@@ -55,20 +56,20 @@ export const categories = [
 export type CategoryId = (typeof categories)[number]["id"];
 
 /* ---------- Overview ---------- */
-export function renderOverviewSection(bs: Record<string, string>) {
+export function renderOverviewSection() {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Complementos 🧩</h2>
+          <Typography variant="h3" gutterBottom>Complementos 🧩</Typography>
         </CardHeader>
         <CardBody>
-          <p>
+          <Typography variant="body2">
             Esta página reúne todos los componentes UI del proyecto. Cada sección
             muestra un grupo de componentes con sus props, variantes y ejemplos
             de uso. Navegá por las categorías para explorar botones, inputs,
             layouts, displays y overlays.
-          </p>
+          </Typography>
         </CardBody>
       </Card>
     </Box>
@@ -81,7 +82,7 @@ export function renderButtonsSection(bs: Record<string, string>) {
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Button 🎛️</h2>
+          <Typography variant="h3" gutterBottom>Button 🎛️</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap">
@@ -94,17 +95,17 @@ export function renderButtonsSection(bs: Record<string, string>) {
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Button</strong> acepta{" "}
               <code>variant="default | info | success | warning | danger"</code>{" "}
               para cambiar color de texto, borde y hover.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Tooltip 💬</h2>
+          <Typography variant="h3" gutterBottom>Tooltip 💬</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="1rem" alignItems="center" justifyContent="center">
@@ -112,18 +113,18 @@ export function renderButtonsSection(bs: Record<string, string>) {
               <Button variant="info">Hover me</Button>
             </Tooltip>
             <Tooltip content="CSS ::after con attr(data-tooltip)">
-              <span>&#x1f446; Pasa el mouse</span>
+              <Typography variant="body2" component="span">&#x1f446; Pasa el mouse</Typography>
             </Tooltip>
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Tooltip</strong> es CSS-only: usa{" "}
               <code>::after</code> + <code>attr(data-tooltip)</code>.
               Fondo y color se adaptan al tema vía <code>--text-h</code>{" "}
               y <code>--bg</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
@@ -154,7 +155,7 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Input ⌨️</h2>
+          <Typography variant="h3" gutterBottom>Input ⌨️</Typography>
         </CardHeader>
         <CardBody>
           <Input value={st.inputValue} onChange={(e) => st.setInputValue(e.target.value)} placeholder="Escribe algo..." label="Input base" />
@@ -178,17 +179,17 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Input</strong> base reutilizable con <code>variant</code>,{" "}
               <code>size</code>, <code>label</code>, <code>error</code>, <code>design</code>. Usa
               las mismas variables semánticas que Button.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Autocomplete 🔍</h2>
+          <Typography variant="h3" gutterBottom>Autocomplete 🔍</Typography>
         </CardHeader>
         <CardBody>
           <Autocomplete value={st.autocompleteValue} onChange={st.setAutocompleteValue}
@@ -197,17 +198,17 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Autocomplete</strong> usa{" "}
               <code>&lt;Input&gt;</code> + <code>&lt;datalist&gt;</code>{" "}
               nativo. Sin JavaScript para el filtrado — accesible y mobile-friendly.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Select ▼</h2>
+          <Typography variant="h3" gutterBottom>Select ▼</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
@@ -225,18 +226,18 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Select</strong> dropdown personalizado con{" "}
               <code>variant</code>, <code>size</code>, <code>label</code>,{" "}
               <code>error</code>, <code>disabled</code>. Keyboard: Enter/Esc,
               flechas. Opciones seleccionada con checkmark.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Textarea 📝</h2>
+          <Typography variant="h3" gutterBottom>Textarea 📝</Typography>
         </CardHeader>
         <CardBody>
           <Textarea value={st.textareaValue} onChange={(e) => st.setTextareaValue(e.target.value)} placeholder="Escribí algo..." label="Descripción" />
@@ -253,17 +254,17 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Textarea</strong> multilínea con misma API que Input.{" "}
               <code>variant</code>, <code>size</code>, <code>label</code>,{" "}
               <code>error</code>, <code>rows</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>PasswordInput 🔐</h2>
+          <Typography variant="h3" gutterBottom>PasswordInput 🔐</Typography>
         </CardHeader>
         <CardBody>
           <PasswordInput value={st.passwordValue} onChange={(e) => st.setPasswordValue(e.target.value)} placeholder="Ingresá tu contraseña..." label="Contraseña" />
@@ -276,16 +277,16 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>PasswordInput</strong> con toggle show/hide.{" "}
               <code>variant</code>, <code>size</code>, <code>label</code>, <code>error</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>SearchInput 🔍</h2>
+          <Typography variant="h3" gutterBottom>SearchInput 🔍</Typography>
         </CardHeader>
         <CardBody>
           <SearchInput value={st.searchValue} onChange={(e) => st.setSearchValue(e.target.value)} onClear={() => st.setSearchValue("")} placeholder="Buscar..." label="Buscar" />
@@ -300,16 +301,16 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>SearchInput</strong> con lupa SVG a la izquierda y botón X
               para limpiar. <code>onClear</code> para manejo externo.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>NumberInput 🔢</h2>
+          <Typography variant="h3" gutterBottom>NumberInput 🔢</Typography>
         </CardHeader>
         <CardBody>
           <NumberInput value={st.numberValue} onChange={(e) => st.setNumberValue(Number(e.target.value))} label="Cantidad" min={0} max={100} />
@@ -326,16 +327,16 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>NumberInput</strong> con steppers ▲▼. Spinners nativos ocultos.{" "}
               <code>min</code>, <code>max</code>, <code>step</code>. Clamp en blur.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>DateInput 📅</h2>
+          <Typography variant="h3" gutterBottom>DateInput 📅</Typography>
         </CardHeader>
         <CardBody>
           <DateInput value={st.dateValue} onChange={(e) => st.setDateValue(e.target.value)} label="Fecha" />
@@ -347,16 +348,16 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>DateInput</strong> usa el date picker nativo del browser.{" "}
               Icono calendario decorativo. <code>min</code>, <code>max</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>ColorInput 🎨</h2>
+          <Typography variant="h3" gutterBottom>ColorInput 🎨</Typography>
         </CardHeader>
         <CardBody>
           <ColorInput value={st.colorValue} onChange={(e) => st.setColorValue(e.target.value)} label="Color favorito" />
@@ -373,16 +374,16 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>ColorInput</strong> swatch + hex display. Click abre el
               color picker nativo. <code>variant</code>, <code>size</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>RangeInput 🎚️</h2>
+          <Typography variant="h3" gutterBottom>RangeInput 🎚️</Typography>
         </CardHeader>
         <CardBody>
           <RangeInput value={st.rangeValue} onChange={(e) => st.setRangeValue(Number(e.target.value))} label="Volumen" showValue min={0} max={100} />
@@ -400,36 +401,36 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>RangeInput</strong> slider custom con track+fill+thumb.{" "}
               <code>variant</code>, <code>size</code>, <code>showValue</code>,{" "}
               <code>min</code>, <code>max</code>, <code>step</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>FileInput 📎</h2>
+          <Typography variant="h3" gutterBottom>FileInput 📎</Typography>
         </CardHeader>
         <CardBody>
           <FileInput label="Subí un archivo" accept=".pdf,.jpg,.png" onChange={(files) => console.log("Archivos:", files)} />
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
             <Box style={{ flex: 1 }}>
               <FileInput label="Múltiples archivos" multiple onChange={() => {}}>
-                <span style={{ fontSize: "0.875rem", color: "var(--text)" }}>
+                <Typography variant="body2" component="span">
                   <strong style={{ color: "var(--accent)" }}>Arrastrá</strong> varios archivos o hacé clic
-                </span>
+                </Typography>
               </FileInput>
             </Box>
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>FileInput</strong> drop zone con drag & drop.{" "}
               <code>accept</code>, <code>multiple</code>. Muestra nombre y tamaño. Botón X para remover.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
@@ -443,51 +444,51 @@ export function renderLayoutSection(s: Record<string, string>, bs: Record<string
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Box 📦</h2>
+          <Typography variant="h3" gutterBottom>Box 📦</Typography>
         </CardHeader>
         <CardBody>
           <Box>Este es un Box — un div con estilos base</Box>
           <Box display="flex" justifyContent="center" p={12} mt="0.5rem">
-            <span>Box extiende las props nativas de <code>&lt;div&gt;</code></span>
+            <Typography variant="body2" component="span">Box extiende las props nativas de <code>&lt;div&gt;</code></Typography>
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Box</strong> aplica <code>--card-bg</code>, <code>border-radius: 16px</code>,{' '}
               <code>border</code>, <code>box-shadow</code> y <code>padding: 20px</code>.
               Acepta todas las props de un <code>&lt;div&gt;</code> nativo vía <code>ComponentPropsWithoutRef&lt;"div"&gt;</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Card 🃏</h2>
+          <Typography variant="h3" gutterBottom>Card 🃏</Typography>
         </CardHeader>
         <CardBody>
           <Card>
-            <p style={{ margin: 0 }}>Un Card puede contener cualquier contenido.</p>
+            <Typography variant="body1" style={{ margin: 0 }}>Un Card puede contener cualquier contenido.</Typography>
           </Card>
           <Card>
-            <h3 style={{ margin: 0, color: "var(--text-h)" }}>Título</h3>
-            <p style={{ margin: 0 }}>Cuerpo del card con múltiples elementos.</p>
+            <Typography variant="h4" style={{ margin: 0 }}>Título</Typography>
+            <Typography variant="body1" style={{ margin: 0 }}>Cuerpo del card con múltiples elementos.</Typography>
           </Card>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Card</strong> compone <strong>Box</strong> y agrega{' '}
               <code>flex-direction: column</code>, <code>gap: 1rem</code>,{' '}
               <code>overflow: hidden</code> y efecto hover con elevación. Prop:{' '}
               <code>children: ReactNode</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Image 🖼️</h2>
+          <Typography variant="h3" gutterBottom>Image 🖼️</Typography>
         </CardHeader>
         <CardBody>
           <Image src="/src/assets/html-code-image.webp" alt="Ejemplo sin caption"
@@ -498,18 +499,18 @@ export function renderLayoutSection(s: Record<string, string>, bs: Record<string
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Image</strong> extiende <code>&lt;img&gt;</code> nativo ({' '}
               <code>Omit&lt;ComponentPropsWithoutRef&lt;"img"&gt;, "children"&gt;</code>
               ). Prop adicional: <code>caption?: string</code>. Si se provee, renderiza un{' '}
               <code>&lt;figcaption&gt;</code> debajo.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Meter 📊</h2>
+          <Typography variant="h3" gutterBottom>Meter 📊</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="1rem">
@@ -526,17 +527,17 @@ export function renderLayoutSection(s: Record<string, string>, bs: Record<string
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Meter</strong> renderiza un <code>&lt;meter&gt;</code> nativo.
               Props: <code>value</code> (number, requerido), <code>min</code> (default 0),{' '}
               <code>max</code> (default 1). Los valores de ejemplo usan <code>min=0 max=100</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Accordion 📑</h2>
+          <Typography variant="h3" gutterBottom>Accordion 📑</Typography>
         </CardHeader>
         <CardBody>
           <Accordion items={[
@@ -547,17 +548,17 @@ export function renderLayoutSection(s: Record<string, string>, bs: Record<string
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Accordion</strong> recibe <code>items: AccordionItem[]</code>.{' '}
               Cada <code>AccordionItem</code>: <code>{'{ question: string; answer: string }'}</code>.
               Usa <code>&lt;details&gt;</code> / <code>&lt;summary&gt;</code> nativos del navegador.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Breadcrumbs 🍞</h2>
+          <Typography variant="h3" gutterBottom>Breadcrumbs 🍞</Typography>
         </CardHeader>
         <CardBody>
           <Breadcrumbs items={[
@@ -568,12 +569,12 @@ export function renderLayoutSection(s: Record<string, string>, bs: Record<string
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Breadcrumbs</strong> navegación de ruta con{" "}
               <code>&lt;nav&gt;</code> + <code>aria-label="breadcrumb"</code>.{" "}
               Último ítem con <code>aria-current="page"</code>.{" "}
               <code>separator</code> personalizable (default "/").
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
@@ -602,7 +603,7 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Badge 🔴</h2>
+          <Typography variant="h3" gutterBottom>Badge 🔴</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
@@ -629,16 +630,16 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Badge</strong> indicador con <code>variant</code> y <code>size</code>.{" "}
               Modo <code>standalone</code> o posicionado sobre un contenedor padre.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Chip 🏷️</h2>
+          <Typography variant="h3" gutterBottom>Chip 🏷️</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
@@ -661,16 +662,16 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Chip</strong> tag removible con <code>variant</code>, <code>size</code>,{" "}
               <code>disabled</code>. Botón X para eliminar.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Switch 🔘</h2>
+          <Typography variant="h3" gutterBottom>Switch 🔘</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" alignItems="center" gap="1rem">
@@ -694,18 +695,18 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Switch</strong> toggle booleano con{" "}
               <code>variant</code> (default/info/success/warning/danger),{" "}
               <code>size</code> (sm/md/lg), <code>label</code>, <code>disabled</code>.{" "}
               <code>role="switch"</code> y <code>aria-checked</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Progress 📊</h2>
+          <Typography variant="h3" gutterBottom>Progress 📊</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="0.5rem">
@@ -722,17 +723,17 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Progress</strong> barra determinada 0-100%.{" "}
               <code>variant</code>, <code>size</code>, <code>label</code>,{" "}
               <code>showValue</code>. Transición suave al cambiar.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Skeleton 💀</h2>
+          <Typography variant="h3" gutterBottom>Skeleton 💀</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" alignItems="center" gap="1rem">
@@ -747,17 +748,17 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Skeleton</strong> placeholder de carga con shimmer.{" "}
               Variants: <code>text</code> (líneas), <code>circle</code>,{" "}
               <code>rect</code>. Prop <code>count</code> para repetir.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Tabs 📑</h2>
+          <Typography variant="h3" gutterBottom>Tabs 📑</Typography>
         </CardHeader>
         <CardBody>
           <Tabs tabs={[
@@ -768,10 +769,10 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Tabs</strong> navegación por pestañas con keyboard{" "}
               (flechas izquierda/derecha, Home/End). Indicador animado.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
@@ -808,44 +809,44 @@ export function renderThemeSection(s: Record<string, string>, bs: Record<string,
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>ThemeToggle 🌓</h2>
+          <Typography variant="h3" gutterBottom>ThemeToggle 🌓</Typography>
         </CardHeader>
         <CardBody>
           <ThemeToggle />
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>ThemeToggle</strong> es un componente auto-contenido (sin props).{" "}
               Lee/escribe <code>localStorage("theme")</code>, setea{" "}
               <code>data-theme</code> en <code>&lt;html&gt;</code> y dispara un evento{" "}
               <code>themechange</code> en <code>window</code> para sincronizar
               todos los componentes del sitio.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>LogoWatermark 🖼️</h2>
+          <Typography variant="h3" gutterBottom>LogoWatermark 🖼️</Typography>
         </CardHeader>
         <CardBody>
           <LogoWatermark size={48} />
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>LogoWatermark</strong> combina una imagen webp con
               gradient text via <code>background-clip: text</code>. Escucha{" "}
               <code>themechange</code> para refrescar el gradiente. Props:{ " " }
               <code>size?: number</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Design Tokens — Colors 🎨</h2>
+          <Typography variant="h3" gutterBottom>Design Tokens — Colors 🎨</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.75rem" flexWrap="wrap">
@@ -859,20 +860,20 @@ export function renderThemeSection(s: Record<string, string>, bs: Record<string,
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; Los swatches usan <code>background: var(--nombre)</code> y se renderizan
               con el valor real del tema activo (light/dark). Cada variable se define en{" "}
               <code>:root</code> y se sobrescribe en <code>[data-theme="dark"]</code>.{" "}
               Los componentes mapean su prop <code>variant</code> a estas variables semánticas
               via clases CSS. La variable <code>--shadow</code> (no mostrada) es un box-shadow
               compuesto que también cambia con el tema.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Design Tokens — Typography ✍️</h2>
+          <Typography variant="h3" gutterBottom>Design Tokens — Typography ✍️</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="0.5rem">
@@ -880,23 +881,23 @@ export function renderThemeSection(s: Record<string, string>, bs: Record<string,
             <Box><code>--heading</code>: <span style={{ fontFamily: "var(--heading)", fontWeight: 600 }}>Inter</span> — títulos</Box>
             <Box><code>--mono</code>: <span style={{ fontFamily: "var(--mono)" }}>ui-monospace, Consolas</span> — código</Box>
           </Box>
-          <p className={bs.subtitle} style={{ marginTop: "1rem" }}>
+          <Typography variant="caption" style={{ marginTop: "1rem" }}>
             Body: 18px (16px en &le;1024px). H1: 56px, H2: 24px.{" "}
             Inter weights cargados: 400, 500, 600, 700 via @fontsource/inter.
-          </p>
+          </Typography>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; Tipografía auto-alojada con <code>@fontsource/inter</code>. Sin
               dependencia externa a Google Fonts.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Design Tokens — Sizes & Spacing 📐</h2>
+          <Typography variant="h3" gutterBottom>Design Tokens — Sizes & Spacing 📐</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="0.5rem">
@@ -909,11 +910,11 @@ export function renderThemeSection(s: Record<string, string>, bs: Record<string,
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; Los tamaños se definen por clase CSS en cada componente (ej.{ " " }
               <code>.sm &#123; --thumb-size: 18px &#125;</code>). El hook{" "}
               <code>useMediaQuery</code> permite responsive en JS.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
@@ -952,12 +953,12 @@ export function renderIconsSection(s: Record<string, string>, bs: Record<string,
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Iconos disponibles 🎯</h2>
-          <p className={bs.subtitle}>
+          <Typography variant="h3" gutterBottom>Iconos disponibles 🎯</Typography>
+          <Typography variant="caption">
             Todos los iconos se importan desde <code>"./icons"</code> o <code>"../components/icons"</code>.
             Cada icono acepta <code>size?: number</code>, <code>className?: string</code>,{" "}
             <code>style?: React.CSSProperties</code>.
-          </p>
+          </Typography>
         </CardHeader>
         <CardBody>
           <Box display="grid" gridTemplateColumns="repeat(auto-fill, minmax(160px, 1fr))" gap="1rem">
@@ -974,11 +975,11 @@ export function renderIconsSection(s: Record<string, string>, bs: Record<string,
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; Los iconos SVG usan <code>stroke="currentColor"</code> (UI) o{" "}
               <code>fill="currentColor"</code> (social). Heredan el color del texto
               del contenedor padre.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
@@ -1003,7 +1004,7 @@ export function renderOverlaysSection(st: OverlaysState, bs: Record<string, stri
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Modal 🪟</h2>
+          <Typography variant="h3" gutterBottom>Modal 🪟</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
@@ -1015,18 +1016,18 @@ export function renderOverlaysSection(st: OverlaysState, bs: Record<string, stri
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Modal</strong> recibe <code>isOpen</code>,{" "}
               <code>onClose</code>, <code>size</code>, <code>title</code>,{" "}
               <code>footer</code>, <code>closeOnOverlay</code>. Bloquea scroll,
               cierra con Escape y overlay click.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Alert 🔔</h2>
+          <Typography variant="h3" gutterBottom>Alert 🔔</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
@@ -1042,17 +1043,17 @@ export function renderOverlaysSection(st: OverlaysState, bs: Record<string, stri
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Alert</strong> recibe <code>variant</code> (info/success/warning/danger),{" "}
               <code>position</code>, <code>duration</code> (ms, 0 = no auto),{" "}
               <code>closable</code>, <code>message</code> y <code>description</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Loader 🌀</h2>
+          <Typography variant="h3" gutterBottom>Loader 🌀</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="1rem" alignItems="center" justifyContent="center" mb="1rem">
@@ -1064,7 +1065,7 @@ export function renderOverlaysSection(st: OverlaysState, bs: Record<string, stri
           <Box display="flex" gap="1rem" alignItems="center" justifyContent="center" mb="1rem">
             <Loader size="sm" label="Cargando..." />
           </Box>
-          <h2 className={bs.heading}>LoaderBar 📊</h2>
+          <Typography variant="h3" gutterBottom>LoaderBar 📊</Typography>
           <Box display="flex" flexDirection="column" gap="0.5rem">
             <LoaderBar /> <LoaderBar variant="info" /> <LoaderBar variant="success" />
             <LoaderBar variant="warning" /> <LoaderBar variant="danger" />
@@ -1072,17 +1073,17 @@ export function renderOverlaysSection(st: OverlaysState, bs: Record<string, stri
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Loader</strong> spinner circular con sizes y variants.{" "}
               <strong>LoaderBar</strong> barra lineal indeterminada. Ambos
               usan las mismas variables de color semánticas.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>LoaderOverlay 🔲</h2>
+          <Typography variant="h3" gutterBottom>LoaderOverlay 🔲</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" justifyContent="center">
@@ -1091,16 +1092,16 @@ export function renderOverlaysSection(st: OverlaysState, bs: Record<string, stri
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>LoaderOverlay</strong> fondo semi-transparente con{" "}
               <code>backdrop-filter</code>. Bloquea scroll y centra el loader.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Popover 💬</h2>
+          <Typography variant="h3" gutterBottom>Popover 💬</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="1rem" flexWrap="wrap" justifyContent="center">
@@ -1114,17 +1115,17 @@ export function renderOverlaysSection(st: OverlaysState, bs: Record<string, stri
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Popover</strong> overlay contextual a click.{" "}
               <code>position</code>: top/bottom/left/right. Cierra con Escape
               o click fuera. Renderizado con <code>createPortal</code>.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <h2 className={bs.heading}>Drawer 🗄️</h2>
+          <Typography variant="h3" gutterBottom>Drawer 🗄️</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
@@ -1134,11 +1135,11 @@ export function renderOverlaysSection(st: OverlaysState, bs: Record<string, stri
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
-            <figcaption className={bs.figcaption}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               &#x1f4a1; <strong>Drawer</strong> panel lateral deslizable con overlay.{" "}
               <code>position</code> (left/right), <code>size</code>,{" "}
               <code>title</code>. Bloquea scroll + Escape para cerrar.
-            </figcaption>
+            </Typography>
           </figure>
         </CardFooter>
       </Card>
@@ -1151,7 +1152,7 @@ function PaginationDemo() {
   return (
     <Card>
       <CardHeader>
-        <h2 className={cardStyles.heading}>Paginación 📄</h2>
+        <Typography variant="h3" gutterBottom>Paginación 📄</Typography>
       </CardHeader>
       <CardBody>
         <Box display="flex" justifyContent="center">
@@ -1160,10 +1161,10 @@ function PaginationDemo() {
       </CardBody>
       <CardFooter>
         <figure className={cardStyles.figure}>
-          <figcaption className={cardStyles.figcaption}>
+          <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
             &#x1f4a1; <strong>Pagination</strong> navegación entre páginas con
             elipsis automática y <code>aria-current="page"</code>.
-          </figcaption>
+          </Typography>
         </figure>
       </CardFooter>
     </Card>

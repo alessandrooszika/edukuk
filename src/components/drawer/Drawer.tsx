@@ -1,6 +1,7 @@
 import { useEffect, useRef, useId, type ReactNode } from "react";
 import { CloseIcon } from "../icons";
 import { Button } from "../button/Button";
+import { Typography } from "../typography";
 import styles from "./Drawer.module.css";
 import { Box } from "../box/Box";
 
@@ -91,7 +92,7 @@ export const Drawer = ({
       >
         {title && (
           <Box className={styles.header}>
-            <h2 id={titleId} className={styles.title}>{title}</h2>
+            <Typography variant="h4" id={titleId} className={styles.title}>{title}</Typography>
             <Button iconOnly onClick={onClose} aria-label="Cerrar">
               <CloseIcon size={16} />
             </Button>

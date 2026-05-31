@@ -16,6 +16,7 @@ import {
 import { Drawer } from "../components/drawer";
 import { MenuIcon } from "../components/icons";
 import { Button } from "../components/button/Button";
+import { Typography } from "../components/typography";
 import baseStyles from "../components/card/Card.module.css";
 import styles from "./ComplementosPage.module.css";
 import { Box } from "../components/box/Box";
@@ -32,7 +33,7 @@ export const ComplementoPageDrawer = ({ defaultTab = 0, onTabChange }: Complemen
 
   const renderContent = () => {
     switch (activeCategory) {
-      case "overview":       return renderOverviewSection(baseStyles);
+      case "overview":       return renderOverviewSection();
       case "buttons":        return renderButtonsSection(baseStyles);
       case "inputs":         return renderInputsSection(st, baseStyles);
       case "layout":         return renderLayoutSection(styles, baseStyles);
@@ -49,7 +50,7 @@ export const ComplementoPageDrawer = ({ defaultTab = 0, onTabChange }: Complemen
         <Button iconOnly className={styles.menuBtn} onClick={() => setNavDrawerOpen(true)} aria-label="Abrir menú de categorías">
           <MenuIcon size={20} />
         </Button>
-        <h2>Complementos</h2>
+        <Typography variant="h2">Complementos</Typography>
       </Box>
 
       <Drawer isOpen={navDrawerOpen} onClose={() => setNavDrawerOpen(false)} position="left" size="sm" title="Categorías">

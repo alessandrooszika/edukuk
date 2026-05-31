@@ -2,6 +2,7 @@ import { useEffect, useRef, useId, type ReactNode } from "react";
 import { CloseIcon } from "../icons";
 import type { ModalSize } from "../../types";
 import { Button } from "../button/Button";
+import { Typography } from "../typography";
 import styles from "./Modal.module.css";
 import { Box } from "../box/Box";
 
@@ -96,7 +97,7 @@ export const Modal = ({
       >
         {(title || showCloseButton) && (
           <Box className={styles.header}>
-            {title && <h2 id={titleId} className={styles.title}>{title}</h2>}
+            {title && <Typography variant="h4" id={titleId} className={styles.title}>{title}</Typography>}
             {showCloseButton && (
               <Button iconOnly onClick={onClose} aria-label="Cerrar">
                 <CloseIcon size={16} />

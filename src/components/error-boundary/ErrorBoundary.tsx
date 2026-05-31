@@ -1,6 +1,7 @@
 import { Component, type ReactNode, type ErrorInfo } from "react";
 import { Button } from "../button/Button";
 import { Box } from "../box/Box";
+import { Typography } from "../typography";
 
 interface Props {
   children: ReactNode;
@@ -40,12 +41,12 @@ export class ErrorBoundary extends Component<Props, State> {
             color: "var(--text)",
           }}
         >
-          <h2 style={{ margin: 0, color: "var(--danger)", fontSize: "1.5rem" }}>
+          <Typography variant="h3" style={{ color: "var(--danger)" }}>
             Algo salió mal
-          </h2>
-          <p style={{ margin: 0, color: "var(--text)", fontSize: "0.9rem", maxWidth: 400 }}>
+          </Typography>
+          <Typography variant="body1" style={{ maxWidth: 400 }}>
             {this.state.error?.message || "Error inesperado"}
-          </p>
+          </Typography>
           <Button
             variant="danger"
             onClick={() => {

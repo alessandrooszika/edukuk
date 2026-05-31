@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
 import type { Variant, Size } from "../../types";
 import { ChevronDownIcon, CheckIcon } from "../icons";
@@ -45,7 +45,6 @@ export const Select = ({
 }: SelectProps) => {
   const [open, setOpen] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState(-1);
-  const [dropStyle, setDropStyle] = useState<React.CSSProperties>({});
   const wrapperRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
@@ -67,19 +66,29 @@ export const Select = ({
     return () => document.removeEventListener("mousedown", handleClick);
   }, [open]);
 
+  useLayoutEffect(() => {
+    if (!open || !triggerRef.current || !listRef.current) return;
+    const rect = triggerRef.current.getBoundingClientRect();
+    listRef.current.style.position = "fixed";
+    listRef.current.style.top = `${rect.bottom + 4}px`;
+    listRef.current.style.left = `${rect.left}px`;
+    listRef.current.style.minWidth = `${rect.width}px`;
+    if (highlightIndex >= 0) {
+      const item = listRef.current.children[highlightIndex] as HTMLElement | undefined;
+      item?.scrollIntoView({ block: "nearest" });
+    }
+  }, [open, highlightIndex]);
+
   useEffect(() => {
-    if (!open || !triggerRef.current) return;
+    if (!open) return;
     const updatePosition = () => {
-      if (!triggerRef.current) return;
+      if (!listRef.current || !triggerRef.current) return;
       const rect = triggerRef.current.getBoundingClientRect();
-      setDropStyle({
-        position: "fixed",
-        top: rect.bottom + 4,
-        left: rect.left,
-        minWidth: rect.width,
-      });
+      listRef.current.style.position = "fixed";
+      listRef.current.style.top = `${rect.bottom + 4}px`;
+      listRef.current.style.left = `${rect.left}px`;
+      listRef.current.style.minWidth = `${rect.width}px`;
     };
-    updatePosition();
     window.addEventListener("scroll", updatePosition, true);
     window.addEventListener("resize", updatePosition);
     return () => {
@@ -92,13 +101,6 @@ export const Select = ({
     const idx = normalized.findIndex((opt) => opt.value === value);
     setHighlightIndex(idx >= 0 ? idx : 0);
   };
-
-  useEffect(() => {
-    if (open && listRef.current && highlightIndex >= 0) {
-      const item = listRef.current.children[highlightIndex] as HTMLElement | undefined;
-      item?.scrollIntoView({ block: "nearest" });
-    }
-  }, [highlightIndex, open]);
 
   const selectOption = (optValue: string) => {
     onChange(optValue);
@@ -180,7 +182,7 @@ export const Select = ({
         <ul
           ref={listRef}
           className={`${styles.dropdown}`}
-          style={{ ...dropStyle, "--input-color": variantVar } as React.CSSProperties}
+          style={{ "--input-color": variantVar } as React.CSSProperties}
           onKeyDown={handleListKeyDown}
           role="listbox"
           aria-label={label}

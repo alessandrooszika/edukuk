@@ -45,13 +45,6 @@
   margin-bottom: 0.5rem;
 }
 
-.titleRow h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text-h);
-  margin: 0;
-}
-
 .menuBtn {
   display: flex;
   align-items: center;
