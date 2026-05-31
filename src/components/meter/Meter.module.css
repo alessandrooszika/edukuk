@@ -1,0 +1,21 @@
+.meter {
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--meter-bg);
+}
+
+.meter::-webkit-meter-bar {
+  background: var(--meter-bg);
+  border-radius: 5px;
+}
+
+.meter::-webkit-meter-optimum-value {
+  background: var(--meter-value);
+  border-radius: 5px;
+}
+
+.meter::-moz-meter-bar {
+  background: var(--meter-value);
+  border-radius: 5px;
+}

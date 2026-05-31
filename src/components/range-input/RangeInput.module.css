@@ -1,0 +1,143 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-h);
+  font-family: var(--sans);
+}
+
+.value {
+  font-size: 0.75rem;
+  color: var(--text);
+  font-family: var(--mono);
+  font-weight: 600;
+}
+
+.trackWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fill {
+  height: 100%;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.native {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  outline: none;
+}
+
+.native::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--thumb-size, 20px);
+  height: var(--thumb-size, 20px);
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.native::-moz-range-thumb {
+  width: var(--thumb-size, 20px);
+  height: var(--thumb-size, 20px);
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.native:focus-visible {
+  outline: none;
+}
+
+.thumb {
+  position: absolute;
+  top: 50%;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 2px solid var(--input-color, var(--accent));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.native:active ~ .thumb {
+  transform: translate(-50%, -50%) scale(1.25);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--input-color) 15%, transparent), 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.native:focus-visible ~ .thumb {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-color) 25%, transparent), 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.native:active:focus-visible ~ .thumb {
+  transform: translate(-50%, -50%) scale(1.25);
+}
+
+.sm.trackWrap { height: 22px; }
+.sm.track { height: 3px; top: 9.5px; }
+.sm.fill { height: 3px; }
+.sm.thumb { width: 18px; height: 18px; --thumb-size: 18px; }
+.sm.native { height: 22px; }
+
+.md.trackWrap { height: 26px; }
+.md.track { height: 4px; top: 11px; }
+.md.fill { height: 4px; }
+.md.thumb { width: 22px; height: 22px; --thumb-size: 22px; }
+.md.native { height: 26px; }
+
+.lg.trackWrap { height: 30px; }
+.lg.track { height: 6px; top: 12px; }
+.lg.fill { height: 6px; }
+.lg.thumb { width: 26px; height: 26px; --thumb-size: 26px; }
+.lg.native { height: 30px; }
+
+.default { --input-color: var(--accent); }
+.info { --input-color: var(--info); }
+.success { --input-color: var(--success); }
+.warning { --input-color: var(--warning); }
+.danger { --input-color: var(--danger); }
+
+.default.fill { background: var(--accent); }
+.info.fill { background: var(--info); }
+.success.fill { background: var(--success); }
+.warning.fill { background: var(--warning); }
+.danger.fill { background: var(--danger); }

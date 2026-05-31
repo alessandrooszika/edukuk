@@ -1,0 +1,98 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+}
+
+.label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-h);
+  font-family: var(--sans);
+}
+
+.inputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  font-family: var(--sans);
+  color: var(--text-h);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.input::placeholder {
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.input:hover {
+  border-color: var(--accent);
+}
+
+.input:focus {
+  border-color: var(--input-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-color) 20%, transparent);
+}
+
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hasError {
+  border-color: var(--danger);
+}
+
+.hasError:focus {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 20%, transparent);
+}
+
+.error {
+  font-size: 0.75rem;
+  color: var(--danger);
+  font-family: var(--sans);
+}
+
+.sm { padding: 0.375rem 2.25rem 0.375rem 0.625rem; font-size: 0.8125rem; min-height: 32px; }
+.md { padding: 0.5rem 2.5rem 0.5rem 0.75rem; font-size: 0.9375rem; min-height: 40px; }
+.lg { padding: 0.625rem 2.75rem 0.625rem 0.875rem; font-size: 1.0625rem; min-height: 48px; }
+
+.default { --input-color: var(--accent); }
+.info { --input-color: var(--info); }
+.success { --input-color: var(--success); }
+.warning { --input-color: var(--warning); }
+.danger { --input-color: var(--danger); }
+
+.calendar {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: var(--text);
+}
+
+.sm.calendar { right: 0.5rem; }
+.md.calendar { right: 0.625rem; }
+.lg.calendar { right: 0.75rem; }

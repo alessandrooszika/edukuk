@@ -1,0 +1,33 @@
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.group {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  vertical-align: middle;
+}
+
+.skeleton {
+  display: block;
+  background: linear-gradient(90deg, var(--skeleton) 25%, var(--skeleton-shine) 50%, var(--skeleton) 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.text {
+  border-radius: 4px;
+  height: 1em;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+}
+
+.rect {
+  border-radius: 8px;
+}

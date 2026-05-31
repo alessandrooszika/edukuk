@@ -1,0 +1,101 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+}
+
+.label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-h);
+  font-family: var(--sans);
+}
+
+.inputWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.inputWrap:hover {
+  border-color: var(--accent);
+}
+
+.inputWrap:focus-within {
+  border-color: var(--input-color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-color) 20%, transparent);
+}
+
+.hasError {
+  border-color: var(--danger);
+}
+
+.hasError:focus-within {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 20%, transparent);
+}
+
+.error {
+  font-size: 0.75rem;
+  color: var(--danger);
+  font-family: var(--sans);
+}
+
+.swatch {
+  display: block;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.borderFix {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+}
+
+.display {
+  flex: 1;
+  font-family: var(--mono);
+  color: var(--text-h);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.sm.inputWrap { padding: 0.375rem 0.625rem; min-height: 32px; }
+.md.inputWrap { padding: 0.5rem 0.75rem; min-height: 40px; }
+.lg.inputWrap { padding: 0.625rem 0.875rem; min-height: 48px; }
+
+.sm.swatch { width: 20px; height: 20px; }
+.md.swatch { width: 24px; height: 24px; }
+.lg.swatch { width: 28px; height: 28px; }
+
+.sm.display { font-size: 0.8125rem; }
+.md.display { font-size: 0.9375rem; }
+.lg.display { font-size: 1.0625rem; }
+
+.default { --input-color: var(--accent); }
+.info { --input-color: var(--info); }
+.success { --input-color: var(--success); }
+.warning { --input-color: var(--warning); }
+.danger { --input-color: var(--danger); }

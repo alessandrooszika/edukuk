@@ -1,0 +1,51 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+}
+
+.dropdown {
+  position: fixed;
+  z-index: 150;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  max-height: 240px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem;
+  animation: fadeSlideIn 0.15s ease;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+  color: var(--text);
+}
+
+.optionHighlighted {
+  background: color-mix(in srgb, var(--input-color, var(--accent)) 12%, transparent);
+  color: var(--input-color, var(--accent));
+}
+
+.optionSelected {
+  background: color-mix(in srgb, var(--input-color, var(--accent)) 8%, transparent);
+  color: var(--input-color, var(--accent));
+  font-weight: 600;
+}
+
+.noResults {
+  padding: 0.5rem 0.625rem;
+  color: var(--text);
+  font-size: 0.875rem;
+  text-align: center;
+}

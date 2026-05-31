@@ -1,0 +1,29 @@
+.wrapper {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+  z-index: -1;
+  opacity: 0.35;
+}
+
+.text {
+  position: relative;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  background: linear-gradient(135deg, var(--accent), var(--gradient-end));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}

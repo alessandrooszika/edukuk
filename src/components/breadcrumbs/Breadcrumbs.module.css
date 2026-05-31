@@ -1,0 +1,44 @@
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.link {
+  color: var(--accent);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--text-h);
+  text-decoration: underline;
+}
+
+.current {
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.separator {
+  color: var(--text);
+  font-size: 0.75rem;
+  opacity: 0.5;
+  user-select: none;
+}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>edukuk</title>
+    <script>
+      (function () {
+        var saved = localStorage.getItem("theme");
+        document.documentElement.setAttribute("data-theme", saved || "light");
+      })();
+    </script>
+    <script>
+      (function () {
+        var isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var favicon = document.querySelector('link[rel="icon"]');
+        if (!favicon) {
+          favicon = document.createElement("link");
+          favicon.rel = "icon";
+          document.head.appendChild(favicon);
+        }
+        favicon.href = isDark ? "/favicon-dark.webp" : "/favicon-light.webp";
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", function (e) {
+            favicon.href = e.matches
+              ? "/favicon-dark.webp"
+              : "/favicon-light.webp";
+          });
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
