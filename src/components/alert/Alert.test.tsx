@@ -30,9 +30,9 @@ describe("Alert", () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it("tiene aria-label Cerrar en boton de cerrar", () => {
+  it("tiene aria-label close en boton de cerrar", () => {
     render(<Alert isOpen={true} onClose={() => {}} message="Error" />);
-    expect(screen.getByRole("button")).toHaveAttribute("aria-label", "Cerrar");
+    expect(screen.getByRole("button")).toHaveAttribute("aria-label", "complementos.alert_close_aria");
   });
 
   it("no muestra boton cerrar si closable=false", () => {

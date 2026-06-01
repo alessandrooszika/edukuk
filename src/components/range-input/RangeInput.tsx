@@ -51,7 +51,7 @@ export const RangeInput = ({
           id={id}
           type="range"
           className={styles.native}
-          value={value}
+          {...(rest.onChange ? { value } : { defaultValue: value })}
           min={min}
           max={max}
           {...rest}

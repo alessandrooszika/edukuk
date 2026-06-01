@@ -50,7 +50,7 @@ export const ColorInput = ({
           ref={colorRef}
           id={id}
           type="color"
-          value={value}
+          {...(onChange ? { value } : { defaultValue: value })}
           onChange={onChange}
           className={styles.hidden}
           aria-hidden="true"

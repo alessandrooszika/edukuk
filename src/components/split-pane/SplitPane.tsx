@@ -57,7 +57,7 @@ export const SplitPane = ({
       display="flex"
       flexDirection={isHorizontal ? "row" : "column"}
       gap={0}
-      className={`${styles.container} ${className}`}
+      className={`${styles.container} ${isHorizontal ? styles.horizontal : styles.vertical} ${className}`}
       style={isHorizontal ? { height: 300 } : undefined}
     >
       <Box className={styles.primary} width={isHorizontal ? size : undefined} style={isHorizontal ? undefined : { height: size }}>

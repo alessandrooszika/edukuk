@@ -56,13 +56,13 @@ describe("Modal", () => {
   it("cierra con boton de cerrar", async () => {
     const onClose = vi.fn();
     render(<Modal isOpen={true} onClose={onClose} title="Test"><p>contenido</p></Modal>);
-    await userEvent.click(screen.getByRole("button", { name: "Cerrar" }));
+    await userEvent.click(screen.getByRole("button", { name: "complementos.modal_close_aria" }));
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   it("oculta boton de cerrar cuando showCloseButton=false", () => {
     render(<Modal isOpen={true} onClose={() => {}} showCloseButton={false} title="Test"><p>contenido</p></Modal>);
-    expect(screen.queryByRole("button", { name: "Cerrar" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "complementos.modal_close_aria" })).not.toBeInTheDocument();
   });
 
   it("tiene role='dialog' y aria-modal='true'", () => {

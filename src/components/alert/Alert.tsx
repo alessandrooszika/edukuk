@@ -1,4 +1,5 @@
 import { useEffect, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { CloseIcon, InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from "../icons";
 import { Button } from "../button/Button";
 import type { AlertVariant, AlertPosition } from "../../types";
@@ -33,6 +34,8 @@ export const Alert = ({
   duration = 5000,
   closable = true,
 }: AlertProps) => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (!isOpen || duration <= 0) return;
     const timer = setTimeout(onClose, duration);
@@ -52,7 +55,7 @@ export const Alert = ({
         {description && <span className={styles.desc}>{description}</span>}
       </Box>
       {closable && (
-        <Button iconOnly className={styles.closeBtn} onClick={onClose} aria-label="Cerrar">
+        <Button iconOnly className={styles.closeBtn} onClick={onClose} aria-label={t("complementos.alert_close_aria")}>
           <CloseIcon />
         </Button>
       )}

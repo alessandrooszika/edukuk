@@ -1,4 +1,5 @@
 import { useRef, useId, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { CloseIcon } from "../icons";
 import { Button } from "../button/Button";
 import { Typography } from "../typography";
@@ -28,6 +29,7 @@ export const Drawer = ({
 }: DrawerProps) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
+  const { t } = useTranslation();
 
   useBodyScrollLock(isOpen);
   useFocusTrap(panelRef, isOpen, onClose);
@@ -43,13 +45,13 @@ export const Drawer = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? titleId : undefined}
-        aria-label={title ? undefined : "Panel"}
+        aria-label={title ? undefined : t("complementos.drawer_aria_label")}
         tabIndex={-1}
       >
         {title && (
           <Box className={styles.header}>
             <Typography variant="h4" id={titleId} className={styles.title}>{title}</Typography>
-            <Button iconOnly onClick={onClose} aria-label="Cerrar">
+            <Button iconOnly onClick={onClose} aria-label={t("complementos.drawer_close_aria")}>
               <CloseIcon size={16} />
             </Button>
           </Box>

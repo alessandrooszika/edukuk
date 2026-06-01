@@ -56,7 +56,7 @@ function App() {
         Saltar al contenido principal
       </a>
       <Navbar currentPage={page} onNavigate={navigate} />
-      <Box role="main" id="main-content" style={{ flex: 1 }}>
+      <main id="main-content" style={{ flex: 1 }}>
         <Suspense fallback={<Box style={{ display: "flex", justifyContent: "center", padding: "4rem" }}><Loader size="lg" /></Box>}>
           {page === "home" ? (
             <HomePage key="home" onNavigate={navigate} />
@@ -66,7 +66,7 @@ function App() {
             <NotFoundPage key="404" />
           )}
         </Suspense>
-      </Box>
+      </main>
       <Footer onNavigate={navigate} />
     </ErrorBoundary>
   );

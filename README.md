@@ -33,7 +33,7 @@
 ```bash
 pnpm install
 pnpm run dev          # Dev server
-pnpm run test         # 481 tests
+pnpm run test         # 511 unit + 19 e2e
 pnpm run build        # 0 errores
 pnpm run lint         # ESLint
 pnpm run storybook    # Catálogo visual (localhost:6006)
@@ -47,7 +47,7 @@ pnpm run build-storybook  # Export estático
 - 📱 Touch + PointerEvents (hold-to-repeat, long-press tooltip)
 - 📦 Sin dependencias de UI externas
 - ⚡ React Compiler habilitado
-- 🧪 481 tests unitarios + E2E con Playwright
+- 🧪 511 tests unitarios + 19 E2E con Playwright
 - 🔧 Pre-commit hooks con lint-staged
 
 ## Docs

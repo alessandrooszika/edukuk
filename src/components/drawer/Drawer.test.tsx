@@ -43,7 +43,7 @@ describe("Drawer", () => {
   it("cierra con boton de cerrar", async () => {
     const onClose = vi.fn();
     render(<Drawer isOpen={true} onClose={onClose} title="Test"><p>contenido</p></Drawer>);
-    await userEvent.click(screen.getByRole("button", { name: "Cerrar" }));
+    await userEvent.click(screen.getByRole("button", { name: "complementos.drawer_close_aria" }));
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 

@@ -1,4 +1,5 @@
 import { useRef, useId, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { CloseIcon } from "../icons";
 import type { ModalSize } from "../../types";
 import { Button } from "../button/Button";
@@ -31,6 +32,7 @@ export const Modal = ({
 }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
+  const { t } = useTranslation();
 
   useBodyScrollLock(isOpen);
   useFocusTrap(modalRef, isOpen, onClose);
@@ -55,7 +57,7 @@ export const Modal = ({
           <Box className={styles.header}>
             {title && <Typography variant="h4" id={titleId} className={styles.title}>{title}</Typography>}
             {showCloseButton && (
-              <Button iconOnly onClick={onClose} aria-label="Cerrar">
+              <Button iconOnly onClick={onClose} aria-label={t("complementos.modal_close_aria")}>
                 <CloseIcon size={16} />
               </Button>
             )}
