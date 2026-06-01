@@ -28,12 +28,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (page === "home" && (window.location.hash !== "#home" || window.location.pathname !== "/")) {
-      window.location.replace("/#home");
-    }
-  }, [page]);
-
-  useEffect(() => {
     document.title = page === "404" ? "edukuk | 404" : `edukuk | ${page}`;
   }, [page]);
 
