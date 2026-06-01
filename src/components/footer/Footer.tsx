@@ -57,7 +57,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </Typography>
           </Box>
           <Box className={styles.col}>
-            <Typography variant="h6" className={styles.heading} component="h4">
+            <Typography variant="h6" className={styles.heading} component="h2">
               {t("footer.nav_heading")}
             </Typography>
             <nav className={styles.nav}>
@@ -76,7 +76,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </nav>
           </Box>
           <Box className={styles.col}>
-            <Typography variant="h6" className={styles.heading} component="h4">
+            <Typography variant="h6" className={styles.heading} component="h2">
               {t("footer.social_heading")}
             </Typography>
             <Box className={styles.socials}>
@@ -96,7 +96,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </Box>
           </Box>
           <Box className={styles.col}>
-            <Typography variant="h6" className={styles.heading} component="h4">
+            <Typography variant="h6" className={styles.heading} component="h2">
               {t("footer.contact_heading")}
             </Typography>
             <Box className={styles.contactGroup}>
