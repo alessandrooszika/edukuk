@@ -22,13 +22,13 @@
           favicon.rel = "icon";
           document.head.appendChild(favicon);
         }
-        favicon.href = isDark ? "/favicon-dark.webp" : "/favicon-light.webp";
+        favicon.href = isDark ? "favicon-dark.webp" : "favicon-light.webp";
         window
           .matchMedia("(prefers-color-scheme: dark)")
           .addEventListener("change", function (e) {
             favicon.href = e.matches
-              ? "/favicon-dark.webp"
-              : "/favicon-light.webp";
+              ? "favicon-dark.webp"
+              : "favicon-light.webp";
           });
       })();
     </script>
