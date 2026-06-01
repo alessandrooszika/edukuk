@@ -14,7 +14,7 @@ interface FooterProps {
 const socials = [
   {
     label: "GitHub",
-    url: "https://github.com",
+    url: "https://github.com/alessandrooszika/edukuk",
     icon: <GitHubIcon />,
   },
   {
@@ -55,7 +55,9 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </Typography>
           </Box>
           <Box className={styles.col}>
-            <Typography variant="h6" className={styles.heading} component="h4">Navegación</Typography>
+            <Typography variant="h6" className={styles.heading} component="h4">
+              Navegación
+            </Typography>
             <nav className={styles.nav}>
               {navLinks.map((link) => (
                 <Tooltip
@@ -72,7 +74,9 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </nav>
           </Box>
           <Box className={styles.col}>
-            <Typography variant="h6" className={styles.heading} component="h4">Redes</Typography>
+            <Typography variant="h6" className={styles.heading} component="h4">
+              Redes
+            </Typography>
             <Box className={styles.socials}>
               {socials.map((s) => (
                 <Tooltip key={s.label} content={s.label}>
@@ -90,7 +94,9 @@ export const Footer = ({ onNavigate }: FooterProps) => {
             </Box>
           </Box>
           <Box className={styles.col}>
-            <Typography variant="h6" className={styles.heading} component="h4">Contacto</Typography>
+            <Typography variant="h6" className={styles.heading} component="h4">
+              Contacto
+            </Typography>
             <Box className={styles.contactGroup}>
               <Typography variant="body2" align="left">
                 ¿Ideas, sugerencias o colaboración? Escríbenos y te

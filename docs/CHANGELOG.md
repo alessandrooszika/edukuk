@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.3.0 (2026-06-01)
+
+### Nuevos componentes
+- **TreeView:** árbol jerárquico con expand/colapse, keyboard nav (ArrowUp/Down/Right/Left, Home/End), ARIA tree/treeitem, selectedId + onSelect
+- **VirtualizedList:** lista con renderizado virtualizado (solo items visibles + overscan), scroll sin lag para 1000+ items
+- **Toast:** sistema de notificaciones stackeables con ToastProvider + useToast(), 4 posiciones, auto-dismiss, variantes semánticas
+
+### Mejoras
+- **CI:** agregado `packageManager` en package.json para pnpm/action-setup, actions actualizadas de v4 a v6 (Node 24)
+- **TreeView:** espaciado entre nodos con `gap` en el contenedor
+- **README:** documentación completa del proyecto con stack, componentes, features y autor
+
+### Testing (445 tests, 53 archivos)
+- **Nuevos tests:** TreeView (10), VirtualizedList (3), Toast (5)
+- **Total:** 445 tests pasando, 53 archivos de test, 0 errores
+
+---
+
 ## 0.2.0 (2026-05-31)
 
 ### Componentes (49)
