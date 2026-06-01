@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useComplementosState } from "../hooks/useComplementosState";
 import { FloatingOverlays } from "../components/floating-overlays";
 import {
@@ -23,24 +24,25 @@ interface ComplementoPageTabsProps {
 }
 
 export const ComplementoPageTabs = ({ defaultTab, onTabChange }: ComplementoPageTabsProps) => {
+  const { t } = useTranslation();
   const st = useComplementosState();
 
   return (
     <Box className={styles.page}>
-      <Typography variant="h2" className={styles.title}>Complementos</Typography>
+      <Typography variant="h2" className={styles.title}>{t("complementos.page_title")}</Typography>
       <Tabs
         defaultIndex={defaultTab}
         onChange={onTabChange}
         tabs={[
-          { label: "Overview",       content: renderOverviewSection() },
-          { label: "Buttons",        content: renderButtonsSection(baseStyles) },
-          { label: "Inputs",         content: renderInputsSection(st, baseStyles) },
-          { label: "Layout",         content: renderLayoutSection(styles, baseStyles) },
-          { label: "Display",        content: renderDisplaySection(st, baseStyles) },
-          { label: "Theme",          content: renderThemeSection(styles, baseStyles) },
-          { label: "Icons",          content: renderIconsSection(styles, baseStyles) },
-          { label: "Overlays",       content: renderOverlaysSection(st, baseStyles) },
-          { label: "Business",       content: renderBusinessSection(st, baseStyles) },
+          { label: t("complementos.category_overview"),  content: renderOverviewSection(t) },
+          { label: t("complementos.category_buttons"),   content: renderButtonsSection(t, baseStyles) },
+          { label: t("complementos.category_inputs"),    content: renderInputsSection(t, st, baseStyles) },
+          { label: t("complementos.category_layout"),    content: renderLayoutSection(t, styles, baseStyles) },
+          { label: t("complementos.category_display"),   content: renderDisplaySection(t, st, baseStyles) },
+          { label: t("complementos.category_theme"),     content: renderThemeSection(t, styles, baseStyles) },
+          { label: t("complementos.category_icons"),     content: renderIconsSection(t, styles, baseStyles) },
+          { label: t("complementos.category_overlays"),  content: renderOverlaysSection(t, st, baseStyles) },
+          { label: t("complementos.category_business"),  content: renderBusinessSection(t, st, baseStyles) },
         ]}
       />
       <FloatingOverlays

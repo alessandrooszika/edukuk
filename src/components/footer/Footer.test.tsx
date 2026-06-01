@@ -17,13 +17,13 @@ describe("Footer", () => {
 
   it("renderiza descripcion", () => {
     render(<Footer onNavigate={() => {}} />);
-    expect(screen.getByText(/Espacio de aprendizaje/)).toBeInTheDocument();
+    expect(screen.getByText("footer.description")).toBeInTheDocument();
   });
 
   it("renderiza navegacion", () => {
     render(<Footer onNavigate={() => {}} />);
-    expect(screen.getByText("Inicio")).toBeInTheDocument();
-    expect(screen.getByText("Complementos")).toBeInTheDocument();
+    expect(screen.getByText("footer.home_link")).toBeInTheDocument();
+    expect(screen.getByText("footer.complementos_link")).toBeInTheDocument();
   });
 
   it("renderiza redes sociales", () => {
@@ -41,20 +41,20 @@ describe("Footer", () => {
 
   it("renderiza copyright", () => {
     render(<Footer onNavigate={() => {}} />);
-    expect(screen.getByText(new RegExp(String(new Date().getFullYear())))).toBeInTheDocument();
+    expect(screen.getByText("footer.copyright")).toBeInTheDocument();
   });
 
   it("llama onNavigate al clickear Inicio", async () => {
     const onNavigate = vi.fn();
     render(<Footer onNavigate={onNavigate} />);
-    await userEvent.click(screen.getByText("Inicio"));
+    await userEvent.click(screen.getByText("footer.home_link"));
     expect(onNavigate).toHaveBeenCalledWith("home");
   });
 
   it("llama onNavigate al clickear Complementos", async () => {
     const onNavigate = vi.fn();
     render(<Footer onNavigate={onNavigate} />);
-    await userEvent.click(screen.getByText("Complementos"));
+    await userEvent.click(screen.getByText("footer.complementos_link"));
     expect(onNavigate).toHaveBeenCalledWith("complementos");
   });
 });

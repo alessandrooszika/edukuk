@@ -16,12 +16,12 @@ beforeEach(() => {
 describe("Navbar", () => {
   it("renderiza nav con aria-label", () => {
     render(<Navbar currentPage="home" onNavigate={() => {}} />);
-    expect(screen.getByRole("navigation", { name: "Navegación principal" })).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "navbar.aria_label" })).toBeInTheDocument();
   });
 
   it("renderiza enlace Complementos", () => {
     render(<Navbar currentPage="home" onNavigate={() => {}} />);
-    expect(screen.getByText("Complementos")).toBeInTheDocument();
+    expect(screen.getByText("navbar.complementos_link")).toBeInTheDocument();
   });
 
   it("llama onNavigate con 'home' al clickear logo", async () => {
@@ -34,23 +34,23 @@ describe("Navbar", () => {
   it("llama onNavigate con 'complementos' al clickear enlace", async () => {
     const onNavigate = vi.fn();
     render(<Navbar currentPage="home" onNavigate={onNavigate} />);
-    await userEvent.click(screen.getByText("Complementos"));
+    await userEvent.click(screen.getByText("navbar.complementos_link"));
     expect(onNavigate).toHaveBeenCalledWith("complementos");
   });
 
   it("aplica clase active cuando currentPage es complementos", () => {
     render(<Navbar currentPage="complementos" onNavigate={() => {}} />);
-    const btn = screen.getByText("Complementos");
+    const btn = screen.getByText("navbar.complementos_link");
     expect(btn.className).toContain("active");
   });
 
   it("aplica aria-current='page' cuando currentPage es complementos", () => {
     render(<Navbar currentPage="complementos" onNavigate={() => {}} />);
-    expect(screen.getByText("Complementos")).toHaveAttribute("aria-current", "page");
+    expect(screen.getByText("navbar.complementos_link")).toHaveAttribute("aria-current", "page");
   });
 
   it("no aplica aria-current cuando currentPage no es complementos", () => {
     render(<Navbar currentPage="home" onNavigate={() => {}} />);
-    expect(screen.getByText("Complementos")).not.toHaveAttribute("aria-current");
+    expect(screen.getByText("navbar.complementos_link")).not.toHaveAttribute("aria-current");
   });
 });

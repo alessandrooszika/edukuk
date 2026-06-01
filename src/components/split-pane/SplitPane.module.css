@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.horizontal {
+  flex-direction: row;
+  height: 300px;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.primary {
+  overflow: auto;
+  flex-shrink: 0;
+}
+
+.secondary {
+  flex: 1;
+  overflow: auto;
+}
+
+.divider {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  background: var(--border);
+  transition: background 0.15s;
+}
+
+.horizontal .divider {
+  width: 4px;
+  cursor: col-resize;
+}
+
+.vertical .divider {
+  height: 4px;
+  cursor: row-resize;
+}
+
+.divider:hover {
+  background: var(--accent);
+}
+
+.divider::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+}

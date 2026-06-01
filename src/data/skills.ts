@@ -6,8 +6,4 @@ export const misHabilidades: Skill[] = [
   { name: "CSS", value: 80 },
 ];
 
-export const frameworkSkills: Skill[] = [
-  { name: "React", value: 65 },
-  { name: "Vite", value: 75 },
-  { name: "TypeScript", value: 55 },
-];
+

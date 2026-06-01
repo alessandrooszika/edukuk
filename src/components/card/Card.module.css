@@ -77,6 +77,12 @@
   margin: 0;
 }
 
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .figcaption strong {
   font-weight: 700;
   color: var(--accent);

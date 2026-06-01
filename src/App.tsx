@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ErrorBoundary } from "./components/error-boundary";
 import { Navbar } from "./components/navbar/Navbar";
 import { Footer } from "./components/footer/Footer";
@@ -19,6 +20,7 @@ function getPageFromHash(): Page {
 }
 
 function App() {
+  const { t, i18n } = useTranslation();
   const [page, setPage] = useState<Page>(() => getPageFromHash());
 
   useEffect(() => {
@@ -28,19 +30,16 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const descriptions: Record<Page, string> = {
-      home: "edukuk — Biblioteca de componentes UI moderna con React 19, TypeScript y CSS Modules.",
-      complementos: "Explorá los más de 50 componentes UI de edukuk: botones, inputs, layouts, displays, overlays y más.",
-      "404": "Página no encontrada — edukuk",
-    };
-    const title = page === "404" ? "edukuk | 404" : `edukuk | ${page}`;
+    const descKey = `app.meta_description_${page}` as const;
+    const desc = t(descKey);
+    const title = `edukuk | ${t(`app.title_${page}`)}`;
     document.title = title;
-    document.querySelector('meta[name="description"]')?.setAttribute("content", descriptions[page]);
+    document.querySelector('meta[name="description"]')?.setAttribute("content", desc);
     document.querySelector('meta[property="og:title"]')?.setAttribute("content", title);
-    document.querySelector('meta[property="og:description"]')?.setAttribute("content", descriptions[page]);
+    document.querySelector('meta[property="og:description"]')?.setAttribute("content", desc);
     document.querySelector('meta[name="twitter:title"]')?.setAttribute("content", title);
-    document.querySelector('meta[name="twitter:description"]')?.setAttribute("content", descriptions[page]);
-  }, [page]);
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute("content", desc);
+  }, [page, i18n.language, t]);
 
   const navigate = (p: Page) => {
     if (p === "404") return;

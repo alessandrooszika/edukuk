@@ -2,6 +2,7 @@
 import { createContext, useContext, useState, useCallback, useRef, useEffect } from "react";
 import type { ReactNode } from "react";
 import type { Variant } from "../../types";
+import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from "../icons";
 import styles from "./Toast.module.css";
 
 export type ToastPosition = "top-right" | "top-left" | "bottom-right" | "bottom-left";
@@ -26,14 +27,6 @@ interface ToastContextValue {
 }
 
 const ToastContext = createContext<ToastContextValue | null>(null);
-
-const variantIcons: Record<Variant, string> = {
-  default: "ℹ️",
-  info: "ℹ️",
-  success: "✅",
-  warning: "⚠️",
-  danger: "❌",
-};
 
 export const useToast = (): ToastContextValue => {
   const ctx = useContext(ToastContext);
@@ -122,7 +115,12 @@ export const ToastProvider = ({
               className={`${styles.toast} ${styles[t.variant]} ${t.exiting ? styles.exiting : ""}`}
               role="alert"
             >
-              <span className={styles.icon}>{variantIcons[t.variant]}</span>
+              <span className={styles.icon}>
+                {(t.variant === "default" || t.variant === "info") && <InfoIcon size={16} />}
+                {t.variant === "success" && <SuccessIcon size={16} />}
+                {t.variant === "warning" && <WarningIcon size={16} />}
+                {t.variant === "danger" && <ErrorIcon size={16} />}
+              </span>
               <span className={styles.message}>{t.message}</span>
               <button
                 className={styles.closeBtn}

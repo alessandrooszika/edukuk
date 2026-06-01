@@ -1,4 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
+type T = (k: string, opts?: Record<string, unknown>) => string;
 import { useState } from "react";
 import type { AlertVariant, AlertPosition } from "../types";
 import { Box } from "../components/box/Box";
@@ -50,6 +51,11 @@ import { TreeView } from "../components/tree-view";
 import type { TreeNode } from "../components/tree-view";
 import { VirtualizedList } from "../components/virtualized-list";
 import { ToastProvider, useToast } from "../components/toast";
+import { TreeSelect } from "../components/tree-select";
+import { SplitPane } from "../components/split-pane";
+import { CommandPalette } from "../components/command-palette";
+import type { Command } from "../components/command-palette";
+import { Sidebar } from "../components/sidebar";
 import {
   MenuIcon, SearchIcon, ClearIcon, EyeIcon, EyeOffIcon,
   SunIcon, MoonIcon, ChevronUpIcon, ChevronDownIcon,
@@ -76,19 +82,16 @@ export const categories = [
 export type CategoryId = (typeof categories)[number]["id"];
 
 /* ---------- Overview ---------- */
-export function renderOverviewSection() {
+export function renderOverviewSection(t: T) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Complementos 🧩</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.overview_heading")}</Typography>
         </CardHeader>
         <CardBody>
           <Typography variant="body2">
-            Esta página reúne todos los componentes UI del proyecto. Cada sección
-            muestra un grupo de componentes con sus props, variantes y ejemplos
-            de uso. Navegá por las categorías para explorar botones, inputs,
-            layouts, displays y overlays.
+            {t("complementos.overview_text")}
           </Typography>
         </CardBody>
       </Card>
@@ -97,12 +100,12 @@ export function renderOverviewSection() {
 }
 
 /* ---------- Buttons ---------- */
-export function renderButtonsSection(bs: Record<string, string>) {
+export function renderButtonsSection(t: T, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Button 🎛️</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_button")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap">
@@ -116,16 +119,14 @@ export function renderButtonsSection(bs: Record<string, string>) {
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Button</strong> acepta{" "}
-              <code>variant="default | info | success | warning | danger"</code>{" "}
-              para cambiar color de texto, borde y hover.
+              {t("complementos.figcaption.button")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Tooltip 💬</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_tooltip")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="1rem" alignItems="center" justifyContent="center">
@@ -140,10 +141,7 @@ export function renderButtonsSection(bs: Record<string, string>) {
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Tooltip</strong> es CSS-only: usa{" "}
-              <code>::after</code> + <code>attr(data-tooltip)</code>.
-              Fondo y color se adaptan al tema vía <code>--text-h</code>{" "}
-              y <code>--bg</code>.
+              {t("complementos.figcaption.tooltip")}
             </Typography>
           </figure>
         </CardFooter>
@@ -170,15 +168,15 @@ interface InputsState {
   rangeValue: number; setRangeValue: (v: number) => void;
 }
 
-export function renderInputsSection(st: InputsState, bs: Record<string, string>) {
+export function renderInputsSection(t: T, st: InputsState, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Input ⌨️</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_input")}</Typography>
         </CardHeader>
         <CardBody>
-          <Input value={st.inputValue} onChange={(e) => st.setInputValue(e.target.value)} placeholder="Escribe algo..." label="Input base" />
+          <Input value={st.inputValue} onChange={(e) => st.setInputValue(e.target.value)} placeholder={t("complementos.input_placeholder")} label={t("complementos.input_label_base")} />
           <Box display="flex" gap="0.5rem" flexWrap="wrap">
             <Input value="" onChange={() => {}} placeholder="sm" size="sm" />
             <Input value="" onChange={() => {}} placeholder="md" size="md" />
@@ -190,49 +188,45 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
             <Input value="" onChange={() => {}} placeholder="Warning" variant="warning" />
             <Input value="" onChange={() => {}} placeholder="Danger" variant="danger" />
           </Box>
-          <Input value="" onChange={() => {}} placeholder="Con error..." error="Este campo es obligatorio" />
+          <Input value="" onChange={() => {}} placeholder="Con error..." error={t("complementos.input_error")} />
           <Box display="flex" gap="0.5rem" flexWrap="wrap">
-            <Input value="" onChange={() => {}} label="Outlined" placeholder="default" />
-            <Input value="" onChange={() => {}} design="filled" label="Filled" placeholder="relleno" />
-            <Input value="" onChange={() => {}} design="standard" label="Standard" placeholder="linea" />
+            <Input value="" onChange={() => {}} label="Outlined" placeholder={t("complementos.input_placeholder_outlined")} />
+            <Input value="" onChange={() => {}} design="filled" label="Filled" placeholder={t("complementos.input_placeholder_filled")} />
+            <Input value="" onChange={() => {}} design="standard" label="Standard" placeholder={t("complementos.input_placeholder_standard")} />
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Input</strong> base reutilizable con <code>variant</code>,{" "}
-              <code>size</code>, <code>label</code>, <code>error</code>, <code>design</code>. Usa
-              las mismas variables semánticas que Button.
+              {t("complementos.figcaption.input")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Autocomplete 🔍</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_autocomplete")}</Typography>
         </CardHeader>
         <CardBody>
           <Autocomplete value={st.autocompleteValue} onChange={st.setAutocompleteValue}
             options={["JavaScript", "TypeScript", "Python", "Java", "C#", "Ruby", "Go", "Rust", "Kotlin", "Swift", "PHP", "HTML", "CSS", "React", "Vue"]}
-            placeholder="Busca un lenguaje..." label="Lenguajes de programación" />
+            placeholder={t("complementos.autocomplete_placeholder")} label={t("complementos.autocomplete_label")} />
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Autocomplete</strong> usa{" "}
-              <code>&lt;Input&gt;</code> + <code>&lt;datalist&gt;</code>{" "}
-              nativo. Sin JavaScript para el filtrado — accesible y mobile-friendly.
+              {t("complementos.figcaption.autocomplete")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Select ▼</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_select")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
-            <Select options={["React", "Vue", "Svelte", "Angular", "Solid"]} value={st.selectFramework} onChange={st.setSelectFramework} placeholder="Elegí un framework..." label="Framework favorito" />
+            <Select options={["React", "Vue", "Svelte", "Angular", "Solid"]} value={st.selectFramework} onChange={st.setSelectFramework} placeholder={t("complementos.select_placeholder_framework")} label={t("complementos.select_label_framework")} />
           </Box>
           <Box display="flex" gap="1rem" alignItems="center" justifyContent="center" mb="1rem">
             <Select options={["Opción A", "Opción B", "Opción C"]} value={st.selectValue} onChange={st.setSelectValue} placeholder="Normal" />
@@ -247,20 +241,17 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Select</strong> dropdown personalizado con{" "}
-              <code>variant</code>, <code>size</code>, <code>label</code>,{" "}
-              <code>error</code>, <code>disabled</code>. Keyboard: Enter/Esc,
-              flechas. Opciones seleccionada con checkmark.
+              {t("complementos.figcaption.select")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Textarea 📝</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_textarea")}</Typography>
         </CardHeader>
         <CardBody>
-          <Textarea value={st.textareaValue} onChange={(e) => st.setTextareaValue(e.target.value)} placeholder="Escribí algo..." label="Descripción" />
+          <Textarea value={st.textareaValue} onChange={(e) => st.setTextareaValue(e.target.value)} placeholder={t("complementos.textarea_placeholder")} label={t("complementos.textarea_label")} />
           <Box display="flex" gap="0.5rem" flexWrap="wrap">
             <Textarea value="" onChange={() => {}} placeholder="sm" size="sm" />
             <Textarea value="" onChange={() => {}} placeholder="md" size="md" />
@@ -270,46 +261,43 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
             <Textarea value="" onChange={() => {}} placeholder="Info" variant="info" />
             <Textarea value="" onChange={() => {}} placeholder="Success" variant="success" />
           </Box>
-          <Textarea value="" onChange={() => {}} placeholder="Con error..." error="Este campo es obligatorio" />
+          <Textarea value="" onChange={() => {}} placeholder="Con error..." error={t("complementos.textarea_error")} />
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Textarea</strong> multilínea con misma API que Input.{" "}
-              <code>variant</code>, <code>size</code>, <code>label</code>,{" "}
-              <code>error</code>, <code>rows</code>.
+              {t("complementos.figcaption.textarea")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>PasswordInput 🔐</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_password")}</Typography>
         </CardHeader>
         <CardBody>
-          <PasswordInput value={st.passwordValue} onChange={(e) => st.setPasswordValue(e.target.value)} placeholder="Ingresá tu contraseña..." label="Contraseña" />
+          <PasswordInput value={st.passwordValue} onChange={(e) => st.setPasswordValue(e.target.value)} placeholder={t("complementos.password_placeholder")} label={t("complementos.password_label")} />
           <Box display="flex" gap="0.5rem" flexWrap="wrap">
             <PasswordInput value="" onChange={() => {}} placeholder="sm" size="sm" />
             <PasswordInput value="" onChange={() => {}} placeholder="md" size="md" />
             <PasswordInput value="" onChange={() => {}} placeholder="lg" size="lg" />
           </Box>
-          <PasswordInput value="" onChange={() => {}} placeholder="Con error..." error="Contraseña inválida" />
+          <PasswordInput value="" onChange={() => {}} placeholder="Con error..." error={t("complementos.password_error")} />
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>PasswordInput</strong> con toggle show/hide.{" "}
-              <code>variant</code>, <code>size</code>, <code>label</code>, <code>error</code>.
+              {t("complementos.figcaption.password")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>SearchInput 🔍</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_search")}</Typography>
         </CardHeader>
         <CardBody>
-          <SearchInput value={st.searchValue} onChange={(e) => st.setSearchValue(e.target.value)} onClear={() => st.setSearchValue("")} placeholder="Buscar..." label="Buscar" />
+          <SearchInput value={st.searchValue} onChange={(e) => st.setSearchValue(e.target.value)} onClear={() => st.setSearchValue("")} placeholder={t("complementos.search_placeholder")} label={t("complementos.search_label")} />
           <Box display="flex" gap="0.5rem" flexWrap="wrap">
             <SearchInput value="" onChange={() => {}} placeholder="sm" size="sm" />
             <SearchInput value="" onChange={() => {}} placeholder="md" size="md" />
@@ -322,18 +310,17 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>SearchInput</strong> con lupa SVG a la izquierda y botón X
-              para limpiar. <code>onClear</code> para manejo externo.
+              {t("complementos.figcaption.search")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>NumberInput 🔢</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_number")}</Typography>
         </CardHeader>
         <CardBody>
-          <NumberInput value={st.numberValue} onChange={(e) => st.setNumberValue(Number(e.target.value))} label="Cantidad" min={0} max={100} />
+          <NumberInput value={st.numberValue} onChange={(e) => st.setNumberValue(Number(e.target.value))} label={t("complementos.number_label")} min={0} max={100} />
           <Box display="flex" gap="0.5rem" flexWrap="wrap">
             <NumberInput value={0} onChange={() => {}} placeholder="sm" size="sm" min={0} />
             <NumberInput value={0} onChange={() => {}} placeholder="md" size="md" min={0} />
@@ -348,18 +335,17 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>NumberInput</strong> con steppers ▲▼. Spinners nativos ocultos.{" "}
-              <code>min</code>, <code>max</code>, <code>step</code>. Clamp en blur.
+              {t("complementos.figcaption.number")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>DateInput 📅</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_date")}</Typography>
         </CardHeader>
         <CardBody>
-          <DateInput value={st.dateValue} onChange={(e) => st.setDateValue(e.target.value)} label="Fecha" />
+          <DateInput value={st.dateValue} onChange={(e) => st.setDateValue(e.target.value)} label={t("complementos.date_label")} />
           <Box display="flex" gap="0.5rem" flexWrap="wrap">
             <DateInput value="" onChange={() => {}} size="sm" />
             <DateInput value="" onChange={() => {}} size="md" />
@@ -369,18 +355,17 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>DateInput</strong> usa el date picker nativo del browser.{" "}
-              Icono calendario decorativo. <code>min</code>, <code>max</code>.
+              {t("complementos.figcaption.date")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>ColorInput 🎨</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_color")}</Typography>
         </CardHeader>
         <CardBody>
-          <ColorInput value={st.colorValue} onChange={(e) => st.setColorValue(e.target.value)} label="Color favorito" />
+          <ColorInput value={st.colorValue} onChange={(e) => st.setColorValue(e.target.value)} label={t("complementos.color_label")} />
           <Box display="flex" gap="0.5rem" flexWrap="wrap">
             <ColorInput value="#ef4444" onChange={() => {}} size="sm" />
             <ColorInput value="#22c55e" onChange={() => {}} size="md" />
@@ -395,18 +380,17 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>ColorInput</strong> swatch + hex display. Click abre el
-              color picker nativo. <code>variant</code>, <code>size</code>.
+              {t("complementos.figcaption.color")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>RangeInput 🎚️</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_range")}</Typography>
         </CardHeader>
         <CardBody>
-          <RangeInput value={st.rangeValue} onChange={(e) => st.setRangeValue(Number(e.target.value))} label="Volumen" showValue min={0} max={100} />
+          <RangeInput value={st.rangeValue} onChange={(e) => st.setRangeValue(Number(e.target.value))} label={t("complementos.range_label_volumen")} showValue min={0} max={100} />
           <Box display="flex" flexDirection="column" gap="0.5rem">
             <RangeInput value={30} onChange={() => {}} size="sm" label="sm" />
             <RangeInput value={60} onChange={() => {}} size="md" label="md" />
@@ -422,24 +406,22 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>RangeInput</strong> slider custom con track+fill+thumb.{" "}
-              <code>variant</code>, <code>size</code>, <code>showValue</code>,{" "}
-              <code>min</code>, <code>max</code>, <code>step</code>.
+              {t("complementos.figcaption.range")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>FileInput 📎</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_file")}</Typography>
         </CardHeader>
         <CardBody>
-          <FileInput label="Subí un archivo" accept=".pdf,.jpg,.png" onChange={(files) => console.log("Archivos:", files)} />
+          <FileInput label={t("complementos.file_label")} accept=".pdf,.jpg,.png" onChange={(files) => console.log("Archivos:", files)} />
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
             <Box style={{ flex: 1 }}>
               <FileInput label="Múltiples archivos" multiple onChange={() => {}}>
                 <Typography variant="body2" component="span">
-                  <strong style={{ color: "var(--accent)" }}>Arrastrá</strong> varios archivos o hacé clic
+                  <span dangerouslySetInnerHTML={{ __html: t("complementos.file_multiple_hint") }} />
                 </Typography>
               </FileInput>
             </Box>
@@ -448,38 +430,35 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>FileInput</strong> drop zone con drag & drop.{" "}
-              <code>accept</code>, <code>multiple</code>. Muestra nombre y tamaño. Botón X para remover.
+              {t("complementos.figcaption.file")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>FormField + FormGroup 📋</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_form")}</Typography>
         </CardHeader>
         <CardBody>
-          <FormGroup legend="Datos de contacto">
-            <FormField label="Nombre" htmlFor="ff-name" helperText="Nombre y apellido">
-              <Input id="ff-name" placeholder="Ej: Juan Pérez" />
+          <FormGroup legend={t("complementos.form_legend")}>
+            <FormField label={t("complementos.form_label_name")} htmlFor="ff-name" helperText={t("complementos.form_helper_name")}>
+              <Input id="ff-name" placeholder={t("complementos.form_placeholder_name")} />
             </FormField>
-            <FormField label="Email" htmlFor="ff-email" error="Email inválido">
-              <Input id="ff-email" value="mal-formato" onChange={() => {}} error="Email inválido" hideErrorText />
+            <FormField label={t("complementos.form_label_email")} htmlFor="ff-email" error={t("complementos.form_error_email")}>
+              <Input id="ff-email" value="mal-formato" onChange={() => {}} error={t("complementos.form_error_email")} hideErrorText />
             </FormField>
-            <FormField label="País" htmlFor="ff-country" required>
-              <Input id="ff-country" placeholder="Argentina" />
+            <FormField label={t("complementos.form_label_country")} htmlFor="ff-country" required>
+              <Input id="ff-country" placeholder={t("complementos.form_placeholder_country")} />
             </FormField>
-            <FormField label="Comentarios" helperText="Máx. 500 caracteres">
-              <Textarea placeholder="Escribí algo..." />
+            <FormField label={t("complementos.form_label_comments")} helperText={t("complementos.form_helper_comments")}>
+              <Textarea placeholder={t("complementos.textarea_placeholder")} />
             </FormField>
           </FormGroup>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>FormField</strong> envuelve inputs con <code>label</code>, <code>error</code>,
-              <code>helperText</code>, <code>required</code>. <strong>FormGroup</strong> agrupa campos con <code>legend</code>.
-              Compatible con React Hook Form (<code>src/content/react-hook-form.md</code>).
+              {t("complementos.figcaption.form")}
             </Typography>
           </figure>
         </CardFooter>
@@ -489,78 +468,70 @@ export function renderInputsSection(st: InputsState, bs: Record<string, string>)
 }
 
 /* ---------- Layout ---------- */
-export function renderLayoutSection(s: Record<string, string>, bs: Record<string, string>) {
+export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Box 📦</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_box")}</Typography>
         </CardHeader>
         <CardBody>
-          <Box>Este es un Box — un div con estilos base</Box>
+          <Box>{t("complementos.box_text")}</Box>
           <Box display="flex" justifyContent="center" p={12} mt="0.5rem">
-            <Typography variant="body2" component="span">Box extiende las props nativas de <code>&lt;div&gt;</code></Typography>
+            <Typography variant="body2" component="span"><span dangerouslySetInnerHTML={{ __html: t("complementos.box_extends") }} /></Typography>
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Box</strong> aplica <code>--card-bg</code>, <code>border-radius: 16px</code>,{' '}
-              <code>border</code>, <code>box-shadow</code> y <code>padding: 20px</code>.
-              Acepta todas las props de un <code>&lt;div&gt;</code> nativo vía <code>ComponentPropsWithoutRef&lt;"div"&gt;</code>.
+              {t("complementos.figcaption.box")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Card 🃏</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_card")}</Typography>
         </CardHeader>
         <CardBody>
           <Card>
-            <Typography variant="body1">Un Card puede contener cualquier contenido.</Typography>
+            <Typography variant="body1">{t("complementos.card_body")}</Typography>
           </Card>
           <Card>
-            <Typography variant="h4">Título</Typography>
-            <Typography variant="body1">Cuerpo del card con múltiples elementos.</Typography>
+            <Typography variant="h4">{t("complementos.card_title")}</Typography>
+            <Typography variant="body1">{t("complementos.card_content")}</Typography>
           </Card>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Card</strong> compone <strong>Box</strong> y agrega{' '}
-              <code>flex-direction: column</code>, <code>gap: 1rem</code>,{' '}
-              <code>overflow: hidden</code> y efecto hover con elevación. Prop:{' '}
-              <code>children: ReactNode</code>.
+              {t("complementos.figcaption.card")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Image 🖼️</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_image")}</Typography>
         </CardHeader>
         <CardBody>
-          <Image src={htmlCodeImage} alt="Ejemplo sin caption"
+          <Image src={htmlCodeImage} alt={t("complementos.image_caption_example")}
             style={{ width: "100%", height: 192, objectFit: "cover", borderRadius: 12 }} />
-          <Image src={cssCodeImage} alt="Ejemplo con caption"
-            caption="Imagen con caption descriptivo debajo"
+          <Image src={cssCodeImage} alt={t("complementos.image_caption_example")}
+            caption={t("complementos.image_caption_example")}
             style={{ width: "100%", height: 192, objectFit: "cover", borderRadius: 12 }} />
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Image</strong> extiende <code>&lt;img&gt;</code> nativo ({' '}
-              <code>Omit&lt;ComponentPropsWithoutRef&lt;"img"&gt;, "children"&gt;</code>
-              ). Prop adicional: <code>caption?: string</code>. Si se provee, renderiza un{' '}
-              <code>&lt;figcaption&gt;</code> debajo.
+              {t("complementos.figcaption.image")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Meter 📊</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_meter")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="1rem">
@@ -578,129 +549,118 @@ export function renderLayoutSection(s: Record<string, string>, bs: Record<string
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Meter</strong> renderiza un <code>&lt;meter&gt;</code> nativo.
-              Props: <code>value</code> (number, requerido), <code>min</code> (default 0),{' '}
-              <code>max</code> (default 1). Los valores de ejemplo usan <code>min=0 max=100</code>.
+              {t("complementos.figcaption.meter")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Accordion 📑</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_accordion")}</Typography>
         </CardHeader>
         <CardBody>
           <Accordion items={[
-            { question: "¿Qué es Accordion?", answer: "Un componente que muestra contenido expandible usando details/summary nativos." },
-            { question: "¿Qué props acepta?", answer: "Acepta items: AccordionItem[]. Cada item tiene question: string y answer: string." },
-            { question: "¿Es accesible?", answer: "Sí, usa elementos HTML nativos que soportan navegación por teclado y lectores de pantalla." },
+            { question: t("complementos.accordion_q1"), answer: t("complementos.accordion_a1") },
+            { question: t("complementos.accordion_q2"), answer: t("complementos.accordion_a2") },
+            { question: t("complementos.accordion_q3"), answer: t("complementos.accordion_a3") },
           ]} />
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Accordion</strong> recibe <code>items: AccordionItem[]</code>.{' '}
-              Cada <code>AccordionItem</code>: <code>{'{ question: string; answer: string }'}</code>.
-              Usa <code>&lt;details&gt;</code> / <code>&lt;summary&gt;</code> nativos del navegador.
+              {t("complementos.figcaption.accordion")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Breadcrumbs 🍞</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_breadcrumbs")}</Typography>
         </CardHeader>
         <CardBody>
           <Breadcrumbs items={[
-            { label: "Inicio", href: "#home" },
-            { label: "Componentes", href: "#complementos" },
-            { label: "Layout" },
+            { label: t("complementos.breadcrumb_home"), href: "#home" },
+            { label: t("complementos.breadcrumb_components"), href: "#complementos" },
+            { label: t("complementos.breadcrumb_layout") },
           ]} />
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Breadcrumbs</strong> navegación de ruta con{" "}
-              <code>&lt;nav&gt;</code> + <code>aria-label="breadcrumb"</code>.{" "}
-              Último ítem con <code>aria-current="page"</code>.{" "}
-              <code>separator</code> personalizable (default "/").
+              {t("complementos.figcaption.breadcrumbs")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
-      <PaginationDemo />
+      <PaginationDemo t={t} />
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Divider ➖</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_divider")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="1rem">
-            <Typography variant="body2">Horizontal</Typography>
+            <Typography variant="body2">{t("complementos.divider_horizontal")}</Typography>
             <Divider />
             <Divider size="md" />
             <Divider size="lg" variant="info" />
-            <Divider label="Con texto" />
+            <Divider label={t("complementos.divider_label")} />
             <Divider label="Info" variant="info" size="md" />
-            <Typography variant="body2">Vertical</Typography>
+            <Typography variant="body2">{t("complementos.divider_vertical")}</Typography>
             <Box display="flex" gap="1rem" style={{ height: 60 }} alignItems="center">
-              <span>Izquierda</span>
+              <span>{t("complementos.divider_left")}</span>
               <Divider orientation="vertical" />
-              <span>Centro</span>
+              <span>{t("complementos.divider_center")}</span>
               <Divider orientation="vertical" size="md" variant="danger" />
-              <span>Derecha</span>
+              <span>{t("complementos.divider_right")}</span>
             </Box>
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>Divider</strong> separador horizontal (<code>hr</code>) o vertical (<code>span</code>).
-              <code>orientation</code> (horizontal/vertical), <code>size</code>, <code>variant</code>,
-              <code>label</code> (texto centrado en modo horizontal).
+              {t("complementos.figcaption.divider")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Stepper 👣</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_stepper")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="1.5rem">
-            <Typography variant="body2">Horizontal (paso 2 de 4)</Typography>
-            <Stepper steps={["Carrito", "Pago", "Envío", "Confirmación"]} activeStep={2} />
-            <Typography variant="body2">Vertical (paso 1 de 3)</Typography>
-            <Stepper steps={["Registro", "Verificación", "Bienvenida"]} activeStep={1} orientation="vertical" />
-            <Typography variant="body2">Con alternativeLabel (paso 0)</Typography>
-            <Stepper steps={["Paso 1", "Paso 2", "Paso 3"]} activeStep={0} alternativeLabel />
+            <Typography variant="body2">{t("complementos.stepper_horizontal")}</Typography>
+            <Stepper steps={[t("complementos.stepper_cart"), t("complementos.stepper_payment"), t("complementos.stepper_shipping"), t("complementos.stepper_confirmation")]} activeStep={2} />
+            <Typography variant="body2">{t("complementos.stepper_vertical")}</Typography>
+            <Stepper steps={[t("complementos.stepper_register"), t("complementos.stepper_verification"), t("complementos.stepper_welcome")]} activeStep={1} orientation="vertical" />
+            <Typography variant="body2">{t("complementos.stepper_alternative")}</Typography>
+            <Stepper steps={[t("complementos.stepper_step1"), t("complementos.stepper_step2"), t("complementos.stepper_step3")]} activeStep={0} alternativeLabel />
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>Stepper</strong> progreso multi-paso con <code>steps</code> (string[]),
-              <code>activeStep</code>, <code>orientation</code>, <code>alternativeLabel</code>.
-              Círculos numerados, checkmark en completados, accent en activo.
+              {t("complementos.figcaption.stepper")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Table 📋</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_table")}</Typography>
         </CardHeader>
         <CardBody>
           <Table
             columns={[
-              { key: "name", label: "Nombre" },
-              { key: "role", label: "Rol" },
-              { key: "status", label: "Estado" },
+              { key: "name", label: t("complementos.table_name") },
+              { key: "role", label: t("complementos.table_role") },
+              { key: "status", label: t("complementos.table_status") },
             ]}
             data={[
-              { name: "Juan Pérez", role: "Desarrollador", status: "Activo" },
-              { name: "María García", role: "Diseñadora", status: "Activo" },
-              { name: "Carlos López", role: "DevOps", status: "Inactivo" },
-              { name: "Ana Martínez", role: "Product Manager", status: "Activo" },
+              { name: t("complementos.table_juan"), role: t("complementos.table_dev"), status: t("complementos.table_active") },
+              { name: t("complementos.table_maria"), role: t("complementos.table_designer"), status: t("complementos.table_active") },
+              { name: t("complementos.table_carlos"), role: t("complementos.table_devops"), status: t("complementos.table_inactive") },
+              { name: t("complementos.table_ana"), role: t("complementos.table_pm"), status: t("complementos.table_active") },
             ]}
             variant="default"
             size="md"
@@ -709,7 +669,7 @@ export function renderLayoutSection(s: Record<string, string>, bs: Record<string
           <Box display="flex" flexDirection="column" gap="0.5rem" mt="1rem">
             <Typography variant="body2">Variants informativas</Typography>
             <Table
-              columns={[{ key: "col", label: "Columna" }]}
+              columns={[{ key: "col", label: t("complementos.table_column") }]}
               data={[{ col: "Info" }, { col: "Success" }, { col: "Warning" }, { col: "Danger" }]}
               variant="info" size="sm"
             />
@@ -718,16 +678,14 @@ export function renderLayoutSection(s: Record<string, string>, bs: Record<string
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>Table</strong> datos tabulares con <code>columns</code> y <code>data</code>.
-              <code>variant</code> (colorea header), <code>size</code>, <code>striped</code>,
-              <code>stickyHeader</code>. Scroll horizontal automático.
+              {t("complementos.figcaption.table")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>AspectRatio 📐</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_aspectratio")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="1rem">
@@ -751,64 +709,62 @@ export function renderLayoutSection(s: Record<string, string>, bs: Record<string
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>AspectRatio</strong> mantiene relación de aspecto con técnica <code>padding-bottom</code>.
-              <code>ratio</code> (default 16/9), <code>maxWidth</code>, <code>children</code> se renderiza absoluto adentro.
+              {t("complementos.figcaption.aspectratio")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Stack / HStack / VStack 🧱</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_stack")}</Typography>
         </CardHeader>
         <CardBody>
           <VStack gap="0.75rem">
-            <Typography variant="body2"><strong>VStack</strong> — vertical con gap 1rem</Typography>
+            <Typography variant="body2"><strong>VStack</strong> — {t("complementos.vstack_label")}</Typography>
             <VStack gap="0.5rem" style={{ padding: "0.75rem", border: "1px solid var(--border)", borderRadius: 8 }}>
               <Box style={{ padding: "0.5rem", background: "var(--accent-bg)", borderRadius: 4 }}>Item 1</Box>
               <Box style={{ padding: "0.5rem", background: "var(--accent-bg)", borderRadius: 4 }}>Item 2</Box>
               <Box style={{ padding: "0.5rem", background: "var(--accent-bg)", borderRadius: 4 }}>Item 3</Box>
             </VStack>
-            <Typography variant="body2"><strong>HStack</strong> — horizontal con gap 0.5rem</Typography>
+            <Typography variant="body2"><strong>HStack</strong> — {t("complementos.hstack_label")}</Typography>
             <HStack gap="0.5rem">
               <Box style={{ padding: "0.5rem 1rem", background: "var(--accent-bg)", borderRadius: 4 }}>A</Box>
               <Box style={{ padding: "0.5rem 1rem", background: "var(--accent-bg)", borderRadius: 4 }}>B</Box>
               <Box style={{ padding: "0.5rem 1rem", background: "var(--accent-bg)", borderRadius: 4 }}>C</Box>
             </HStack>
-            <Typography variant="body2"><strong>Stack</strong> — genérico con prop <code>direction</code></Typography>
+            <Typography variant="body2"><strong>Stack</strong> — {t("complementos.stack_label")}</Typography>
             <Stack direction="row" gap="0.75rem" alignItems="center">
               <span>⚡</span>
-              <span>Stack acepta todas las props de Box</span>
+              <span>{t("complementos.stack_desc")}</span>
             </Stack>
           </VStack>
         </CardBody>
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>Stack</strong> (genérico con <code>direction</code>), <strong>HStack</strong> (row, gap 0.5rem),
-              <strong>VStack</strong> (column, gap 1rem). Extienden BoxProps, aceptan <code>gap</code> y layout props.
+              {t("complementos.figcaption.stack")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>DataTable 📊</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_datatable")}</Typography>
         </CardHeader>
         <CardBody>
           <DataTable
             columns={[
-              { key: "name", label: "Nombre", sortable: true, filterable: true },
-              { key: "role", label: "Rol", sortable: true },
-              { key: "status", label: "Estado" },
+              { key: "name", label: t("complementos.table_name"), sortable: true, filterable: true },
+              { key: "role", label: t("complementos.table_role"), sortable: true },
+              { key: "status", label: t("complementos.table_status") },
             ] as DataColumn<{ name: string; role: string; status: string }>[]}
             data={[
-              { name: "Ana Martínez", role: "Admin", status: "Activo" },
-              { name: "Bob Johnson", role: "Editor", status: "Activo" },
-              { name: "Carlos López", role: "User", status: "Inactivo" },
-              { name: "Diana Ruiz", role: "Admin", status: "Activo" },
-              { name: "Elena García", role: "Editor", status: "Activo" },
-              { name: "Frank Torres", role: "User", status: "Activo" },
+              { name: t("complementos.datatable_name_ana"), role: t("complementos.datatable_role_admin"), status: t("complementos.table_active") },
+              { name: t("complementos.datatable_name_bob"), role: t("complementos.datatable_role_editor"), status: t("complementos.table_active") },
+              { name: t("complementos.datatable_name_carlos"), role: t("complementos.datatable_role_user"), status: t("complementos.table_inactive") },
+              { name: t("complementos.datatable_name_diana"), role: t("complementos.datatable_role_admin"), status: t("complementos.table_active") },
+              { name: t("complementos.datatable_name_elena"), role: t("complementos.datatable_role_editor"), status: t("complementos.table_active") },
+              { name: t("complementos.datatable_name_frank"), role: t("complementos.datatable_role_user"), status: t("complementos.table_active") },
             ]}
             striped
             selectable
@@ -818,9 +774,7 @@ export function renderLayoutSection(s: Record<string, string>, bs: Record<string
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>DataTable</strong> tabla genérica con sorting, filtro, paginación,
-              selección de filas y toggle de columnas. <code>columns</code> (key, label, sortable, filterable, render, width),
-              <code>data</code>, <code>pageSize</code>, <code>selectable</code>, <code>striped</code>.
+              {t("complementos.figcaption.datatable")}
             </Typography>
           </figure>
         </CardFooter>
@@ -844,25 +798,25 @@ interface DisplayState {
   progressValue: number; setProgressValue: (v: number | ((prev: number) => number)) => void;
 }
 
-export function renderDisplaySection(st: DisplayState, bs: Record<string, string>) {
+export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Badge 🔴</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_badge")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
             <span style={{ position: "relative", display: "inline-block" }}>
-              <Button>Notificaciones</Button>
+              <Button>{t("complementos.badge_notifications")}</Button>
               <Badge variant="default" size="sm">3</Badge>
             </span>
             <span style={{ position: "relative", display: "inline-block" }}>
-              <Button variant="info">Mensajes</Button>
+              <Button variant="info">{t("complementos.badge_messages")}</Button>
               <Badge variant="info" size="md">7</Badge>
             </span>
             <span style={{ position: "relative", display: "inline-block" }}>
-              <Button variant="success">Logros</Button>
+              <Button variant="success">{t("complementos.badge_achievements")}</Button>
               <Badge variant="success" size="lg">99+</Badge>
             </span>
           </Box>
@@ -877,15 +831,14 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Badge</strong> indicador con <code>variant</code> y <code>size</code>.{" "}
-              Modo <code>standalone</code> o posicionado sobre un contenedor padre.
+              {t("complementos.figcaption.badge")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Chip 🏷️</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_chip")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
@@ -894,7 +847,7 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
             ))}
             {st.chips.length === 0 && (
               <Button variant="info" onClick={() => st.setChips(["React", "TypeScript", "Vite", "CSS"])}>
-                Restaurar chips
+                {t("complementos.chip_restore")}
               </Button>
             )}
           </Box>
@@ -903,25 +856,24 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
             <Chip label="Success" variant="success" />
             <Chip label="Warning" variant="warning" />
             <Chip label="Danger" variant="danger" />
-            <Chip label="Desactivado" variant="default" disabled />
+            <Chip label={t("complementos.chip_disabled")} variant="default" disabled />
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Chip</strong> tag removible con <code>variant</code>, <code>size</code>,{" "}
-              <code>disabled</code>. Botón X para eliminar.
+              {t("complementos.figcaption.chip")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Switch 🔘</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_switch")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" alignItems="center" gap="1rem">
-            <Switch checked={st.switchChecked} onChange={st.setSwitchChecked} label="Alternar opción" />
+            <Switch checked={st.switchChecked} onChange={st.setSwitchChecked} label={t("complementos.switch_label")} />
           </Box>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
             <Switch checked={st.switchDefault} onChange={st.setSwitchDefault} variant="default" />
@@ -936,50 +888,45 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
             <Switch checked={st.switchLg} onChange={st.setSwitchLg} size="lg" />
           </Box>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
-            <Switch checked={false} onChange={() => {}} label="Deshabilitado" disabled />
+            <Switch checked={false} onChange={() => {}} label={t("complementos.switch_disabled")} disabled />
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Switch</strong> toggle booleano con{" "}
-              <code>variant</code> (default/info/success/warning/danger),{" "}
-              <code>size</code> (sm/md/lg), <code>label</code>, <code>disabled</code>.{" "}
-              <code>role="switch"</code> y <code>aria-checked</code>.
+              {t("complementos.figcaption.switch")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Progress 📊</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_progress")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="0.5rem">
-            <Progress value={st.progressValue} label="Progreso" showValue variant="default" />
+            <Progress value={st.progressValue} label={t("complementos.progress_label")} showValue variant="default" />
             <Progress value={30} label="Info" showValue variant="info" />
             <Progress value={60} label="Success" showValue variant="success" />
             <Progress value={45} showValue variant="warning" />
             <Progress value={80} showValue variant="danger" />
           </Box>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
-            <Button variant="info" onClick={() => st.setProgressValue((p) => Math.min(100, p + 10))}>+10%</Button>
-            <Button variant="warning" onClick={() => st.setProgressValue((p) => Math.max(0, p - 10))}>-10%</Button>
+            <Button variant="info" onClick={() => st.setProgressValue((p) => Math.min(100, p + 10))}>{t("complementos.progress_plus")}</Button>
+            <Button variant="warning" onClick={() => st.setProgressValue((p) => Math.max(0, p - 10))}>{t("complementos.progress_minus")}</Button>
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Progress</strong> barra determinada 0-100%.{" "}
-              <code>variant</code>, <code>size</code>, <code>label</code>,{" "}
-              <code>showValue</code>. Transición suave al cambiar.
+              {t("complementos.figcaption.progress")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Skeleton 💀</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_skeleton")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" alignItems="center" gap="1rem">
@@ -995,36 +942,33 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Skeleton</strong> placeholder de carga con shimmer.{" "}
-              Variants: <code>text</code> (líneas), <code>circle</code>,{" "}
-              <code>rect</code>. Prop <code>count</code> para repetir.
+              {t("complementos.figcaption.skeleton")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Tabs 📑</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_tabs")}</Typography>
         </CardHeader>
         <CardBody>
           <Tabs tabs={[
-            { label: "HTML", content: "HTML (HyperText Markup Language) es el lenguaje estándar para crear páginas web." },
-            { label: "CSS", content: "CSS (Cascading Style Sheets) controla colores, fuentes, espaciado y layout responsivo." },
-            { label: "JS", content: "JavaScript permite agregar interactividad a las páginas web mediante el manejo del DOM y eventos." },
+            { label: t("complementos.tabs_html"), content: t("complementos.tabs_html_content") },
+            { label: t("complementos.tabs_css"), content: t("complementos.tabs_css_content") },
+            { label: t("complementos.tabs_js"), content: t("complementos.tabs_js_content") },
           ]} />
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Tabs</strong> navegación por pestañas con keyboard{" "}
-              (flechas izquierda/derecha, Home/End). Indicador animado.
+              {t("complementos.figcaption.tabs")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Avatar 👤</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_avatar")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="1rem" flexWrap="wrap" justifyContent="center" alignItems="center">
@@ -1048,26 +992,24 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>Avatar</strong> foto de perfil o iniciales. <code>src</code>, <code>alt</code>,
-              <code>size</code> (sm/md/lg), <code>variant</code> (circle/rounded/square), <code>color</code> (Variant).
-              Fallback a iniciales de <code>alt</code> cuando no hay <code>src</code>.
+              {t("complementos.figcaption.avatar")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Rating ⭐</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_rating")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="1rem" alignItems="center">
             <Box display="flex" flexDirection="column" gap="0.5rem" alignItems="center">
-              <Typography variant="body2">Interactivo (por defecto 5 estrellas)</Typography>
+              <Typography variant="body2">{t("complementos.rating_interactive")}</Typography>
               <RatingDemo />
             </Box>
             <Box display="flex" gap="1rem" flexWrap="wrap" justifyContent="center">
               <Box display="flex" flexDirection="column" alignItems="center" gap="0.25rem">
-                <Typography variant="caption">ReadOnly</Typography>
+                <Typography variant="caption">{t("complementos.rating_readonly")}</Typography>
                 <Rating value={3} readOnly />
               </Box>
               <Box display="flex" flexDirection="column" alignItems="center" gap="0.25rem">
@@ -1088,57 +1030,54 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>Rating</strong> valoración por estrellas. <code>value</code>, <code>onChange</code>,
-              <code>count</code> (default 5), <code>size</code>, <code>readOnly</code>, <code>icon</code> (custom).
-              Keyboard: Arrow keys + Enter. ARIA <code>radiogroup</code>.
+              {t("complementos.figcaption.rating")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Timeline 📅</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_timeline")}</Typography>
         </CardHeader>
         <CardBody>
           <Timeline items={[
-            { title: "Primera versión", description: "Lanzamiento inicial con componentes base.", time: "Ene 2025", color: "default" },
-            { title: "Nuevos componentes", description: "Se agregaron inputs, forms y overlays.", time: "Mar 2025", color: "info" },
-            { title: "Tema oscuro", description: "Soporte completo de light/dark mode con CSS variables.", time: "Jun 2025", color: "success" },
-            { title: "v1.0 estable", description: "Todos los tests pasando, CI/CD configurado.", time: "Sep 2025", color: "warning" },
+            { title: t("complementos.timeline_v1"), description: t("complementos.timeline_v1_desc"), time: t("complementos.timeline_v1_time"), color: "default" },
+            { title: t("complementos.timeline_v2"), description: t("complementos.timeline_v2_desc"), time: t("complementos.timeline_v2_time"), color: "info" },
+            { title: t("complementos.timeline_v3"), description: t("complementos.timeline_v3_desc"), time: t("complementos.timeline_v3_time"), color: "success" },
+            { title: t("complementos.timeline_v4"), description: t("complementos.timeline_v4_desc"), time: t("complementos.timeline_v4_time"), color: "warning" },
           ]} />
         </CardBody>
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>Timeline</strong> línea de tiempo vertical. Items: <code>title</code>, <code>description</code>,
-              <code>time</code>, <code>icon</code>, <code>color</code> (Variant). Línea conectora + dots.
+              {t("complementos.figcaption.timeline")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>EmptyState 📭</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_emptystate")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="1rem">
             <EmptyState
               icon={<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12h6M12 9v6"/></svg>}
-              title="Sin resultados"
-              description="No encontramos nada que coincida con tu búsqueda. Probá con otros términos."
-              action={<Button variant="info">Limpiar filtros</Button>}
+              title={t("complementos.emptystate_noresults_title")}
+              description={t("complementos.emptystate_noresults_desc")}
+              action={<Button variant="info">{t("complementos.emptystate_noresults_action")}</Button>}
             />
             <Divider />
             <Box display="flex" gap="1rem" flexWrap="wrap">
               <EmptyState
                 icon={<span>📦</span>}
-                title="Carrito vacío"
-                description="Agregá productos para empezar a comprar."
+                title={t("complementos.emptystate_cart_title")}
+                description={t("complementos.emptystate_cart_desc")}
               />
               <EmptyState
                 icon={<span>🔔</span>}
-                title="Sin notificaciones"
-                description="No tenés notificaciones pendientes."
+                title={t("complementos.emptystate_notifications_title")}
+                description={t("complementos.emptystate_notifications_desc")}
               />
             </Box>
           </Box>
@@ -1146,49 +1085,46 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>EmptyState</strong> placeholder para datos vacíos. <code>icon</code>, <code>title</code>,
-              <code>description</code>, <code>action</code> (ReactNode, ej. Button). Centrado con gap.
+              {t("complementos.figcaption.emptystate")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Typography 🔤</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_typography")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="0.75rem">
-            <Typography variant="h1">h1. Heading</Typography>
-            <Typography variant="h2">h2. Heading</Typography>
-            <Typography variant="h3">h3. Heading</Typography>
-            <Typography variant="h4">h4. Heading</Typography>
-            <Typography variant="h5">h5. Heading</Typography>
-            <Typography variant="h6">h6. Heading</Typography>
-            <Typography variant="body1">body1. Texto base del sistema — 18px (16px en mobile). Usado para párrafos y contenido general.</Typography>
-            <Typography variant="body2">body2. Texto secundario — 15px (14px en mobile). Ideal para descripciones y metadata.</Typography>
-            <Typography variant="caption">caption. Texto auxiliar — 13px. Para notas, pies de figura y etiquetas pequeñas.</Typography>
-            <Typography variant="code">code. const typography = "monospace con background";</Typography>
+            <Typography variant="h1">{t("complementos.typography_h1")}</Typography>
+            <Typography variant="h2">{t("complementos.typography_h2")}</Typography>
+            <Typography variant="h3">{t("complementos.typography_h3")}</Typography>
+            <Typography variant="h4">{t("complementos.typography_h4")}</Typography>
+            <Typography variant="h5">{t("complementos.typography_h5")}</Typography>
+            <Typography variant="h6">{t("complementos.typography_h6")}</Typography>
+            <Typography variant="body1">{t("complementos.typography_body1")}</Typography>
+            <Typography variant="body2">{t("complementos.typography_body2")}</Typography>
+            <Typography variant="caption">{t("complementos.typography_caption")}</Typography>
+            <Typography variant="code">{t("complementos.typography_code")}</Typography>
           </Box>
-          <Typography variant="h5" gutterBottom style={{ marginTop: "1rem" }}>Props</Typography>
+          <Typography variant="h5" gutterBottom style={{ marginTop: "1rem" }}>{t("complementos.typography_props_title")}</Typography>
           <Box display="flex" flexDirection="column" gap="0.5rem">
             <Typography variant="body2"><code>variant</code> — h1 | h2 | h3 | h4 | h5 | h6 | body1 | body2 | caption | code</Typography>
-            <Typography variant="body2"><code>component</code> — override del elemento HTML (ej. h3 como <code>span</code>)</Typography>
-            <Typography variant="body2"><code>gutterBottom</code> — agrega margin-bottom: 0.5em</Typography>
+            <Typography variant="body2"><code>component</code> — {t("complementos.typography_props_component")}</Typography>
+            <Typography variant="body2"><code>gutterBottom</code> — {t("complementos.typography_props_gutter")}</Typography>
             <Typography variant="body2"><code>align</code> — left | center | right</Typography>
-            <Typography variant="body2"><code>noWrap</code> — nowrap con ellipsis</Typography>
-            <Typography variant="body2"><code>color</code> — override de color (ej. <code>"var(--accent)"</code>)</Typography>
+            <Typography variant="body2"><code>noWrap</code> — {t("complementos.typography_props_nowrap")}</Typography>
+            <Typography variant="body2"><code>color</code> — {t("complementos.typography_props_color")}</Typography>
           </Box>
-          <Typography variant="h6" gutterBottom style={{ marginTop: "1rem" }}>Con <code>component</code> y <code>align</code></Typography>
+          <Typography variant="h6" gutterBottom style={{ marginTop: "1rem" }}>{t("complementos.typography_component_title")}</Typography>
           <Typography variant="h5" component="span" align="center" style={{ display: "block", color: "var(--accent)" }}>
-            h5 renderizado como span, centrado, en accent
+            {t("complementos.typography_component_demo")}
           </Typography>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Typography</strong> sistema tipográfico completo con variantes predefinidas.
-              Cada variante define font-size, weight, line-height, letter-spacing y color.
-              Responsive automático a 1024px. Respeta el tema light/dark vía variables CSS.
+              {t("complementos.figcaption.typography")}
             </Typography>
           </figure>
         </CardFooter>
@@ -1219,12 +1155,12 @@ const colorTokens = [
   { v: "--gradient-end", light: "#f472b6", dark: "#a855f7" },
 ];
 
-export function renderThemeSection(s: Record<string, string>, bs: Record<string, string>) {
+export function renderThemeSection(t: T, s: Record<string, string>, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>ThemeToggle 🌓</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_theme")}</Typography>
         </CardHeader>
         <CardBody>
           <ThemeToggle />
@@ -1232,18 +1168,14 @@ export function renderThemeSection(s: Record<string, string>, bs: Record<string,
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>ThemeToggle</strong> es un componente auto-contenido (sin props).{" "}
-              Lee/escribe <code>localStorage("theme")</code>, setea{" "}
-              <code>data-theme</code> en <code>&lt;html&gt;</code> y dispara un evento{" "}
-              <code>themechange</code> en <code>window</code> para sincronizar
-              todos los componentes del sitio.
+              {t("complementos.figcaption.theme_toggle")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>LogoWatermark 🖼️</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_logo")}</Typography>
         </CardHeader>
         <CardBody>
           <LogoWatermark size={48} />
@@ -1251,24 +1183,21 @@ export function renderThemeSection(s: Record<string, string>, bs: Record<string,
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>LogoWatermark</strong> combina una imagen webp con
-              gradient text via <code>background-clip: text</code>. Escucha{" "}
-              <code>themechange</code> para refrescar el gradiente. Props:{ " " }
-              <code>size?: number</code>.
+              {t("complementos.figcaption.logo")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Design Tokens — Colors 🎨</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_tokens_colors")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.75rem" flexWrap="wrap">
-            {colorTokens.map((t) => (
-              <Box key={t.v} display="flex" flexDirection="column" alignItems="center" gap="0.25rem">
-                <Box className={s.swatchColor} style={{ background: `var(${t.v})` }} />
-                <span className={s.swatchLabel}>{t.v}</span>
+            {colorTokens.map((ct) => (
+              <Box key={ct.v} display="flex" flexDirection="column" alignItems="center" gap="0.25rem">
+                <Box className={s.swatchColor} style={{ background: `var(${ct.v})` }} />
+                <span className={s.swatchLabel}>{ct.v}</span>
               </Box>
             ))}
           </Box>
@@ -1276,19 +1205,14 @@ export function renderThemeSection(s: Record<string, string>, bs: Record<string,
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; Los swatches usan <code>background: var(--nombre)</code> y se renderizan
-              con el valor real del tema activo (light/dark). Cada variable se define en{" "}
-              <code>:root</code> y se sobrescribe en <code>[data-theme="dark"]</code>.{" "}
-              Los componentes mapean su prop <code>variant</code> a estas variables semánticas
-              via clases CSS. La variable <code>--shadow</code> (no mostrada) es un box-shadow
-              compuesto que también cambia con el tema.
+              {t("complementos.figcaption.tokens_colors")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Design Tokens — Typography ✍️</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_tokens_typography")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="0.5rem">
@@ -1304,15 +1228,14 @@ export function renderThemeSection(s: Record<string, string>, bs: Record<string,
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; Tipografía auto-alojada con <code>@fontsource/inter</code>. Sin
-              dependencia externa a Google Fonts.
+              {t("complementos.figcaption.tokens_typography")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Design Tokens — Sizes & Spacing 📐</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_tokens_sizes")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="0.5rem">
@@ -1326,9 +1249,7 @@ export function renderThemeSection(s: Record<string, string>, bs: Record<string,
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; Los tamaños se definen por clase CSS en cada componente (ej.{ " " }
-              <code>.sm &#123; --thumb-size: 18px &#125;</code>). El hook{" "}
-              <code>useMediaQuery</code> permite responsive en JS.
+              {t("complementos.figcaption.tokens_sizes")}
             </Typography>
           </figure>
         </CardFooter>
@@ -1363,16 +1284,14 @@ const iconList = [
   { Icon: CloseIcon, name: "CloseIcon", size: 14, usedIn: "Modal, Drawer, Chip, Alert, FileInput" },
 ];
 
-export function renderIconsSection(s: Record<string, string>, bs: Record<string, string>) {
+export function renderIconsSection(t: T, s: Record<string, string>, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Iconos disponibles 🎯</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.icons_heading")}</Typography>
           <Typography variant="caption">
-            Todos los iconos se importan desde <code>"./icons"</code> o <code>"../components/icons"</code>.
-            Cada icono acepta <code>size?: number</code>, <code>className?: string</code>,{" "}
-            <code>style?: React.CSSProperties</code>.
+            {t("complementos.icons_import_text")}
           </Typography>
         </CardHeader>
         <CardBody>
@@ -1381,8 +1300,8 @@ export function renderIconsSection(s: Record<string, string>, bs: Record<string,
               <Box key={item.name} className={s.iconItem}>
                 <item.Icon size={24} />
                 <span className={s.iconName}>{item.name}</span>
-                <span className={s.iconMeta}>default: {item.size}px</span>
-                <span className={s.iconMeta}>usado en: {item.usedIn}</span>
+                <span className={s.iconMeta}>{t("complementos.icons_meta_default", { size: item.size })}</span>
+                <span className={s.iconMeta}>{t("complementos.icons_meta_usedin", { comp: item.usedIn })}</span>
                 <code className={s.iconImport}>import {"{"}{item.name}{"}"} from "../icons"</code>
               </Box>
             ))}
@@ -1391,9 +1310,7 @@ export function renderIconsSection(s: Record<string, string>, bs: Record<string,
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; Los iconos SVG usan <code>stroke="currentColor"</code> (UI) o{" "}
-              <code>fill="currentColor"</code> (social). Heredan el color del texto
-              del contenedor padre.
+              {t("complementos.figcaption.icons")}
             </Typography>
           </figure>
         </CardFooter>
@@ -1414,61 +1331,56 @@ interface OverlaysState {
   drawerPosition: "left" | "right"; setDrawerPosition: (v: "left" | "right") => void;
 }
 
-export function renderOverlaysSection(st: OverlaysState, bs: Record<string, string>) {
+export function renderOverlaysSection(t: T, st: OverlaysState, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Modal 🪟</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_modal")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
-            <Button variant="info" onClick={() => st.setModalSmall(true)}>Abrir sm</Button>
-            <Button onClick={() => st.setModalMedium(true)}>Abrir md</Button>
-            <Button variant="warning" onClick={() => st.setModalLarge(true)}>Abrir lg</Button>
-            <Button variant="danger" onClick={() => st.setModalXl(true)}>Abrir xl</Button>
+            <Button variant="info" onClick={() => st.setModalSmall(true)}>{t("complementos.modal_btn_sm")}</Button>
+            <Button onClick={() => st.setModalMedium(true)}>{t("complementos.modal_btn_md")}</Button>
+            <Button variant="warning" onClick={() => st.setModalLarge(true)}>{t("complementos.modal_btn_lg")}</Button>
+            <Button variant="danger" onClick={() => st.setModalXl(true)}>{t("complementos.modal_btn_xl")}</Button>
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Modal</strong> recibe <code>isOpen</code>,{" "}
-              <code>onClose</code>, <code>size</code>, <code>title</code>,{" "}
-              <code>footer</code>, <code>closeOnOverlay</code>. Bloquea scroll,
-              cierra con Escape y overlay click.
+              {t("complementos.figcaption.modal")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Alert 🔔</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_alert")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
-            <Button variant="info" onClick={() => st.showAlert("info", "top-right")}>Info</Button>
-            <Button variant="success" onClick={() => st.showAlert("success", "top-right")}>Success</Button>
-            <Button variant="warning" onClick={() => st.showAlert("warning", "top-right", 8000)}>Warning</Button>
-            <Button variant="danger" onClick={() => st.showAlert("danger", "top-left")}>Danger</Button>
+            <Button variant="info" onClick={() => st.showAlert("info", "top-right")}>{t("complementos.alert_btn_info")}</Button>
+            <Button variant="success" onClick={() => st.showAlert("success", "top-right")}>{t("complementos.alert_btn_success")}</Button>
+            <Button variant="warning" onClick={() => st.showAlert("warning", "top-right", 8000)}>{t("complementos.alert_btn_warning")}</Button>
+            <Button variant="danger" onClick={() => st.showAlert("danger", "top-left")}>{t("complementos.alert_btn_danger")}</Button>
           </Box>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center" mt="0.5rem">
-            <Button variant="default" onClick={() => st.showAlert("info", "bottom-right", 0)}>Sin auto-cierre</Button>
-            <Button variant="default" onClick={() => st.showAlert("success", "bottom-left", 3000)}>3s + abajo izq</Button>
+            <Button variant="default" onClick={() => st.showAlert("info", "bottom-right", 0)}>{t("complementos.alert_btn_noauto")}</Button>
+            <Button variant="default" onClick={() => st.showAlert("success", "bottom-left", 3000)}>{t("complementos.alert_btn_position")}</Button>
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Alert</strong> recibe <code>variant</code> (info/success/warning/danger),{" "}
-              <code>position</code>, <code>duration</code> (ms, 0 = no auto),{" "}
-              <code>closable</code>, <code>message</code> y <code>description</code>.
+              {t("complementos.figcaption.alert")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Loader 🌀</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_loader")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="1rem" alignItems="center" justifyContent="center" mb="1rem">
@@ -1478,9 +1390,9 @@ export function renderOverlaysSection(st: OverlaysState, bs: Record<string, stri
             <Loader variant="info" /> <Loader variant="success" /> <Loader variant="warning" /> <Loader variant="danger" />
           </Box>
           <Box display="flex" gap="1rem" alignItems="center" justifyContent="center" mb="1rem">
-            <Loader size="sm" label="Cargando..." />
+            <Loader size="sm" label={t("complementos.loader_label")} />
           </Box>
-          <Typography variant="h3" gutterBottom>LoaderBar 📊</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_loaderbar")}</Typography>
           <Box display="flex" flexDirection="column" gap="0.5rem">
             <LoaderBar /> <LoaderBar variant="info" /> <LoaderBar variant="success" />
             <LoaderBar variant="warning" /> <LoaderBar variant="danger" />
@@ -1489,71 +1401,64 @@ export function renderOverlaysSection(st: OverlaysState, bs: Record<string, stri
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Loader</strong> spinner circular con sizes y variants.{" "}
-              <strong>LoaderBar</strong> barra lineal indeterminada. Ambos
-              usan las mismas variables de color semánticas.
+              {t("complementos.figcaption.loader")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>LoaderOverlay 🔲</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_loaderoverylay")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" justifyContent="center">
-            <Button onClick={() => st.setOverlayOpen(true)}>Abrir overlay</Button>
+            <Button onClick={() => st.setOverlayOpen(true)}>{t("complementos.overlay_btn_open")}</Button>
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>LoaderOverlay</strong> fondo semi-transparente con{" "}
-              <code>backdrop-filter</code>. Bloquea scroll y centra el loader.
+              {t("complementos.figcaption.loader_overlay")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Popover 💬</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_popover")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="1rem" flexWrap="wrap" justifyContent="center">
-            <Popover content={<span>Menú de acciones</span>}>
-              <Button variant="info">Click</Button>
+            <Popover content={<span>{t("complementos.popover_content_actions")}</span>}>
+              <Button variant="info">{t("complementos.popover_btn_click")}</Button>
             </Popover>
-            <Popover content={<span>Información adicional sobre este elemento</span>} position="right">
-              <Button>Más info</Button>
+            <Popover content={<span>{t("complementos.popover_content_info")}</span>} position="right">
+              <Button>{t("complementos.popover_btn_more")}</Button>
             </Popover>
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Popover</strong> overlay contextual a click.{" "}
-              <code>position</code>: top/bottom/left/right. Cierra con Escape
-              o click fuera. Renderizado con <code>createPortal</code>.
+              {t("complementos.figcaption.popover")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Drawer 🗄️</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_drawer")}</Typography>
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
-            <Button onClick={() => { st.setDrawerPosition("right"); st.setDrawerOpen(true); }}>Abrir derecha</Button>
-            <Button onClick={() => { st.setDrawerPosition("left"); st.setDrawerOpen(true); }}>Abrir izquierda</Button>
+            <Button onClick={() => { st.setDrawerPosition("right"); st.setDrawerOpen(true); }}>{t("complementos.drawer_btn_right")}</Button>
+            <Button onClick={() => { st.setDrawerPosition("left"); st.setDrawerOpen(true); }}>{t("complementos.drawer_btn_left")}</Button>
           </Box>
         </CardBody>
         <CardFooter>
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
-              &#x1f4a1; <strong>Drawer</strong> panel lateral deslizable con overlay.{" "}
-              <code>position</code> (left/right), <code>size</code>,{" "}
-              <code>title</code>. Bloquea scroll + Escape para cerrar.
+              {t("complementos.figcaption.drawer")}
             </Typography>
           </figure>
         </CardFooter>
@@ -1564,61 +1469,112 @@ export function renderOverlaysSection(st: OverlaysState, bs: Record<string, stri
 
 /* ---------- Business ---------- */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function renderBusinessSection(_st: unknown, _bs: Record<string, string>) {
+export function renderBusinessSection(t: T, _st: unknown, _bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>TreeView 🌳</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_treeview")}</Typography>
         </CardHeader>
         <CardBody>
-          <TreeViewDemo />
+          <TreeViewDemo t={t} />
         </CardBody>
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>TreeView</strong> árbol jerárquico con expand/colapse,
-              selección, navegación por teclado (ArrowUp/Down/Right/Left, Home/End).
-              <code>data</code> (TreeNode[]), <code>selectedId</code>, <code>onSelect</code>,
-              <code>defaultExpandedIds</code>. ARIA <code>tree</code>/<code>treeitem</code>.
+              {t("complementos.figcaption.treeview")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>VirtualizedList ⚡</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_virtualized")}</Typography>
         </CardHeader>
         <CardBody>
-          <VirtualizedListDemo />
+          <VirtualizedListDemo t={t} />
         </CardBody>
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>VirtualizedList</strong> renderizado virtualizado
-              (solo elementos visibles + overscan). <code>items: T[]</code>,
-              <code>itemHeight</code>, <code>renderItem</code>, <code>height</code>,
-              <code>overscan</code>. Scroll sin lag para 1000+ items.
+              {t("complementos.figcaption.virtualized")}
             </Typography>
           </figure>
         </CardFooter>
       </Card>
       <Card>
         <CardHeader>
-          <Typography variant="h3" gutterBottom>Toast 🔔</Typography>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_toast")}</Typography>
         </CardHeader>
         <CardBody>
           <ToastProvider>
-            <ToastDemo />
+            <ToastDemo t={t} />
           </ToastProvider>
         </CardBody>
         <CardFooter>
           <figure className={cardStyles.figure}>
             <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-              &#x1f4a1; <strong>Toast</strong> sistema de notificaciones stackeables.
-              Provee <code>ToastProvider</code> + hook <code>useToast()</code>.
-              <code>addToast( {"{ message, variant?, duration?, position? }"} )</code>.
-              Variants: default/info/success/warning/danger. Auto-dismiss. Cierra con Escape.
+              {t("complementos.figcaption.toast")}
+            </Typography>
+          </figure>
+        </CardFooter>
+      </Card>
+      <Card>
+        <CardHeader>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_treeselect")}</Typography>
+        </CardHeader>
+        <CardBody>
+          <TreeSelectDemo t={t} />
+        </CardBody>
+        <CardFooter>
+          <figure className={cardStyles.figure}>
+            <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
+              {t("complementos.figcaption.treeselect")}
+            </Typography>
+          </figure>
+        </CardFooter>
+      </Card>
+      <Card>
+        <CardHeader>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_splitpane")}</Typography>
+        </CardHeader>
+        <CardBody>
+          <SplitPaneDemo />
+        </CardBody>
+        <CardFooter>
+          <figure className={cardStyles.figure}>
+            <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
+              {t("complementos.figcaption.splitpane")}
+            </Typography>
+          </figure>
+        </CardFooter>
+      </Card>
+      <Card>
+        <CardHeader>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_commandpalette")}</Typography>
+        </CardHeader>
+        <CardBody>
+          <CommandPaletteDemo t={t} />
+        </CardBody>
+        <CardFooter>
+          <figure className={cardStyles.figure}>
+            <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
+              {t("complementos.figcaption.commandpalette")}
+            </Typography>
+          </figure>
+        </CardFooter>
+      </Card>
+      <Card>
+        <CardHeader>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_sidebar")}</Typography>
+        </CardHeader>
+        <CardBody>
+          <SidebarDemo />
+        </CardBody>
+        <CardFooter>
+          <figure className={cardStyles.figure}>
+            <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
+              {t("complementos.figcaption.sidebar")}
             </Typography>
           </figure>
         </CardFooter>
@@ -1627,41 +1583,124 @@ export function renderBusinessSection(_st: unknown, _bs: Record<string, string>)
   );
 }
 
-function TreeViewDemo() {
+function TreeSelectDemo({ t }: { t: T }) {
+  const [value, setValue] = useState("");
+  const treeOptions: TreeNode[] = [
+    {
+      id: "docs", label: t("complementos.tree_node_docs"),
+      children: [
+        { id: "report", label: t("complementos.tree_node_report") },
+        { id: "notes", label: t("complementos.tree_node_notes") },
+      ],
+    },
+    { id: "images", label: t("complementos.tree_node_images") },
+  ];
+  return (
+    <Box display="grid" gridTemplateColumns="1fr 1fr" gap="1rem" alignItems="start">
+      <TreeSelect options={treeOptions} value={value} onChange={setValue} placeholder={t("complementos.select_placeholder_framework")} />
+      <Typography variant="body2">{t("complementos.treeview_selected")} <code>{value || t("complementos.treeview_none")}</code></Typography>
+    </Box>
+  );
+}
+
+function SplitPaneDemo() {
+  return (
+    <SplitPane
+      primary={
+        <Box style={{ padding: "1rem", height: "100%" }}>
+          <Typography variant="h6">Panel A</Typography>
+          <Typography variant="body2" style={{ marginTop: "0.5rem", color: "var(--text-muted)" }}>Contenido primario — redimensioná el divisor.</Typography>
+        </Box>
+      }
+      secondary={
+        <Box style={{ padding: "1rem", height: "100%" }}>
+          <Typography variant="h6">Panel B</Typography>
+          <Typography variant="body2" style={{ marginTop: "0.5rem", color: "var(--text-muted)" }}>Contenido secundario.</Typography>
+        </Box>
+      }
+    />
+  );
+}
+
+function CommandPaletteDemo({ t }: { t: T }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const commands: { heading: string; items: Command[] }[] = [
+    {
+      heading: t("complementos.command_nav"),
+      items: [
+        { id: "home", label: t("complementos.command_go_home"), shortcut: "⌘1" },
+        { id: "components", label: t("complementos.command_go_components"), shortcut: "⌘2" },
+      ],
+    },
+    {
+      heading: t("complementos.command_actions"),
+      items: [
+        { id: "theme", label: t("complementos.command_toggle_theme"), description: t("complementos.command_theme_desc") },
+        { id: "lang", label: t("complementos.command_toggle_lang"), description: t("complementos.command_lang_desc") },
+      ],
+    },
+  ];
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>⌘ {t("complementos.command_open")}</Button>
+      <CommandPalette isOpen={isOpen} onClose={() => setIsOpen(false)} groups={commands} />
+    </>
+  );
+}
+
+function SidebarDemo() {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Box display="flex" style={{ height: "220px", overflow: "hidden", border: "1px solid var(--border)", borderRadius: "8px" }}>
+      <Sidebar isOpen={isOpen} onToggle={() => setIsOpen((prev) => !prev)}>
+        <Box style={{ padding: "1rem" }}>
+          <Typography variant="h6">Sidebar</Typography>
+          <Typography variant="body2" style={{ marginTop: "0.5rem", color: "var(--text-muted)" }}>Contenido del panel lateral.</Typography>
+        </Box>
+      </Sidebar>
+      <Box style={{ flex: 1, padding: "1rem", background: "var(--bg)" }}>
+        <Typography variant="h6">Contenido principal</Typography>
+        <Typography variant="body2" style={{ marginTop: "0.5rem", color: "var(--text-muted)" }}>El área principal se adapta automáticamente.</Typography>
+      </Box>
+    </Box>
+  );
+}
+
+function TreeViewDemo({ t }: { t: T }) {
   const [selectedId, setSelectedId] = useState("edukuk");
   const treeData: TreeNode[] = [
     {
-      id: "docs", label: "Documentos",
+      id: "docs", label: t("complementos.tree_node_docs"),
       children: [
-        { id: "report", label: "Reporte Q1" },
+        { id: "report", label: t("complementos.tree_node_report") },
         {
-          id: "projects", label: "Proyectos",
+          id: "projects", label: t("complementos.tree_node_projects"),
           children: [
             { id: "edukuk", label: "edukuk" },
-            { id: "other", label: "otros" },
+            { id: "other", label: t("complementos.tree_node_other") },
           ],
         },
       ],
     },
     {
-      id: "images", label: "Imágenes",
+      id: "images", label: t("complementos.tree_node_images"),
       children: [
-        { id: "screenshot", label: "Captura.png" },
-        { id: "design", label: "Mockup.png" },
+        { id: "screenshot", label: t("complementos.tree_node_screenshot") },
+        { id: "design", label: t("complementos.tree_node_mockup") },
       ],
     },
-    { id: "readme", label: "README.md" },
+    { id: "readme", label: t("complementos.tree_node_readme") },
   ];
   return (
     <Box display="grid" gridTemplateColumns="1fr 1fr" gap="1rem" alignItems="start">
       <TreeView data={treeData} selectedId={selectedId} onSelect={setSelectedId} defaultExpandedIds={["docs"]} />
-      <Typography variant="body2">Seleccionado: <code>{selectedId || "(ninguno)"}</code></Typography>
+      <Typography variant="body2">{t("complementos.treeview_selected")} <code>{selectedId || t("complementos.treeview_none")}</code></Typography>
     </Box>
   );
 }
 
-function VirtualizedListDemo() {
-  const items = Array.from({ length: 1000 }, (_, i) => `Línea ${i + 1}`);
+function VirtualizedListDemo({ t }: { t: T }) {
+  const items = Array.from({ length: 1000 }, (_, i) => `${t("complementos.virtualized_line")} ${i + 1}`);
   return (
     <VirtualizedList
       items={items}
@@ -1677,25 +1716,26 @@ function VirtualizedListDemo() {
   );
 }
 
-function ToastDemo() {
+function ToastDemo({ t }: { t: T }) {
   const { addToast } = useToast();
   return (
     <Box display="flex" gap="0.5rem" flexWrap="wrap">
-      <Button onClick={() => addToast({ message: "Mensaje informativo" })}>Default</Button>
-      <Button variant="info" onClick={() => addToast({ message: "Cargando datos...", variant: "info" })}>Info</Button>
-      <Button variant="success" onClick={() => addToast({ message: "Operación exitosa", variant: "success" })}>Success</Button>
-      <Button variant="warning" onClick={() => addToast({ message: "Cuidado con esto", variant: "warning", duration: 10000 })}>Warning</Button>
-      <Button variant="danger" onClick={() => addToast({ message: "Error crítico", variant: "danger" })}>Danger</Button>
+      <Button onClick={() => addToast({ message: t("complementos.toast_default_msg") })}>Default</Button>
+      <Button variant="info" onClick={() => addToast({ message: t("complementos.toast_info_msg"), variant: "info" })}>Info</Button>
+      <Button variant="success" onClick={() => addToast({ message: t("complementos.toast_success_msg"), variant: "success" })}>Success</Button>
+      <Button variant="warning" onClick={() => addToast({ message: t("complementos.toast_warning_msg"), variant: "warning", duration: 10000 })}>Warning</Button>
+      <Button variant="danger" onClick={() => addToast({ message: t("complementos.toast_danger_msg"), variant: "danger" })}>Danger</Button>
     </Box>
   );
 }
 
-function PaginationDemo() {
+function PaginationDemo({ t }: { t?: T }) {
   const [page, setPage] = useState(1);
+  const caption = t ? t("complementos.figcaption.pagination") : "💡 Pagination — page navigation with automatic ellipsis and aria-current=\"page\".";
   return (
     <Card>
       <CardHeader>
-        <Typography variant="h3" gutterBottom>Paginación 📄</Typography>
+        <Typography variant="h3" gutterBottom>{t ? t("complementos.section_pagination") : "Pagination 📄"}</Typography>
       </CardHeader>
       <CardBody>
         <Box display="flex" justifyContent="center">
@@ -1705,8 +1745,7 @@ function PaginationDemo() {
       <CardFooter>
         <figure className={cardStyles.figure}>
           <Typography variant="caption" component="figcaption" className={cardStyles.figcaption}>
-            &#x1f4a1; <strong>Pagination</strong> navegación entre páginas con
-            elipsis automática y <code>aria-current="page"</code>.
+            {caption}
           </Typography>
         </figure>
       </CardFooter>

@@ -1,9 +1,11 @@
-import { useEffect, useRef, useId, type ReactNode } from "react";
+import { useRef, useId, type ReactNode } from "react";
 import { CloseIcon } from "../icons";
 import { Button } from "../button/Button";
 import { Typography } from "../typography";
-import styles from "./Drawer.module.css";
 import { Box } from "../box/Box";
+import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";
+import { useFocusTrap } from "../../hooks/useFocusTrap";
+import styles from "./Drawer.module.css";
 
 interface DrawerProps {
   isOpen: boolean;
@@ -27,54 +29,8 @@ export const Drawer = ({
   const panelRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
 
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    document.documentElement.style.overflow = "hidden";
-    document.documentElement.style.paddingRight = `${scrollbarWidth}px`;
-
-    requestAnimationFrame(() => {
-      panelRef.current?.focus();
-    });
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-        return;
-      }
-
-      if (e.key === "Tab" && panelRef.current) {
-        const focusable = panelRef.current.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        );
-        if (focusable.length === 0) return;
-
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-
-        if (e.shiftKey) {
-          if (document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else {
-          if (document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.documentElement.style.overflow = "";
-      document.documentElement.style.paddingRight = "";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen, onClose]);
+  useBodyScrollLock(isOpen);
+  useFocusTrap(panelRef, isOpen, onClose);
 
   if (!isOpen) return null;
 

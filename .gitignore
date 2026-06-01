@@ -27,6 +27,9 @@ dist-ssr
 test-results/
 playwright-report/
 
+# Storybook
+storybook-static/
+
 # Environment/tooling
 .opencode/
 .playwright-mcp/

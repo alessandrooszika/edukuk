@@ -1,8 +1,10 @@
-import { useState, useRef, useEffect, useLayoutEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import type { Variant, Size } from "../../types";
 import { ChevronDownIcon, CheckIcon } from "../icons";
 import { Box } from "../box/Box";
+import { useDropdownPosition } from "../../hooks/useDropdownPosition";
+import { useClickOutside } from "../../hooks/useClickOutside";
 import styles from "./Select.module.css";
 
 interface SelectOption {
@@ -52,50 +54,11 @@ export const Select = ({
   const selected = normalized.find((opt) => opt.value === value);
   const variantVar = variant === "default" ? "var(--accent)" : `var(--${variant})`;
 
-  useEffect(() => {
-    if (!open) return;
-    const handleClick = (e: PointerEvent) => {
-      if (
-        wrapperRef.current?.contains(e.target as Node) ||
-        listRef.current?.contains(e.target as Node)
-      ) return;
-      setOpen(false);
-      setHighlightIndex(-1);
-    };
-    document.addEventListener("pointerdown", handleClick);
-    return () => document.removeEventListener("pointerdown", handleClick);
-  }, [open]);
-
-  useLayoutEffect(() => {
-    if (!open || !triggerRef.current || !listRef.current) return;
-    const rect = triggerRef.current.getBoundingClientRect();
-    listRef.current.style.position = "fixed";
-    listRef.current.style.top = `${rect.bottom + 4}px`;
-    listRef.current.style.left = `${rect.left}px`;
-    listRef.current.style.minWidth = `${rect.width}px`;
-    if (highlightIndex >= 0) {
-      const item = listRef.current.children[highlightIndex] as HTMLElement | undefined;
-      item?.scrollIntoView({ block: "nearest" });
-    }
-  }, [open, highlightIndex]);
-
-  useEffect(() => {
-    if (!open) return;
-    const updatePosition = () => {
-      if (!listRef.current || !triggerRef.current) return;
-      const rect = triggerRef.current.getBoundingClientRect();
-      listRef.current.style.position = "fixed";
-      listRef.current.style.top = `${rect.bottom + 4}px`;
-      listRef.current.style.left = `${rect.left}px`;
-      listRef.current.style.minWidth = `${rect.width}px`;
-    };
-    window.addEventListener("scroll", updatePosition, true);
-    window.addEventListener("resize", updatePosition);
-    return () => {
-      window.removeEventListener("scroll", updatePosition, true);
-      window.removeEventListener("resize", updatePosition);
-    };
-  }, [open]);
+  useDropdownPosition(triggerRef, listRef, open);
+  useClickOutside([wrapperRef, listRef], useCallback(() => {
+    setOpen(false);
+    setHighlightIndex(-1);
+  }, []), open);
 
   const getInitialHighlight = () => {
     const idx = normalized.findIndex((opt) => opt.value === value);

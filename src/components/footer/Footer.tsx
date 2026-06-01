@@ -1,6 +1,8 @@
+import { useTranslation } from "react-i18next";
 import { Button } from "../button/Button";
 import { LogoWatermark } from "../logo-watermark/LogoWatermark";
 import { ThemeToggle } from "../theme-toggle/ThemeToggle";
+import { LanguageSwitcher } from "../language-switcher";
 import { Tooltip } from "../tooltip/Tooltip";
 import { Typography } from "../typography";
 import { GitHubIcon, TwitterIcon, YouTubeIcon, LinkedInIcon } from "../icons";
@@ -34,12 +36,14 @@ const socials = [
   },
 ] as const;
 
-const navLinks = [
-  { label: "Inicio", page: "home" as const },
-  { label: "Complementos", page: "complementos" as const },
-];
-
 export const Footer = ({ onNavigate }: FooterProps) => {
+  const { t } = useTranslation();
+
+  const navLinks = [
+    { label: t("footer.home_link"), page: "home" as const },
+    { label: t("footer.complementos_link"), page: "complementos" as const },
+  ];
+
   return (
     <footer className={styles.footer}>
       <Box className={styles.inner}>
@@ -49,21 +53,19 @@ export const Footer = ({ onNavigate }: FooterProps) => {
               <LogoWatermark size={56} />
             </Typography>
             <Typography variant="body2">
-              Espacio de aprendizaje donde exploramos tecnologías web modernas.
-              Recursos, ejemplos y herramientas para complementar tu formación
-              como desarrollador.
+              {t("footer.description")}
             </Typography>
           </Box>
           <Box className={styles.col}>
             <Typography variant="h6" className={styles.heading} component="h4">
-              Navegación
+              {t("footer.nav_heading")}
             </Typography>
             <nav className={styles.nav}>
               {navLinks.map((link) => (
                 <Tooltip
                   key={link.page}
                   content={
-                    link.page === "home" ? "Ir al inicio" : "Ver complementos"
+                    link.page === "home" ? t("footer.home_tooltip") : t("footer.complementos_tooltip")
                   }
                 >
                   <Button onClick={() => onNavigate(link.page)}>
@@ -75,7 +77,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
           </Box>
           <Box className={styles.col}>
             <Typography variant="h6" className={styles.heading} component="h4">
-              Redes
+              {t("footer.social_heading")}
             </Typography>
             <Box className={styles.socials}>
               {socials.map((s) => (
@@ -95,29 +97,30 @@ export const Footer = ({ onNavigate }: FooterProps) => {
           </Box>
           <Box className={styles.col}>
             <Typography variant="h6" className={styles.heading} component="h4">
-              Contacto
+              {t("footer.contact_heading")}
             </Typography>
             <Box className={styles.contactGroup}>
               <Typography variant="body2" align="left">
-                ¿Ideas, sugerencias o colaboración? Escríbenos y te
-                responderemos a la brevedad.
+                {t("footer.contact_text")}
               </Typography>
-              <Tooltip content="Enviar correo">
+              <Tooltip content={t("footer.contact_tooltip")}>
                 <a href="mailto:hola@edukuk.dev" className={styles.email}>
                   hola@edukuk.dev
                 </a>
               </Tooltip>
             </Box>
-            <Tooltip content="Cambiar tema">
-              <ThemeToggle />
-            </Tooltip>
+            <Box display="flex" gap="0.5rem" alignItems="center">
+              <LanguageSwitcher />
+              <Tooltip content={t("footer.theme_tooltip")}>
+                <ThemeToggle />
+              </Tooltip>
+            </Box>
           </Box>
         </Box>
       </Box>
       <Box className={styles.bottom}>
         <Typography variant="caption" component="p">
-          &copy; {new Date().getFullYear()} edukuk &mdash; Hecho con
-          dedicaci&oacute;n para la comunidad dev.
+          {t("footer.copyright", { year: new Date().getFullYear() })}
         </Typography>
       </Box>
     </footer>

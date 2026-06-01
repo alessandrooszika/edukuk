@@ -2,6 +2,7 @@ import {
   forwardRef,
   useState,
   type InputHTMLAttributes,
+  type ChangeEvent,
   type FocusEvent,
   useId,
 } from "react";
@@ -29,9 +30,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   id: externalId,
   onFocus,
   onBlur,
+  onChange,
   ...rest
 }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [dirtyValue, setDirtyValue] = useState(
+    rest.defaultValue !== undefined && rest.defaultValue !== null
+      ? String(rest.defaultValue)
+      : ""
+  );
   const generatedId = useId();
   const id = externalId ?? generatedId;
   const errorId = `${id}-error`;
@@ -46,8 +53,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
     onBlur?.(e);
   };
 
-  const hasValue = rest.value !== undefined && rest.value !== "" && rest.value !== 0;
-  const float = isFocused || !!hasValue;
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDirtyValue(e.target.value);
+    onChange?.(e);
+  };
+
+  const value = rest.value !== undefined ? rest.value : dirtyValue;
+  const hasValue = value !== "" && value !== 0;
+  const float = isFocused || hasValue;
 
   return (
     <Box className={`${styles.wrapper} ${className}`}>
@@ -60,6 +73,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
           aria-describedby={error ? errorId : undefined}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          onChange={handleChange}
           {...rest}
         />
         {label && (

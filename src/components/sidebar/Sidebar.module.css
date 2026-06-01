@@ -1,0 +1,82 @@
+.sidebar {
+  position: relative;
+  display: flex;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  transition: transform 0.25s ease;
+  overflow: hidden;
+}
+
+.left {
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+}
+
+.left.closed {
+  transform: translateX(-100%);
+}
+
+.right {
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+}
+
+.right.closed {
+  transform: translateX(100%);
+}
+
+.toggle {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 48px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: color 0.15s, background 0.15s;
+  padding: 0;
+}
+
+.toggle:hover {
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.toggleRight {
+  right: -20px;
+  border-radius: 0 6px 6px 0;
+  border-left: none;
+}
+
+.toggleLeft {
+  left: -20px;
+  border-radius: 6px 0 0 6px;
+  border-right: none;
+}
+
+.chevron {
+  transition: transform 0.2s ease;
+}
+
+.chevronFlip {
+  transform: rotate(180deg);
+}
+
+.closed .chevron {
+  transform: rotate(180deg);
+}
+
+.closed .chevronFlip {
+  transform: rotate(0deg);
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  min-width: 0;
+}

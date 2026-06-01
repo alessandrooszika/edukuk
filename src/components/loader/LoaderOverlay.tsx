@@ -1,7 +1,8 @@
-import { useEffect, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Loader } from "./Loader";
-import styles from "./LoaderOverlay.module.css";
 import { Box } from "../box/Box";
+import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";
+import styles from "./LoaderOverlay.module.css";
 
 interface LoaderOverlayProps {
   isOpen: boolean;
@@ -18,18 +19,7 @@ export const LoaderOverlay = ({
   blockScroll = true,
   className = "",
 }: LoaderOverlayProps) => {
-  useEffect(() => {
-    if (!isOpen || !blockScroll) return;
-
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    document.documentElement.style.overflow = "hidden";
-    document.documentElement.style.paddingRight = `${scrollbarWidth}px`;
-
-    return () => {
-      document.documentElement.style.overflow = "";
-      document.documentElement.style.paddingRight = "";
-    };
-  }, [isOpen, blockScroll]);
+  useBodyScrollLock(isOpen && blockScroll);
 
   if (!isOpen) return null;
 

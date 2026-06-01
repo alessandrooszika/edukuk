@@ -1,9 +1,11 @@
-import { useState, useRef, useEffect, useMemo, useId } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback, useId } from "react";
 import { createPortal } from "react-dom";
 import { Input } from "../input/Input";
 import type { Variant, Size } from "../../types";
-import styles from "./Autocomplete.module.css";
 import { Box } from "../box/Box";
+import { useDropdownPosition } from "../../hooks/useDropdownPosition";
+import { useClickOutside } from "../../hooks/useClickOutside";
+import styles from "./Autocomplete.module.css";
 
 interface AutocompleteProps {
   options: string[];
@@ -45,37 +47,10 @@ export const Autocomplete = ({
     [options, value]
   );
 
-  useEffect(() => {
-    if (!open) return;
-    const handleClick = (e: PointerEvent) => {
-      if (
-        wrapperRef.current?.contains(e.target as Node) ||
-        listRef.current?.contains(e.target as Node)
-      ) return;
-      setOpen(false);
-    };
-    document.addEventListener("pointerdown", handleClick);
-    return () => document.removeEventListener("pointerdown", handleClick);
-  }, [open]);
-
-  useEffect(() => {
-    if (!open || !inputRef.current) return;
-    const updatePosition = () => {
-      if (!inputRef.current) return;
-      const rect = inputRef.current.getBoundingClientRect();
-      if (!listRef.current) return;
-      listRef.current.style.top = `${rect.bottom + 4}px`;
-      listRef.current.style.left = `${rect.left}px`;
-      listRef.current.style.minWidth = `${rect.width}px`;
-    };
-    updatePosition();
-    window.addEventListener("scroll", updatePosition, true);
-    window.addEventListener("resize", updatePosition);
-    return () => {
-      window.removeEventListener("scroll", updatePosition, true);
-      window.removeEventListener("resize", updatePosition);
-    };
-  }, [open, filteredOptions.length]);
+  useDropdownPosition(inputRef, listRef, open);
+  useClickOutside([wrapperRef, listRef], useCallback(() => {
+    setOpen(false);
+  }, []), open);
 
   const resetHighlight = (nextOpen: boolean, list: string[]) => {
     setHighlightIndex(nextOpen && list.length > 0 ? 0 : -1);
@@ -96,15 +71,14 @@ export const Autocomplete = ({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
+    const filtered = options.filter((opt) =>
+      opt.toLowerCase().includes(e.target.value.toLowerCase())
+    );
     if (!open) {
       setOpen(true);
-      resetHighlight(true, options.filter((opt) =>
-        opt.toLowerCase().includes(e.target.value.toLowerCase())
-      ));
+      resetHighlight(true, filtered);
     } else {
-      resetHighlight(true, options.filter((opt) =>
-        opt.toLowerCase().includes(e.target.value.toLowerCase())
-      ));
+      resetHighlight(true, filtered);
     }
   };
 
