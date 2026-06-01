@@ -10,12 +10,12 @@ describe("SplitPane", () => {
 
   it("renderiza en orientacion horizontal por defecto", () => {
     const { container } = render(<SplitPane primary={<div>A</div>} secondary={<div>B</div>} />);
-    expect(container.firstChild).toHaveClass("horizontal");
+    expect(container.firstChild).toHaveStyle("flex-direction: row");
   });
 
   it("renderiza en orientacion vertical", () => {
     const { container } = render(<SplitPane primary={<div>A</div>} secondary={<div>B</div>} orientation="vertical" />);
-    expect(container.firstChild).toHaveClass("vertical");
+    expect(container.firstChild).toHaveStyle("flex-direction: column");
   });
 
   it("tiene divisor", () => {

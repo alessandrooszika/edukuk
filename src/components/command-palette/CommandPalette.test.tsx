@@ -81,7 +81,7 @@ describe("CommandPalette", () => {
     const onClose = vi.fn();
     const { container } = render(<CommandPalette isOpen={true} onClose={onClose} groups={groups} />);
     const overlay = container.querySelector("[class*=overlay]");
-    if (overlay) fireEvent.click(overlay);
+    if (overlay) fireEvent.pointerDown(overlay);
     expect(onClose).toHaveBeenCalled();
   });
 

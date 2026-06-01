@@ -43,7 +43,7 @@ export function NotFoundPage() {
       <Box className={styles.code}>404</Box>
 
       <VStack alignItems="center" gap={8} style={{ maxWidth: 480, textAlign: "center" }}>
-        <h2 className={styles.title}>{t("notFound.title")}</h2>
+        <h1 className={styles.title}>{t("notFound.title")}</h1>
         <p className={styles.description}>{ironicMessage ?? t("notFound.default_message")}</p>
       </VStack>
 

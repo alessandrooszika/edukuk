@@ -1,17 +1,7 @@
 .container {
-  display: flex;
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 8px;
-}
-
-.horizontal {
-  flex-direction: row;
-  height: 300px;
-}
-
-.vertical {
-  flex-direction: column;
 }
 
 .primary {

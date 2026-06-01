@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { TreeView } from "./TreeView";
-import type { TreeNode } from "./TreeView";
+import type { TreeNode } from "../../utils/tree";
 
 const sampleData: TreeNode[] = [
   {

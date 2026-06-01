@@ -21,4 +21,9 @@ export {
   YouTubeIcon,
   LinkedInIcon,
   CloseIcon,
+  ChevronRightIcon,
+  ChevronLeftIcon,
+  AddIcon,
+  PackageIcon,
+  BellIcon,
 } from "./Icons";

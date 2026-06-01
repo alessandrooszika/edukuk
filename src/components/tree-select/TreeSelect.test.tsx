@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { useState } from "react";
-import type { TreeNode } from "../tree-view";
+import type { TreeNode } from "../../utils/tree";
 import { TreeSelect } from "./TreeSelect";
 
 const options: TreeNode[] = [

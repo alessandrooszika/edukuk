@@ -5,8 +5,8 @@ import { Navbar } from "./components/navbar/Navbar";
 import { Footer } from "./components/footer/Footer";
 import { Loader } from "./components/loader";
 import { Box } from "./components/box/Box";
+import { HomePage } from "./pages/HomePage";
 
-const HomePage = lazy(() => import("./pages/HomePage").then((m) => ({ default: m.HomePage })));
 const ComplementosPage = lazy(() => import("./pages/ComplementosPage").then((m) => ({ default: m.ComplementosPage })));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage").then((m) => ({ default: m.NotFoundPage })));
 
@@ -52,8 +52,11 @@ function App() {
 
   return (
     <ErrorBoundary onReset={() => { window.location.hash = "home"; }}>
+      <a href="#main-content" className="skip-link">
+        Saltar al contenido principal
+      </a>
       <Navbar currentPage={page} onNavigate={navigate} />
-      <Box style={{ flex: 1 }}>
+      <Box role="main" id="main-content" style={{ flex: 1 }}>
         <Suspense fallback={<Box style={{ display: "flex", justifyContent: "center", padding: "4rem" }}><Loader size="lg" /></Box>}>
           {page === "home" ? (
             <HomePage key="home" onNavigate={navigate} />

@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next";
 import type { ReactNode } from "react";
+import { Box } from "../box/Box";
+import { ChevronLeftIcon } from "../icons";
 import styles from "./Sidebar.module.css";
 
 interface SidebarProps {
@@ -21,15 +23,14 @@ export const Sidebar = ({
 }: SidebarProps) => {
   const { t } = useTranslation();
   const isLeft = side === "left";
-  const sideWidth = typeof width === "number" ? `${width}px` : width;
   const toggleAria = isOpen
     ? t("sidebar.close")
     : t("sidebar.open");
 
   return (
-    <div
+    <Box
+      width={width}
       className={`${styles.sidebar} ${isLeft ? styles.left : styles.right} ${isOpen ? styles.open : styles.closed} ${className}`}
-      style={{ width: sideWidth }}
     >
       <button
         type="button"
@@ -37,22 +38,12 @@ export const Sidebar = ({
         onClick={onToggle}
         aria-label={toggleAria}
       >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
+        <ChevronLeftIcon
+          size={14}
           className={`${styles.chevron} ${isLeft ? "" : styles.chevronFlip}`}
-        >
-          <polyline points="15 18 9 12 15 6" />
-        </svg>
+        />
       </button>
-      <div className={styles.content}>{children}</div>
-    </div>
+      <Box className={styles.content}>{children}</Box>
+    </Box>
   );
 };

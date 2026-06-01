@@ -49,7 +49,7 @@ export const Footer = ({ onNavigate }: FooterProps) => {
       <Box className={styles.inner}>
         <Box className={styles.grid}>
           <Box className={`${styles.col} ${styles.colBrand}`}>
-            <Typography variant="h3" className={styles.brand}>
+            <Typography variant="body1" component="div" className={styles.brand}>
               <LogoWatermark size={56} />
             </Typography>
             <Typography variant="body2">

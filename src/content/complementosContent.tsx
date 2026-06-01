@@ -48,7 +48,7 @@ import { FormGroup } from "../components/form-group";
 import { DataTable } from "../components/data-table";
 import type { Column as DataColumn } from "../components/data-table";
 import { TreeView } from "../components/tree-view";
-import type { TreeNode } from "../components/tree-view";
+import type { TreeNode } from "../utils/tree";
 import { VirtualizedList } from "../components/virtualized-list";
 import { ToastProvider, useToast } from "../components/toast";
 import { TreeSelect } from "../components/tree-select";
@@ -62,6 +62,7 @@ import {
   CalendarIcon, UploadIcon, FileIcon, CheckIcon,
   InfoIcon, SuccessIcon, WarningIcon, ErrorIcon,
   GitHubIcon, TwitterIcon, YouTubeIcon, LinkedInIcon, CloseIcon,
+  AddIcon, PackageIcon, BellIcon,
 } from "../components/icons";
 import htmlCodeImage from "../assets/html-code-image.webp";
 import cssCodeImage from "../assets/css-code-image.webp";
@@ -538,8 +539,8 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             {misHabilidades.map((skill) => (
               <Box key={skill.name} display="flex" flexDirection="column" gap="0.25rem">
                 <Box display="flex" justifyContent="space-between" alignItems="center">
-                  <span className={s.skillName}>{skill.name}</span>
-                  <span className={s.skillValue}>{skill.value}%</span>
+                  <Typography variant="body2" component="span" className={s.skillName}>{skill.name}</Typography>
+                  <Typography variant="body2" component="span" className={s.skillValue}>{skill.value}%</Typography>
                 </Box>
                 <Meter value={skill.value} min={0} max={100} />
               </Box>
@@ -607,11 +608,11 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             <Divider label="Info" variant="info" size="md" />
             <Typography variant="body2">{t("complementos.divider_vertical")}</Typography>
             <Box display="flex" gap="1rem" style={{ height: 60 }} alignItems="center">
-              <span>{t("complementos.divider_left")}</span>
+              <Typography variant="body2" component="span">{t("complementos.divider_left")}</Typography>
               <Divider orientation="vertical" />
-              <span>{t("complementos.divider_center")}</span>
+              <Typography variant="body2" component="span">{t("complementos.divider_center")}</Typography>
               <Divider orientation="vertical" size="md" variant="danger" />
-              <span>{t("complementos.divider_right")}</span>
+              <Typography variant="body2" component="span">{t("complementos.divider_right")}</Typography>
             </Box>
           </Box>
         </CardBody>
@@ -734,8 +735,8 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </HStack>
             <Typography variant="body2"><strong>Stack</strong> — {t("complementos.stack_label")}</Typography>
             <Stack direction="row" gap="0.75rem" alignItems="center">
-              <span>⚡</span>
-              <span>{t("complementos.stack_desc")}</span>
+              <Box aria-hidden="true">⚡</Box>
+              <Typography variant="body2" component="span">{t("complementos.stack_desc")}</Typography>
             </Stack>
           </VStack>
         </CardBody>
@@ -807,18 +808,18 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
-            <span style={{ position: "relative", display: "inline-block" }}>
+            <Box display="inline-block" style={{ position: "relative" }}>
               <Button>{t("complementos.badge_notifications")}</Button>
               <Badge variant="default" size="sm">3</Badge>
-            </span>
-            <span style={{ position: "relative", display: "inline-block" }}>
+            </Box>
+            <Box display="inline-block" style={{ position: "relative" }}>
               <Button variant="info">{t("complementos.badge_messages")}</Button>
               <Badge variant="info" size="md">7</Badge>
-            </span>
-            <span style={{ position: "relative", display: "inline-block" }}>
+            </Box>
+            <Box display="inline-block" style={{ position: "relative" }}>
               <Button variant="success">{t("complementos.badge_achievements")}</Button>
               <Badge variant="success" size="lg">99+</Badge>
-            </span>
+            </Box>
           </Box>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center">
             <Badge variant="default" standalone>default</Badge>
@@ -1062,7 +1063,7 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
         <CardBody>
           <Box display="flex" flexDirection="column" gap="1rem">
             <EmptyState
-              icon={<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 12h6M12 9v6"/></svg>}
+              icon={<AddIcon />}
               title={t("complementos.emptystate_noresults_title")}
               description={t("complementos.emptystate_noresults_desc")}
               action={<Button variant="info">{t("complementos.emptystate_noresults_action")}</Button>}
@@ -1070,12 +1071,12 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             <Divider />
             <Box display="flex" gap="1rem" flexWrap="wrap">
               <EmptyState
-                icon={<span>📦</span>}
+                icon={<PackageIcon />}
                 title={t("complementos.emptystate_cart_title")}
                 description={t("complementos.emptystate_cart_desc")}
               />
               <EmptyState
-                icon={<span>🔔</span>}
+                icon={<BellIcon />}
                 title={t("complementos.emptystate_notifications_title")}
                 description={t("complementos.emptystate_notifications_desc")}
               />
@@ -1096,12 +1097,12 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
         </CardHeader>
         <CardBody>
           <Box display="flex" flexDirection="column" gap="0.75rem">
-            <Typography variant="h1">{t("complementos.typography_h1")}</Typography>
-            <Typography variant="h2">{t("complementos.typography_h2")}</Typography>
-            <Typography variant="h3">{t("complementos.typography_h3")}</Typography>
-            <Typography variant="h4">{t("complementos.typography_h4")}</Typography>
-            <Typography variant="h5">{t("complementos.typography_h5")}</Typography>
-            <Typography variant="h6">{t("complementos.typography_h6")}</Typography>
+            <Typography variant="h1" component="span">{t("complementos.typography_h1")}</Typography>
+            <Typography variant="h2" component="span">{t("complementos.typography_h2")}</Typography>
+            <Typography variant="h3" component="span">{t("complementos.typography_h3")}</Typography>
+            <Typography variant="h4" component="span">{t("complementos.typography_h4")}</Typography>
+            <Typography variant="h5" component="span">{t("complementos.typography_h5")}</Typography>
+            <Typography variant="h6" component="span">{t("complementos.typography_h6")}</Typography>
             <Typography variant="body1">{t("complementos.typography_body1")}</Typography>
             <Typography variant="body2">{t("complementos.typography_body2")}</Typography>
             <Typography variant="caption">{t("complementos.typography_caption")}</Typography>
@@ -1707,10 +1708,10 @@ function VirtualizedListDemo({ t }: { t: T }) {
       itemHeight={36}
       height={250}
       renderItem={(item, index) => (
-        <div style={{ padding: "0 0.75rem", lineHeight: "36px", fontSize: "0.875rem", borderBottom: "1px solid var(--border)", color: "var(--text-h)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-          <span style={{ color: "var(--accent)", marginRight: "0.5rem", fontWeight: 600 }}>{index + 1}</span>
+        <Box display="flex" alignItems="center" gap="0.5rem" style={{ padding: "0 0.75rem", lineHeight: "36px", fontSize: "0.875rem", borderBottom: "1px solid var(--border)", color: "var(--text-h)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+          <Typography variant="body2" component="span" color="accent" style={{ fontWeight: 600 }}>{index + 1}</Typography>
           {item}
-        </div>
+        </Box>
       )}
     />
   );

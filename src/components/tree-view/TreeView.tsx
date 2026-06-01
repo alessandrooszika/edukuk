@@ -1,14 +1,10 @@
 import { useState, useCallback, useRef, useEffect, useMemo } from "react";
-import type { ReactNode } from "react";
+import { Box } from "../box/Box";
+import { Typography } from "../typography";
+import { ChevronRightIcon } from "../icons";
+import type { TreeNode } from "../../utils/tree";
+import { flattenTree } from "../../utils/tree";
 import styles from "./TreeView.module.css";
-
-export interface TreeNode {
-  id: string;
-  label: string;
-  icon?: ReactNode;
-  children?: TreeNode[];
-  disabled?: boolean;
-}
 
 interface TreeViewProps {
   data: TreeNode[];
@@ -29,19 +25,7 @@ export const TreeView = ({
   const [focusedIndex, setFocusedIndex] = useState(0);
   const treeRef = useRef<HTMLDivElement>(null);
 
-  const visibleNodes = useMemo(() => {
-    const result: { node: TreeNode; depth: number }[] = [];
-    function walk(nodes: TreeNode[], depth: number) {
-      for (const node of nodes) {
-        result.push({ node, depth });
-        if (node.children && expandedIds.has(node.id)) {
-          walk(node.children, depth + 1);
-        }
-      }
-    }
-    walk(data, 0);
-    return result;
-  }, [data, expandedIds]);
+  const visibleNodes = useMemo(() => flattenTree(data, expandedIds), [data, expandedIds]);
 
   const toggle = useCallback((id: string) => {
     setExpandedIds((prev) => {
@@ -116,7 +100,7 @@ export const TreeView = ({
   }, [visibleNodes, focusedIndex, expandedIds, toggle, selectNode]);
 
   return (
-    <div
+    <Box
       ref={treeRef}
       className={`${styles.tree} ${className}`}
       role="tree"
@@ -130,7 +114,7 @@ export const TreeView = ({
         const isDisabled = !!node.disabled;
 
         return (
-          <div
+          <Box
             key={node.id}
             className={styles.node}
             role="treeitem"
@@ -140,7 +124,7 @@ export const TreeView = ({
             aria-level={depth + 1}
             style={{ paddingLeft: `${depth * 1.25 + 0.25}rem` }}
           >
-            <div
+            <Box
               className={`${styles.nodeRow} ${isSelected ? styles.selected : ""} ${isDisabled ? styles.disabled : ""}`}
               onClick={() => {
                 if (!isDisabled) {
@@ -152,16 +136,18 @@ export const TreeView = ({
               style={isFocused ? { outline: "2px solid var(--accent)", outlineOffset: "-2px" } : undefined}
             >
               {hasChildren ? (
-                <span className={`${styles.toggle} ${isExpanded ? styles.expanded : ""}`}>▶</span>
+                <Box className={`${styles.toggle} ${isExpanded ? styles.expanded : ""}`}>
+                  <ChevronRightIcon size={10} />
+                </Box>
               ) : (
-                <span className={styles.togglePlaceholder} />
+                <Box className={styles.togglePlaceholder} />
               )}
-              {node.icon && <span className={styles.icon}>{node.icon}</span>}
-              <span className={styles.label}>{node.label}</span>
-            </div>
-          </div>
+              {node.icon && <Box className={styles.icon}>{node.icon}</Box>}
+              <Typography variant="body2" className={styles.label} noWrap>{node.label}</Typography>
+            </Box>
+          </Box>
         );
       })}
-    </div>
+    </Box>
   );
 };

@@ -188,6 +188,45 @@ export const LinkedInIcon = ({ size = 22, className, style }: IconProps) => (
   </svg>
 );
 
+/* ---- Chevron navigation ---- */
+
+export const ChevronRightIcon = ({ size = 8, className, style }: IconProps) => (
+  <svg viewBox="0 0 12 12" strokeWidth="1.5" width={size} height={size} aria-hidden="true" className={className} style={style} {...strokeAttrs}>
+    <polyline points="4,2 8,6 4,10" />
+  </svg>
+);
+
+export const ChevronLeftIcon = ({ size = 14, className, style }: IconProps) => (
+  <svg viewBox="0 0 12 12" strokeWidth="1.5" width={size} height={size} aria-hidden="true" className={className} style={style} {...strokeAttrs}>
+    <polyline points="8,2 4,6 8,10" />
+  </svg>
+);
+
+/* ---- EmptyState icons ---- */
+
+export const AddIcon = ({ size = 48, className, style }: IconProps) => (
+  <svg viewBox="0 0 24 24" strokeWidth="1.5" width={size} height={size} aria-hidden="true" className={className} style={style} strokeLinejoin="round" {...strokeAttrs}>
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <line x1="9" y1="12" x2="15" y2="12" />
+    <line x1="12" y1="9" x2="12" y2="15" />
+  </svg>
+);
+
+export const PackageIcon = ({ size = 48, className, style }: IconProps) => (
+  <svg viewBox="0 0 24 24" strokeWidth="1.5" width={size} height={size} aria-hidden="true" className={className} style={style} strokeLinejoin="round" {...strokeAttrs}>
+    <path d="M12 2L2 7v10l10 5 10-5V7z" />
+    <polyline points="2,7 12,12 22,7" />
+    <line x1="12" y1="12" x2="12" y2="22" />
+  </svg>
+);
+
+export const BellIcon = ({ size = 48, className, style }: IconProps) => (
+  <svg viewBox="0 0 24 24" strokeWidth="1.5" width={size} height={size} aria-hidden="true" className={className} style={style} strokeLinejoin="round" {...strokeAttrs}>
+    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+    <path d="M13.73 21a2 2 0 01-3.46 0" />
+  </svg>
+);
+
 /* ---- Close (migrated from CloseIcon.tsx) ---- */
 
 export const CloseIcon = ({ size = 14, className, style }: IconProps) => (

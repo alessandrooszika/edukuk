@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect, type ReactNode } from "react";
+import { Box } from "../box/Box";
 import styles from "./SplitPane.module.css";
 
 interface SplitPaneProps {
@@ -51,15 +52,19 @@ export const SplitPane = ({
   }, [handlePointerMove, handlePointerUp]);
 
   return (
-    <div
+    <Box
       ref={containerRef}
-      className={`${styles.container} ${isHorizontal ? styles.horizontal : styles.vertical} ${className}`}
+      display="flex"
+      flexDirection={isHorizontal ? "row" : "column"}
+      gap={0}
+      className={`${styles.container} ${className}`}
+      style={isHorizontal ? { height: 300 } : undefined}
     >
-      <div className={styles.primary} style={isHorizontal ? { width: size } : { height: size }}>
+      <Box className={styles.primary} width={isHorizontal ? size : undefined} style={isHorizontal ? undefined : { height: size }}>
         {primary}
-      </div>
-      <div className={styles.divider} onPointerDown={handlePointerDown} />
-      <div className={styles.secondary}>{secondary}</div>
-    </div>
+      </Box>
+      <Box className={styles.divider} onPointerDown={handlePointerDown} />
+      <Box className={styles.secondary}>{secondary}</Box>
+    </Box>
   );
 };

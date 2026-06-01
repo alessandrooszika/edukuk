@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
-import type { TreeNode } from "../tree-view";
-import { ChevronDownIcon } from "../icons";
+import type { TreeNode } from "../../utils/tree";
+import { flattenTree } from "../../utils/tree";
+import { ChevronDownIcon, ChevronRightIcon } from "../icons";
 import { Box } from "../box/Box";
+import { Typography } from "../typography";
 import { useDropdownPosition } from "../../hooks/useDropdownPosition";
 import { useClickOutside } from "../../hooks/useClickOutside";
+import { useFocusTrap } from "../../hooks/useFocusTrap";
 import styles from "./TreeSelect.module.css";
 
 interface TreeSelectProps {
@@ -17,20 +20,6 @@ interface TreeSelectProps {
   error?: string;
   disabled?: boolean;
   className?: string;
-}
-
-function flattenTree(nodes: TreeNode[], expandedIds: Set<string>): { node: TreeNode; depth: number }[] {
-  const result: { node: TreeNode; depth: number }[] = [];
-  function walk(list: TreeNode[], depth: number) {
-    for (const n of list) {
-      result.push({ node: n, depth });
-      if (n.children && expandedIds.has(n.id)) {
-        walk(n.children, depth + 1);
-      }
-    }
-  }
-  walk(nodes, 0);
-  return result;
 }
 
 function getLabel(nodes: TreeNode[], value: string): string {
@@ -60,7 +49,7 @@ export const TreeSelect = ({
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
   const wrapperRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const listRef = useRef<HTMLUListElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   const visibleNodes = useMemo(() => flattenTree(options, expandedIds), [options, expandedIds]);
   const selectedLabel = useMemo(() => getLabel(options, value), [options, value]);
@@ -70,6 +59,11 @@ export const TreeSelect = ({
     setOpen(false);
     setHighlightIndex(0);
   }, []), open);
+  useFocusTrap(listRef, open, useCallback(() => {
+    setOpen(false);
+    setHighlightIndex(0);
+    triggerRef.current?.focus();
+  }, []));
 
   const toggleExpand = useCallback((id: string) => {
     setExpandedIds((prev) => {
@@ -149,7 +143,7 @@ export const TreeSelect = ({
 
   return (
     <Box ref={wrapperRef} className={`${styles.wrapper} ${className}`}>
-      {label && <span className={styles.label}>{label}</span>}
+      {label && <Typography variant="caption" className={styles.label}>{label}</Typography>}
       <button
         ref={triggerRef}
         type="button"
@@ -164,13 +158,13 @@ export const TreeSelect = ({
         aria-expanded={open}
         disabled={disabled}
       >
-        <span className={`${styles.value} ${selectedLabel ? styles.selected : ""}`}>
+        <Typography variant="body2" className={`${styles.value} ${selectedLabel ? styles.selected : ""}`} noWrap>
           {selectedLabel || placeholderText}
-        </span>
+        </Typography>
         <ChevronDownIcon size={12} className={`${styles.chevron} ${open ? styles.chevronOpen : ""}`} />
       </button>
       {open && createPortal(
-        <ul
+        <Box
           ref={listRef}
           className={styles.dropdown}
           onKeyDown={handleListKeyDown}
@@ -183,7 +177,7 @@ export const TreeSelect = ({
             const isHighlighted = i === highlightIndex;
             const isLeafSelected = !hasChildren && node.id === value;
             return (
-              <li
+              <Box
                 key={node.id}
                 className={`${styles.option} ${isHighlighted ? styles.optionHighlighted : ""}`}
                 role="treeitem"
@@ -201,21 +195,23 @@ export const TreeSelect = ({
                 onPointerEnter={() => setHighlightIndex(i)}
               >
                 {hasChildren ? (
-                  <span className={`${styles.toggle} ${isExpanded ? styles.toggleExpanded : ""}`}>▶</span>
+                  <Box className={`${styles.toggle} ${isExpanded ? styles.toggleExpanded : ""}`}>
+                    <ChevronRightIcon size={10} />
+                  </Box>
                 ) : (
-                  <span className={styles.togglePlaceholder} />
+                  <Box className={styles.togglePlaceholder} />
                 )}
-                {node.icon && <span className={styles.icon}>{node.icon}</span>}
-                <span className={`${styles.optionText} ${isLeafSelected ? styles.optionTextSelected : ""}`}>
+                {node.icon && <Box className={styles.icon}>{node.icon}</Box>}
+                <Typography variant="body2" className={`${styles.optionText} ${isLeafSelected ? styles.optionTextSelected : ""}`} noWrap>
                   {node.label}
-                </span>
-              </li>
+                </Typography>
+              </Box>
             );
           })}
-        </ul>,
+        </Box>,
         document.body
       )}
-      {error && <span className={styles.error} role="alert">{error}</span>}
+      {error && <Typography variant="caption" className={styles.error} role="alert">{error}</Typography>}
     </Box>
   );
 };

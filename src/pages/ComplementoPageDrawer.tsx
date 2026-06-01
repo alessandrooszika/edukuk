@@ -56,7 +56,7 @@ export const ComplementoPageDrawer = ({ defaultTab = 0, onTabChange }: Complemen
         <Button iconOnly className={styles.menuBtn} onClick={() => setNavDrawerOpen(true)} aria-label={t("complementos.drawer_menu_aria")}>
           <MenuIcon size={20} />
         </Button>
-        <Typography variant="h2">{t("complementos.page_title")}</Typography>
+        <Typography variant="h1">{t("complementos.page_title")}</Typography>
       </Box>
 
       <Drawer isOpen={navDrawerOpen} onClose={() => setNavDrawerOpen(false)} position="left" size="sm" title={t("complementos.drawer_title")}>

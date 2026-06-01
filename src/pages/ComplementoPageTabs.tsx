@@ -29,7 +29,7 @@ export const ComplementoPageTabs = ({ defaultTab, onTabChange }: ComplementoPage
 
   return (
     <Box className={styles.page}>
-      <Typography variant="h2" className={styles.title}>{t("complementos.page_title")}</Typography>
+      <Typography variant="h1" className={styles.title}>{t("complementos.page_title")}</Typography>
       <Tabs
         defaultIndex={defaultTab}
         onChange={onTabChange}

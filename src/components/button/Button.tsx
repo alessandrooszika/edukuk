@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef } from "react";
+import { forwardRef, type ComponentPropsWithoutRef } from "react";
 import type { Variant } from "../../types";
 import styles from "./Button.module.css";
 
@@ -7,21 +7,18 @@ interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   iconOnly?: boolean;
 }
 
-export const Button = ({
-  children,
-  className = "",
-  type = "button",
-  variant = "default",
-  iconOnly,
-  ...rest
-}: ButtonProps) => {
-  return (
-    <button
-      type={type}
-      className={`${styles.btn} ${styles[variant]} ${iconOnly ? styles.iconOnly : ""} ${className}`.trim()}
-      {...rest}
-    >
-      {children}
-    </button>
-  );
-};
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ children, className = "", type = "button", variant = "default", iconOnly, ...rest }, ref) => {
+    return (
+      <button
+        ref={ref}
+        type={type}
+        className={`${styles.btn} ${styles[variant]} ${iconOnly ? styles.iconOnly : ""} ${className}`.trim()}
+        {...rest}
+      >
+        {children}
+      </button>
+    );
+  }
+);
+Button.displayName = "Button";

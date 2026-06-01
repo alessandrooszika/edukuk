@@ -3,7 +3,7 @@ import { Table } from "../components/table";
 import { DataTable } from "../components/data-table";
 import type { Column } from "../components/data-table";
 import { TreeView } from "../components/tree-view";
-import type { TreeNode } from "../components/tree-view";
+import type { TreeNode } from "../utils/tree";
 import { VirtualizedList } from "../components/virtualized-list";
 import { TreeSelect } from "../components/tree-select";
 import { Pagination } from "../components/pagination";

@@ -5,6 +5,8 @@ import {
   CalendarIcon, UploadIcon, FileIcon, CheckIcon,
   InfoIcon, SuccessIcon, WarningIcon, ErrorIcon,
   CloseIcon,
+  ChevronRightIcon, ChevronLeftIcon,
+  AddIcon, PackageIcon, BellIcon,
 } from "./Icons";
 
 describe("Icons", () => {
@@ -27,6 +29,11 @@ describe("Icons", () => {
     ["WarningIcon", WarningIcon],
     ["ErrorIcon", ErrorIcon],
     ["CloseIcon", CloseIcon],
+    ["ChevronRightIcon", ChevronRightIcon],
+    ["ChevronLeftIcon", ChevronLeftIcon],
+    ["AddIcon", AddIcon],
+    ["PackageIcon", PackageIcon],
+    ["BellIcon", BellIcon],
   ] as const;
 
   it.each(icons)("%s renderiza svg con aria-hidden", (_, Icon) => {

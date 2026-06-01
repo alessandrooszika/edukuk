@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef, useMemo, useCallback, startTransition, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Box } from "../box/Box";
+import { Typography } from "../typography";
 import { SearchIcon } from "../icons";
 import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";
+import { useFocusTrap } from "../../hooks/useFocusTrap";
+import { useClickOutside } from "../../hooks/useClickOutside";
 import styles from "./CommandPalette.module.css";
 
 export interface Command {
@@ -41,8 +44,11 @@ export const CommandPalette = ({
   const [highlightIndex, setHighlightIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
+  const paletteRef = useRef<HTMLDivElement>(null);
 
   useBodyScrollLock(isOpen);
+  useFocusTrap(paletteRef, isOpen, onClose);
+  useClickOutside([paletteRef], onClose, isOpen);
 
   const filtered = useMemo(() => {
     if (!query.trim()) return groups;
@@ -79,11 +85,6 @@ export const CommandPalette = ({
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        onClose();
-        return;
-      }
       if (e.key === "ArrowDown") {
         e.preventDefault();
         setHighlightIndex((prev) => Math.min(prev + 1, filteredFlat.length - 1));
@@ -104,20 +105,16 @@ export const CommandPalette = ({
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose, filteredFlat, highlightIndex, execute]);
+  }, [isOpen, filteredFlat, highlightIndex, execute]);
 
   if (!isOpen) return null;
 
   let cmdIndex = 0;
 
   return (
-    <Box
-      ref={overlayRef}
-      className={styles.overlay}
-      onClick={onClose}
-    >
-      <Box className={styles.palette} onClick={(e) => e.stopPropagation()}>
-        <div className={styles.inputWrapper}>
+    <Box ref={overlayRef} className={styles.overlay}>
+      <Box ref={paletteRef} className={styles.palette}>
+        <Box className={styles.inputWrapper}>
           <SearchIcon className={styles.searchIcon} size={18} />
           <input
             ref={inputRef}
@@ -133,16 +130,16 @@ export const CommandPalette = ({
             aria-expanded
             aria-haspopup="listbox"
           />
-        </div>
-        <div className={styles.results} role="listbox">
+        </Box>
+        <Box className={styles.results} role="listbox">
           {filtered.map((group) => (
-            <div key={group.heading}>
-              <div className={styles.groupHeading}>{group.heading}</div>
+            <Box key={group.heading}>
+              <Typography variant="caption" className={styles.groupHeading}>{group.heading}</Typography>
               {group.items.map((cmd) => {
                 const idx = cmdIndex++;
                 const isHighlighted = idx === highlightIndex;
                 return (
-                  <div
+                  <Box
                     key={cmd.id}
                     className={`${styles.command} ${isHighlighted ? styles.commandHighlighted : ""}`}
                     role="option"
@@ -150,25 +147,25 @@ export const CommandPalette = ({
                     onClick={() => execute(cmd.id)}
                     onPointerEnter={() => setHighlightIndex(idx)}
                   >
-                    {cmd.icon && <span className={styles.commandIcon}>{cmd.icon}</span>}
-                    <div className={styles.commandInfo}>
-                      <span className={styles.commandLabel}>{cmd.label}</span>
+                    {cmd.icon && <Box className={styles.commandIcon}>{cmd.icon}</Box>}
+                    <Box className={styles.commandInfo}>
+                      <Typography variant="body2" className={styles.commandLabel} noWrap>{cmd.label}</Typography>
                       {cmd.description && (
-                        <span className={styles.commandDesc}>{cmd.description}</span>
+                        <Typography variant="caption" className={styles.commandDesc} noWrap>{cmd.description}</Typography>
                       )}
-                    </div>
+                    </Box>
                     {cmd.shortcut && (
                       <kbd className={styles.shortcut}>{cmd.shortcut}</kbd>
                     )}
-                  </div>
+                  </Box>
                 );
               })}
-            </div>
+            </Box>
           ))}
           {filteredFlat.length === 0 && (
-            <div className={styles.empty}>{t("commandPalette.noResults")}</div>
+            <Typography variant="body2" align="center" className={styles.empty}>{t("commandPalette.noResults")}</Typography>
           )}
-        </div>
+        </Box>
       </Box>
     </Box>
   );
