@@ -57,6 +57,8 @@ import {
   InfoIcon, SuccessIcon, WarningIcon, ErrorIcon,
   GitHubIcon, TwitterIcon, YouTubeIcon, LinkedInIcon, CloseIcon,
 } from "../components/icons";
+import htmlCodeImage from "../assets/html-code-image.webp";
+import cssCodeImage from "../assets/css-code-image.webp";
 import { misHabilidades } from "../data/skills";
 
 export const categories = [
@@ -539,9 +541,9 @@ export function renderLayoutSection(s: Record<string, string>, bs: Record<string
           <Typography variant="h3" gutterBottom>Image 🖼️</Typography>
         </CardHeader>
         <CardBody>
-          <Image src="/src/assets/html-code-image.webp" alt="Ejemplo sin caption"
+          <Image src={htmlCodeImage} alt="Ejemplo sin caption"
             style={{ width: "100%", height: 192, objectFit: "cover", borderRadius: 12 }} />
-          <Image src="/src/assets/css-code-image.webp" alt="Ejemplo con caption"
+          <Image src={cssCodeImage} alt="Ejemplo con caption"
             caption="Imagen con caption descriptivo debajo"
             style={{ width: "100%", height: 192, objectFit: "cover", borderRadius: 12 }} />
         </CardBody>
@@ -731,17 +733,17 @@ export function renderLayoutSection(s: Record<string, string>, bs: Record<string
           <Box display="flex" flexDirection="column" gap="1rem">
             <Typography variant="body2">16:9</Typography>
             <AspectRatio>
-              <img src="/src/assets/html-code-image.webp" alt="16:9"
+              <img src={htmlCodeImage} alt="16:9"
                 style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 }} />
             </AspectRatio>
             <Typography variant="body2">4:3</Typography>
             <AspectRatio ratio={4 / 3} maxWidth={400}>
-              <img src="/src/assets/css-code-image.webp" alt="4:3"
+              <img src={cssCodeImage} alt="4:3"
                 style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 }} />
             </AspectRatio>
             <Typography variant="body2">1:1 cuadrado</Typography>
             <AspectRatio ratio={1} maxWidth={200}>
-              <img src="/src/assets/html-code-image.webp" alt="1:1"
+              <img src={htmlCodeImage} alt="1:1"
                 style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 }} />
             </AspectRatio>
           </Box>
@@ -1026,7 +1028,7 @@ export function renderDisplaySection(st: DisplayState, bs: Record<string, string
         </CardHeader>
         <CardBody>
           <Box display="flex" gap="1rem" flexWrap="wrap" justifyContent="center" alignItems="center">
-            <Avatar src="/src/assets/html-code-image.webp" alt="JP" />
+            <Avatar src={htmlCodeImage} alt="JP" />
             <Avatar alt="JD" color="info" />
             <Avatar alt="María García" color="success" size="lg" variant="rounded" />
             <Avatar alt="AB" color="warning" />

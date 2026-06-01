@@ -24,7 +24,7 @@ export const LogoWatermark = ({ size = 24, className = "" }: LogoWatermarkProps)
     <span className={`${styles.wrapper} ${className}`}>
       <Image
         className={styles.img}
-        src={dark ? "/favicon-dark.webp" : "/favicon-light.webp"}
+        src={dark ? "favicon-dark.webp" : "favicon-light.webp"}
         width={size}
         height={size}
         alt=""
