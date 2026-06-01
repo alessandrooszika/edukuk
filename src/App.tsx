@@ -28,7 +28,18 @@ function App() {
   }, []);
 
   useEffect(() => {
-    document.title = page === "404" ? "edukuk | 404" : `edukuk | ${page}`;
+    const descriptions: Record<Page, string> = {
+      home: "edukuk — Biblioteca de componentes UI moderna con React 19, TypeScript y CSS Modules.",
+      complementos: "Explorá los más de 50 componentes UI de edukuk: botones, inputs, layouts, displays, overlays y más.",
+      "404": "Página no encontrada — edukuk",
+    };
+    const title = page === "404" ? "edukuk | 404" : `edukuk | ${page}`;
+    document.title = title;
+    document.querySelector('meta[name="description"]')?.setAttribute("content", descriptions[page]);
+    document.querySelector('meta[property="og:title"]')?.setAttribute("content", title);
+    document.querySelector('meta[property="og:description"]')?.setAttribute("content", descriptions[page]);
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute("content", title);
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute("content", descriptions[page]);
   }, [page]);
 
   const navigate = (p: Page) => {

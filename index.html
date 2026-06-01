@@ -6,30 +6,26 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
+    <meta name="description" content="edukuk — Biblioteca de componentes UI moderna con React 19, TypeScript y CSS Modules. Más de 50 componentes accesibles, responsive y personalizables con tema claro/oscuro." />
+    <meta name="keywords" content="React, TypeScript, CSS Modules, UI components, componentes React, edukuk, Alessandro Oszika" />
+    <meta name="author" content="Alessandro Oszika" />
+    <meta name="theme-color" content="#aa3bff" />
+    <meta property="og:title" content="edukuk — Componentes UI con React y TypeScript" />
+    <meta property="og:description" content="Biblioteca de más de 50 componentes UI accesibles y personalizables. React 19, TypeScript, CSS Modules." />
+    <meta property="og:image" content="favicon-dark.webp" />
+    <meta property="og:url" content="https://alessandrooszika.github.io/edukuk/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="edukuk — Componentes UI con React y TypeScript" />
+    <meta name="twitter:description" content="Biblioteca de más de 50 componentes UI accesibles y personalizables. React 19, TypeScript, CSS Modules." />
+    <link rel="canonical" href="https://alessandrooszika.github.io/edukuk/" />
+    <link rel="icon" type="image/webp" href="favicon-dark.webp" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/webp" href="favicon-light.webp" media="(prefers-color-scheme: light)" />
     <title>edukuk</title>
     <script>
       (function () {
         var saved = localStorage.getItem("theme");
         document.documentElement.setAttribute("data-theme", saved || "light");
-      })();
-    </script>
-    <script>
-      (function () {
-        var isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        var favicon = document.querySelector('link[rel="icon"]');
-        if (!favicon) {
-          favicon = document.createElement("link");
-          favicon.rel = "icon";
-          document.head.appendChild(favicon);
-        }
-        favicon.href = isDark ? "favicon-dark.webp" : "favicon-light.webp";
-        window
-          .matchMedia("(prefers-color-scheme: dark)")
-          .addEventListener("change", function (e) {
-            favicon.href = e.matches
-              ? "favicon-dark.webp"
-              : "favicon-light.webp";
-          });
       })();
     </script>
   </head>
