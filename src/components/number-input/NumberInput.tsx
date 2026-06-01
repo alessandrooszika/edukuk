@@ -15,6 +15,11 @@ interface NumberInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "
   step?: number;
 }
 
+const sanitizeNumeric = (raw: string): string => {
+  const cleaned = raw.replace(/\D/g, "");
+  return cleaned.replace(/^0+(?!$)/, "");
+};
+
 export const NumberInput = ({
   variant = "default",
   size = "md",
@@ -55,6 +60,51 @@ export const NumberInput = ({
     input.dispatchEvent(nativeEvent);
   }, [id, onChange]);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const sanitized = sanitizeNumeric(e.target.value);
+    const nativeInput = e.target as HTMLInputElement;
+    const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+    setter?.call(nativeInput, sanitized);
+    onChange?.(e);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (["e", "E", "+", "-", "."].includes(e.key)) {
+      e.preventDefault();
+    }
+  };
+
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData("text");
+    const sanitized = sanitizeNumeric(pasted);
+    if (sanitized) {
+      const input = e.currentTarget;
+      const start = input.selectionStart ?? input.value.length;
+      const end = input.selectionEnd ?? input.value.length;
+      const current = input.value || "";
+      const merged = current.slice(0, start) + sanitized + current.slice(end);
+      const final = sanitizeNumeric(merged);
+      const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+      setter?.call(input, final);
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const raw = e.target.value;
+    if (raw === "") return;
+    const parsed = parseFloat(raw);
+    if (!isNaN(parsed)) {
+      const clamped = clamp(parsed);
+      if (clamped !== parsed) {
+        const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+        setter?.call(e.target, String(clamped));
+        e.target.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+    }
+  };
+
   const handleStep = (dir: 1 | -1) => {
     setNativeInput(clamp(numValueRef.current + dir * step));
   };
@@ -77,16 +127,6 @@ export const NumberInput = ({
     }, 300);
   };
 
-  const handleBlur = () => {
-    const parsed = parseFloat(String(value ?? ""));
-    if (!isNaN(parsed)) {
-      const clamped = clamp(parsed);
-      if (clamped !== parsed) {
-        setNativeInput(clamped);
-      }
-    }
-  };
-
   return (
     <Box className={`${styles.wrapper} ${className}`}>
       {label && (
@@ -97,14 +137,15 @@ export const NumberInput = ({
       <Box className={styles.inputWrap}>
         <input
           id={id}
-          type="number"
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
           className={`${styles.input} ${styles[size]} ${styles[variant]} ${error ? styles.hasError : ""}`}
           value={value}
-          onChange={onChange}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          onPaste={handlePaste}
           onBlur={handleBlur}
-          min={min}
-          max={max}
-          step={step}
           aria-invalid={!!error}
           aria-describedby={error ? errorId : undefined}
           {...rest}
