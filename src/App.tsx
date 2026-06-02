@@ -6,6 +6,7 @@ import { Footer } from "./components/footer/Footer";
 import { Loader } from "./components/loader";
 import { Box } from "./components/box/Box";
 import { HomePage } from "./pages/HomePage";
+import { OnlineBanner } from "./components/online-banner";
 
 const ComplementosPage = lazy(() => import("./pages/ComplementosPage").then((m) => ({ default: m.ComplementosPage })));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage").then((m) => ({ default: m.NotFoundPage })));
@@ -56,6 +57,7 @@ function App() {
         Saltar al contenido principal
       </a>
       <Navbar currentPage={page} onNavigate={navigate} />
+      <OnlineBanner />
       <main id="main-content" style={{ flex: 1 }}>
         <Suspense fallback={<Box style={{ display: "flex", justifyContent: "center", padding: "4rem" }}><Loader size="lg" /></Box>}>
           {page === "home" ? (

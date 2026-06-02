@@ -4,6 +4,9 @@
     "switch_to_en": "Switch to English",
     "switch_to_es": "Switch to Spanish"
   },
+  "online_banner": {
+    "message": "You are offline — some features may be unavailable"
+  },
   "commandPalette": {
     "placeholder": "Search commands...",
     "noResults": "No results"

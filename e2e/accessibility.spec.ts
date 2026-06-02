@@ -10,6 +10,7 @@ test.describe("Accesibilidad (axe-core)", () => {
 
   test("complementos pasa auditoria axe basica", async ({ page }) => {
     await page.goto("/#complementos");
+    await page.waitForLoadState("networkidle", { timeout: 15000 });
     await expect(page.getByRole("main")).toBeVisible();
     const h1 = page.getByRole("heading", { level: 1 });
     await expect(h1).toBeVisible();

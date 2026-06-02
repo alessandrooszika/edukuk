@@ -4,6 +4,9 @@
     "switch_to_en": "Cambiar a inglés",
     "switch_to_es": "Cambiar a español"
   },
+  "online_banner": {
+    "message": "Sin conexión a internet — algunas funciones pueden no estar disponibles"
+  },
   "commandPalette": {
     "placeholder": "Buscar comandos...",
     "noResults": "Sin resultados"
