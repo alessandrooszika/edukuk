@@ -7,7 +7,7 @@
 
 > Componentes UI en React 19 + TypeScript + Vite
 >
-> 56 componentes, 0 dependencias de UI externas
+> 60 componentes, 0 dependencias de UI externas
 
 ## Stack
 

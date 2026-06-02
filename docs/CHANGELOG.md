@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.4.0 (2026-06-02)
+
+### Nuevos componentes
+- **OnlineBanner:** indicador visual de conexión cuando el usuario pierde internet, banner fijo full-width con ícono warning, auto-desaparece al reconectarse
+- **useOnlineStatus:** hook que escucha eventos `online`/`offline` + `navigator.onLine`
+
+### Componentes (60)
+- Agregado OnlineBanner → ahora 60 componentes totales
+
+---
+
 ## 0.3.0 (2026-06-01)
 
 ### Nuevos componentes

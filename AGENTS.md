@@ -10,7 +10,7 @@
 ## Estructura
 ```
 src/
-  components/    # 49 componentes, cada uno en su carpeta con index.ts (barrel export)
+  components/    # 60 componentes, cada uno en su carpeta con index.ts (barrel export)
   pages/         # HomePage, ComplementosPage (lazy-loaded)
   styles/        # index.css (variables CSS globales), breakpoints.ts
   types/         # index.ts (Variant, Size, ModalSize, AlertVariant, AlertPosition)
@@ -58,6 +58,7 @@ src/
 |-----------|---------|
 | Navbar | 100 |
 | Tooltip | 100 |
+| OnlineBanner | 101 |
 | Select dropdown | 150 |
 | Autocomplete dropdown | 150 |
 | Popover | 150 |
@@ -68,9 +69,9 @@ src/
 | LoaderOverlay | 1000 |
 
 ## Tests
-- 165 tests unitarios, 17 archivos, todos pasando
-- E2E: Playwright con Chromium, 2 specs (navegación, overlays)
-- Componentes con test: Box, Button, Input, Select, Autocomplete, Chip, Switch, Alert, Tabs, Progress, Loader, Skeleton, Badge, Stack, FormField, FormGroup, DataTable
+- 511 tests unitarios, 59 archivos, todos pasando
+- E2E: Playwright con Chromium, 3 specs (navegación, overlays, accesibilidad)
+- Componentes con test: Box, Button, Input, Select, Autocomplete, Chip, Switch, Alert, Tabs, Progress, Loader, Skeleton, Badge, Stack, FormField, FormGroup, DataTable, Modal, Drawer, FloatingOverlays, LanguageSwitcher
 - Setup: `Element.prototype.scrollIntoView = vi.fn()` en setup.ts
 - CSS modules: `classNameStrategy: "non-scoped"` en vitest.config.ts
 
