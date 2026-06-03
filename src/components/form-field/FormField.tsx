@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import { useId, type ReactNode } from "react";
+import FormFieldContext from "./FormFieldContext";
 import styles from "./FormField.module.css";
 
 interface FormFieldProps {
@@ -20,6 +21,8 @@ export const FormField = ({
   children,
   className = "",
 }: FormFieldProps) => {
+  const errorId = useId();
+
   return (
     <div className={`${styles.wrapper} ${className}`}>
       {label && (
@@ -27,9 +30,11 @@ export const FormField = ({
           {label}
         </label>
       )}
-      {children}
+      <FormFieldContext.Provider value={{ hasError: !!error, errorId }}>
+        {children}
+      </FormFieldContext.Provider>
       {error && (
-        <span className={styles.error} role="alert">{error}</span>
+        <span id={errorId} className={styles.error} role="alert">{error}</span>
       )}
       {!error && helperText && (
         <span className={styles.helper}>{helperText}</span>

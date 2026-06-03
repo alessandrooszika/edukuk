@@ -49,6 +49,7 @@
     "contact_text": "¿Ideas, sugerencias o colaboración? Escríbenos y te responderemos a la brevedad.",
     "contact_tooltip": "Enviar correo",
     "theme_tooltip": "Cambiar tema",
+    "storybook_tooltip": "Catálogo visual de componentes",
     "copyright": "© {{year}} edukuk — Hecho con dedicación para la comunidad dev."
   },
   "notFound": {

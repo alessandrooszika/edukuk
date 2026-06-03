@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect, type ReactNode } from "react";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 import styles from "./SplitPane.module.css";
 
 interface SplitPaneProps {

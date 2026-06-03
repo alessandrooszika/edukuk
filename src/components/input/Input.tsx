@@ -7,8 +7,9 @@ import {
   useId,
 } from "react";
 import type { Variant, Size, InputDesign } from "../../types";
+import { useFormFieldContext } from "../form-field/FormFieldContext";
 import styles from "./Input.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 
 interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   variant?: Variant;
@@ -16,7 +17,6 @@ interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size">
   design?: InputDesign;
   label?: string;
   error?: string;
-  hideErrorText?: boolean;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({
@@ -24,8 +24,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   size = "md",
   design = "outlined",
   label,
-  error,
-  hideErrorText,
+  error: errorProp,
   className = "",
   id: externalId,
   onFocus,
@@ -33,6 +32,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   onChange,
   ...rest
 }, ref) => {
+  const ffContext = useFormFieldContext();
   const [isFocused, setIsFocused] = useState(false);
   const [dirtyValue, setDirtyValue] = useState(
     rest.defaultValue !== undefined && rest.defaultValue !== null
@@ -42,6 +42,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
   const generatedId = useId();
   const id = externalId ?? generatedId;
   const errorId = `${id}-error`;
+
+  const hasError = errorProp !== undefined || ffContext?.hasError;
+  const showError = errorProp !== undefined && !ffContext?.hasError;
 
   const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
     setIsFocused(true);
@@ -64,13 +67,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
 
   return (
     <Box className={`${styles.wrapper} ${className}`}>
-      <Box className={`${styles.field} ${styles[size]} ${styles[design]} ${styles[variant]} ${error ? styles.hasError : ""}`}>
+      <Box className={`${styles.field} ${styles[size]} ${styles[design]} ${styles[variant]} ${hasError ? styles.hasError : ""}`}>
         <input
           ref={ref}
           id={id}
           className={`${styles.input} ${label && !float ? styles.placeholderHidden : ""}`}
-          aria-invalid={!!error}
-          aria-describedby={error ? errorId : undefined}
+          aria-invalid={hasError}
+          aria-describedby={hasError ? errorId : undefined}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={handleChange}
@@ -85,7 +88,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
           </label>
         )}
       </Box>
-      {error && !hideErrorText && <span id={errorId} className={styles.error} role="alert">{error}</span>}
+      {showError && <span id={errorId} className={styles.error} role="alert">{errorProp}</span>}
     </Box>
   );
 });

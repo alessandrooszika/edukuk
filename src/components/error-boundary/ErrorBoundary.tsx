@@ -1,9 +1,9 @@
 import { Component, type ReactNode, type ErrorInfo } from "react";
 import { Button } from "../button/Button";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 import { Typography } from "../typography";
 
-interface Props {
+interface ErrorBoundaryProps {
   children: ReactNode;
   onReset?: () => void;
 }
@@ -13,7 +13,7 @@ interface State {
   error: Error | null;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
+export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
   state: State = { hasError: false, error: null };
 
   static getDerivedStateFromError(error: Error): State {

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import type { BoxProps } from "../box/Box";
-import { Box } from "../box/Box";
+import type { BoxProps } from "../box";
+import { Box } from "../box";
 import styles from "./Card.module.css";
 
 interface CardBodyProps extends BoxProps {

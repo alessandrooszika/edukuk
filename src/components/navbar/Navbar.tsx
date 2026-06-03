@@ -7,7 +7,7 @@ import { Button } from "../button/Button";
 import { Progress } from "../progress/Progress";
 import { useScrollProgress } from "../../hooks/useScrollProgress";
 import styles from "./Navbar.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 
 interface NavbarProps {
   currentPage: string;

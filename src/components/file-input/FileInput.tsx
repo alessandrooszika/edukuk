@@ -3,7 +3,7 @@ import { CloseIcon, UploadIcon, FileIcon } from "../icons";
 import type { Variant } from "../../types";
 import { Button } from "../button/Button";
 import styles from "./FileInput.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 
 interface FileInfo {
   name: string;

@@ -1,6 +1,6 @@
 import type { Variant, Size } from "../../types";
 import styles from "./Progress.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 
 interface ProgressProps {
   value: number;

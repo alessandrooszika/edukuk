@@ -4,7 +4,7 @@ import { Modal } from "../modal/Modal";
 import { Alert } from "../alert/Alert";
 import { Loader, LoaderOverlay } from "../loader";
 import { Drawer } from "../drawer";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 import { Button } from "../button/Button";
 import { Typography } from "../typography";
 

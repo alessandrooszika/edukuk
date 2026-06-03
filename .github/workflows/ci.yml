@@ -28,6 +28,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm build
+      - run: pnpm build-storybook
+      - run: cp -r storybook-static dist/storybook
       - run: pnpm test
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

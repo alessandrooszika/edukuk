@@ -2,7 +2,7 @@ import { useRef, useEffect, type InputHTMLAttributes, useId, useCallback } from 
 import type { Variant, Size } from "../../types";
 import { ChevronUpIcon, ChevronDownIcon } from "../icons";
 import styles from "./NumberInput.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 import { Button } from "../button/Button";
 
 interface NumberInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {

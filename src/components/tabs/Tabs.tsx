@@ -1,7 +1,7 @@
 import { useState, useId, type ReactNode } from "react";
 import type { Variant } from "../../types";
 import styles from "./Tabs.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 
 interface Tab {
   label: string;

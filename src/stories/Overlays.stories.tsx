@@ -8,6 +8,7 @@ import { Loader, LoaderBar } from "../components/loader";
 import { LoaderOverlay } from "../components/loader/LoaderOverlay";
 import { CommandPalette } from "../components/command-palette";
 import type { Command } from "../components/command-palette";
+import { OnlineBanner } from "../components/online-banner";
 import { Button } from "../components/button/Button";
 
 export default { title: "Overlays" };
@@ -90,6 +91,8 @@ export const AlertVariants = () => (
 export const LoaderDefault = () => <Loader />;
 export const LoaderBarDefault = () => <LoaderBar />;
 export const LoaderOverlayDefault = () => <LoaderOverlay isOpen={true} label="Loading..." />;
+
+export const OnlineBannerOffline = () => <OnlineBanner />;
 
 export const CommandPaletteDefault = () => {
   const [open, setOpen] = useState(false);

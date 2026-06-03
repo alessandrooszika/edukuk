@@ -2,7 +2,7 @@ import { useState, type InputHTMLAttributes, useId } from "react";
 import type { Variant, Size } from "../../types";
 import { EyeIcon, EyeOffIcon } from "../icons";
 import styles from "./PasswordInput.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 import { Button } from "../button/Button";
 
 interface PasswordInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {

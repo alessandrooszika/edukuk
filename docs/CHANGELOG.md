@@ -1,13 +1,32 @@
 # Changelog
 
-## 0.4.0 (2026-06-02)
+## 0.4.0 (2026-06-03)
 
 ### Nuevos componentes
 - **OnlineBanner:** indicador visual de conexión cuando el usuario pierde internet, banner fijo full-width con ícono warning, auto-desaparece al reconectarse
 - **useOnlineStatus:** hook que escucha eventos `online`/`offline` + `navigator.onLine`
+- **CommandPalette:** paleta de comandos tipo Ctrl+K con búsqueda, grupos, shortcuts y keyboard navigation
+- **TreeSelect:** selector jerárquico con árbol expandible y dropdown via portal
+- **LanguageSwitcher:** toggle ES/EN con i18n + localStorage
+- **Typography:** sistema tipográfico con 10 variantes (h1–h6, body1, body2, caption, code)
+- **SplitPane:** panel dividido redimensionable con drag (horizontal/vertical)
+- **Sidebar:** panel lateral colapsable con toggle animado
 
-### Componentes (60)
-- Agregado OnlineBanner → ahora 60 componentes totales
+### Mejoras
+- **i18n:** integración completa con react-i18next, archivos ES/EN, LanguageSwitcher en navbar
+- **Storybook:** catálogo visual de componentes con Storybook 10
+- **Lighthouse 100/100:** CLS, contraste, accesibilidad, skip-link, headings semánticos
+- **Hooks compartidos:** `useFloatingUI`, `useBodyScrollLock`, `useFocusTrap`, `useClickOutside`, `useScrollProgress`, `useHighlightNavigation`, `useComplementosState`
+- **OnlineBanner:** z-index 101, encima de Navbar
+
+### Documentación
+- `docs/COMPONENTES.md`: +10 secciones (OnlineBanner, Toast, TreeView, VirtualizedList, CommandPalette, TreeSelect, LanguageSwitcher, Typography, SplitPane, Sidebar) + sección Business + tipos faltantes
+- `README.md`: tabla actualizada con 60 componentes, categoría Business, hooks e i18n
+- `AGENTS.md`: componentes clave actualizados
+
+### Testing (511 tests, 59 archivos)
+- **Nuevos tests:** OnlineBanner, Toast, TreeView, VirtualizedList, CommandPalette, TreeSelect, LanguageSwitcher, Typography, SplitPane, Sidebar
+- **Total:** 511 tests pasando, 59 archivos de test, 0 errores
 
 ---
 

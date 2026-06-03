@@ -6,6 +6,7 @@
 - pnpm (no npm/npx)
 - Vitest 4 + Testing Library + jsdom
 - Sin librerías UI externas ni Tailwind
+- i18next + react-i18next (ES/EN)
 
 ## Estructura
 ```
@@ -35,11 +36,15 @@ src/
 - **Stack/HStack/VStack**: wrappers de Box con `display:flex` + `flexDirection` + `gap`
 - **Card**: compuesto por CardHeader, CardBody, CardFooter — extienden BoxProps
 - **Button**: extiende `ComponentPropsWithoutRef<"button">` con `...rest`
+- **Typography**: 10 variantes (h1–h6, body1, body2, caption, code), `component`, `gutterBottom`, `noWrap`
 - **Input**: `forwardRef<HTMLInputElement, InputProps>`, props: `variant`, `size`, `design`, `label`, `error`, `hideErrorText`
 - **Select**: trigger `<button>`, dropdown via `createPortal`, `role="listbox"`
 - **Autocomplete**: input `role="combobox"`, dropdown via `createPortal`, `aria-activedescendant`
+- **TreeSelect**: árbol jerárquico en dropdown, `createPortal`, expand/colapse con toggle
 - **Popover**: click-triggered, `createPortal`, 4 posiciones, z-index 150
 - **Tooltip**: hover-triggered, texto-only (vs Popover que acepta ReactNode)
+- **Toast**: `ToastProvider` + `useToast()`, stackeable, 4 posiciones, variantes semánticas, auto-dismiss
+- **OnlineBanner**: banner fijo full-width, auto-desaparece al reconectarse, `useOnlineStatus` hook
 - **Pagination**: elipsis con siblings, oculto si `< 2` páginas
 - **Divider**: `<hr>` horizontal o `<span>` vertical, con `label`, `size`, `variant`, `orientation`
 - **Avatar**: `src` (img) o initials desde `alt`, `size` (sm/md/lg), `variant` (circle/rounded/square), `color`
@@ -52,6 +57,12 @@ src/
 - **FormField**: `label`, `htmlFor`, `error` (role="alert"), `helperText`, `required`, wrapping children
 - **FormGroup**: `<fieldset>` + `legend`, border, gap
 - **DataTable**: `<T>` genérico — sortable, filter, selectable rows, col visibility, pagination, `onSelectionChange`
+- **TreeView**: árbol jerárquico con expand/colapse, keyboard nav, ARIA tree/treeitem
+- **VirtualizedList**: renderizado virtualizado (solo items visibles + overscan), scroll sin lag
+- **CommandPalette**: paleta de comandos Ctrl+K con búsqueda, grupos, shortcuts
+- **SplitPane**: panel dividido redimensionable con drag (horizontal/vertical)
+- **Sidebar**: panel lateral colapsable con toggle animado
+- **LanguageSwitcher**: toggle ES/EN vía i18n + localStorage
 
 ## Z-index ladder
 | Componente | z-index |
@@ -70,8 +81,8 @@ src/
 
 ## Tests
 - 511 tests unitarios, 59 archivos, todos pasando
-- E2E: Playwright con Chromium, 3 specs (navegación, overlays, accesibilidad)
-- Componentes con test: Box, Button, Input, Select, Autocomplete, Chip, Switch, Alert, Tabs, Progress, Loader, Skeleton, Badge, Stack, FormField, FormGroup, DataTable, Modal, Drawer, FloatingOverlays, LanguageSwitcher
+- E2E: Playwright con Chromium, 3 specs, 19 tests (navegación, overlays, accesibilidad)
+- Componentes con test: Box, Button, Input, Select, Autocomplete, Chip, Switch, Alert, Tabs, Progress, Loader, Skeleton, Badge, Stack, FormField, FormGroup, DataTable, Modal, Drawer, FloatingOverlays, LanguageSwitcher, Typography, OnlineBanner, Toast, TreeView, TreeSelect, VirtualizedList, CommandPalette, SplitPane, Sidebar
 - Setup: `Element.prototype.scrollIntoView = vi.fn()` en setup.ts
 - CSS modules: `classNameStrategy: "non-scoped"` en vitest.config.ts
 

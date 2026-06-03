@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect, useMemo } from "react";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 import { Typography } from "../typography";
 import { ChevronRightIcon } from "../icons";
 import type { TreeNode } from "../../utils/tree";

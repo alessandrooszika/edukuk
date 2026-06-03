@@ -10,6 +10,7 @@ import { Stepper } from "../components/stepper";
 import { Breadcrumbs } from "../components/breadcrumbs";
 import { AspectRatio } from "../components/aspect-ratio";
 import { Typography } from "../components/typography";
+import { LanguageSwitcher } from "../components/language-switcher";
 
 export default { title: "Layout" };
 
@@ -107,6 +108,8 @@ export const BreadcrumbsDefault = () => (
     { label: "Button" },
   ]} />
 );
+
+export const LanguageSwitcherDefault = () => <LanguageSwitcher />;
 
 export const AspectRatioDefault = () => (
   <AspectRatio ratio={16 / 9} maxWidth="300px">

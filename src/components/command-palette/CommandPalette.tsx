@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo, useCallback, startTransition, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 import { Typography } from "../typography";
 import { SearchIcon } from "../icons";
 import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";

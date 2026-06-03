@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect, useCallback, type ReactNode } from "react";
+import { useState, useRef, useEffect, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { Box } from "../box/Box";
+import { Box } from "../box";
+import { useFloatingUI } from "../../hooks/useFloatingUI";
 import styles from "./Popover.module.css";
 
 type PopoverPosition = "top" | "bottom" | "left" | "right";
@@ -11,28 +12,6 @@ interface PopoverProps {
   position?: PopoverPosition;
 }
 
-const gap = 8;
-
-const getCoords = (
-  trigger: HTMLElement,
-  popover: HTMLElement,
-  position: PopoverPosition
-) => {
-  const t = trigger.getBoundingClientRect();
-  const p = popover.getBoundingClientRect();
-
-  switch (position) {
-    case "bottom":
-      return { top: t.bottom + gap, left: t.left + t.width / 2 - p.width / 2 };
-    case "top":
-      return { top: t.top - p.height - gap, left: t.left + t.width / 2 - p.width / 2 };
-    case "left":
-      return { top: t.top + t.height / 2 - p.height / 2, left: t.left - p.width - gap };
-    case "right":
-      return { top: t.top + t.height / 2 - p.height / 2, left: t.right + gap };
-  }
-};
-
 export const Popover = ({
   content,
   children,
@@ -42,23 +21,7 @@ export const Popover = ({
   const triggerRef = useRef<HTMLDivElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  const updatePosition = useCallback(() => {
-    if (!triggerRef.current || !popoverRef.current) return;
-    const coords = getCoords(triggerRef.current, popoverRef.current, position);
-    popoverRef.current.style.top = `${coords.top}px`;
-    popoverRef.current.style.left = `${coords.left}px`;
-  }, [position]);
-
-  useEffect(() => {
-    if (!open) return;
-    updatePosition();
-    window.addEventListener("scroll", updatePosition, true);
-    window.addEventListener("resize", updatePosition);
-    return () => {
-      window.removeEventListener("scroll", updatePosition, true);
-      window.removeEventListener("resize", updatePosition);
-    };
-  }, [open, updatePosition]);
+  useFloatingUI(triggerRef, popoverRef, open, { placement: position, gap: 8, matchWidth: false });
 
   useEffect(() => {
     if (!open) return;

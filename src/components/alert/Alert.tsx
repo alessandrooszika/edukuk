@@ -4,7 +4,7 @@ import { CloseIcon, InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from "../ico
 import { Button } from "../button/Button";
 import type { AlertVariant, AlertPosition } from "../../types";
 import styles from "./Alert.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 
 interface AlertProps {
   isOpen: boolean;

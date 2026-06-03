@@ -11,6 +11,8 @@ type Size    = "sm" | "md" | "lg"
 type ModalSize = "sm" | "md" | "lg" | "xl"
 type AlertVariant = "info" | "success" | "warning" | "danger"
 type AlertPosition = "top-right" | "top-left" | "bottom-right" | "bottom-left"
+type InputDesign = "outlined" | "filled" | "standard"
+type TypographyVariant = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "body1" | "body2" | "caption" | "code"
 ```
 
 ---
@@ -165,8 +167,6 @@ Acordeón colapsable usando `<details>` / `<summary>` nativos. Sin JavaScript ne
   { question: "¿Cómo se usa?", answer: "Con la prop items." },
 ]} />
 ```
-
-
 
 
 ---
@@ -385,6 +385,64 @@ Tabla de datos genérica (`<T>`) con sort, filter, selección, paginación y vis
   selectable
   onSelectionChange={setSelected}
 />
+```
+
+---
+
+### SplitPane
+
+`src/components/split-pane/SplitPane.tsx`
+
+Panel dividido redimensionable con drag. Divide el espacio en dos paneles (primario + secundario) separados por un divider arrastrable.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `primary` | `ReactNode` | **requerido** | Panel primario (tamaño controlado) |
+| `secondary` | `ReactNode` | **requerido** | Panel secundario (ocupa resto) |
+| `defaultSize` | `number` | `300` | Tamaño inicial del panel primario (px) |
+| `minSize` | `number` | `100` | Tamaño mínimo del panel primario |
+| `maxSize` | `number` | `Infinity` | Tamaño máximo del panel primario |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | Eje de división |
+| `className` | `string` | `""` | Clase adicional |
+
+**Comportamiento:** Usa `pointermove`/`pointerup` en `document` para arrastrar. El divider tiene 4px de ancho con cursor `col-resize` o `row-resize`. En hover se pinta de `--accent`.
+
+```tsx
+<SplitPane
+  primary={<nav>Menú lateral</nav>}
+  secondary={<main>Contenido</main>}
+  defaultSize={240}
+  minSize={160}
+/>
+```
+
+---
+
+### Sidebar
+
+`src/components/sidebar/Sidebar.tsx`
+
+Panel lateral colapsable con toggle animado. Ideal para menús secundarios o paneles de herramientas.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `isOpen` | `boolean` | **requerido** | Visible o no |
+| `onToggle` | `() => void` | **requerido** | Callback al toggle |
+| `children` | `ReactNode` | **requerido** | Contenido del sidebar |
+| `side` | `"left" \| "right"` | `"left"` | Lado de anclaje |
+| `width` | `string \| number` | `"260px"` | Ancho (number → px) |
+| `className` | `string` | `""` | Clase adicional |
+
+**Comportamiento:** Se desliza con `transform: translateX()` y transición de 0.25s. Tiene botón toggle con ChevronLeftIcon que rota según el estado. Cuando está cerrado, el panel se oculta completamente (translateX(-100%) para left, translateX(100%) para right). Usa `aria-label` para accesibilidad.
+
+```tsx
+<Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} side="left">
+  <nav>Items del menú</nav>
+</Sidebar>
 ```
 
 ---
@@ -758,6 +816,46 @@ Agrupación visual de campos usando `<fieldset>` y `<legend>`.
 
 ---
 
+### TreeSelect
+
+`src/components/tree-select/TreeSelect.tsx`
+
+Selector jerárquico con árbol expandible en dropdown via `createPortal`. Compone trigger `<button>` + dropdown con árbol, similar a Select pero para datos jerárquicos.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `options` | `TreeNode[]` | **requerido** | Nodos del árbol (`{ id, label, icon?, children?, disabled? }`) |
+| `value` | `string` | **requerido** | ID del nodo seleccionado |
+| `onChange` | `(value: string) => void` | **requerido** | Callback al seleccionar |
+| `placeholder` | `string` | `"Seleccionar..."` | Texto cuando no hay selección |
+| `label` | `string` | — | Label del campo |
+| `error` | `string` | — | Mensaje de error |
+| `disabled` | `boolean` | `false` | Deshabilitado |
+| `className` | `string` | `""` | Clase adicional |
+
+**Comportamiento:** Usa `useFloatingUI` para posicionar el dropdown, `useClickOutside` para cerrar, `useFocusTrap` para el foco. Keyboard: ArrowDown/ArrowUp navega, ArrowRight expande nodo, ArrowLeft colapsa, Enter/Space selecciona hoja o toggle en nodos con hijos, Escape cierra. `role="tree"` con `treeitem`, `aria-expanded`, `aria-selected`, `aria-level`.
+
+```tsx
+<TreeSelect
+  options={[
+    { id: "frontend", label: "Frontend", children: [
+      { id: "react", label: "React" },
+      { id: "vue", label: "Vue" },
+    ]},
+    { id: "backend", label: "Backend", children: [
+      { id: "node", label: "Node.js" },
+    ]},
+  ]}
+  value={selected}
+  onChange={setSelected}
+  label="Tecnología"
+/>
+```
+
+---
+
 ## 4. Display
 
 ### Badge
@@ -1041,6 +1139,48 @@ Estado vacío con icono, título, descripción y acción.
 
 ---
 
+### Typography
+
+`src/components/typography/Typography.tsx`
+
+Sistema tipográfico con 10 variantes predefinidas. Renderiza el tag HTML semántico según la variante o `component`.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `variant` | `TypographyVariant` | `"body1"` | Variante tipográfica |
+| `component` | `ElementType` | — | Tag HTML override (ej: `component="h2"` en variant body1) |
+| `gutterBottom` | `boolean` | `false` | Margen inferior de 0.5em |
+| `noWrap` | `boolean` | `false` | `white-space: nowrap` + text-overflow ellipsis |
+| `align` | `CSSProperties["textAlign"]` | — | Alineación de texto |
+| Resto | `HTMLAttributes<HTMLElement>` | — | Atributos nativos |
+
+**Variantes y defaults:**
+
+| Variante | Tag | Desktop (>1024px) | Móvil (≤1024px) | Font-weight | Color |
+|----------|-----|------------------|----------------|-------------|-------|
+| `h1` | `<h1>` | 56px | 40px | 600 | `--text-h` |
+| `h2` | `<h2>` | 32px | 28px | 600 | `--text-h` |
+| `h3` | `<h3>` | 24px | 22px | 600 | `--text-h` |
+| `h4` | `<h4>` | 20px | 18px | 600 | `--text-h` |
+| `h5` | `<h5>` | 18px | 16px | 600 | `--text-h` |
+| `h6` | `<h6>` | 16px | 15px | 600 | `--text-h` |
+| `body1` | `<p>` | 18px | 16px | 400 | `--text` |
+| `body2` | `<p>` | 15px | 14px | 400 | `--text` |
+| `caption` | `<span>` | 13px | 12px | 400 | `--text` |
+| `code` | `<code>` | 15px | 14px | 400 | `--text-h` + `--code-bg` |
+
+```tsx
+<Typography variant="h1" gutterBottom>Título principal</Typography>
+<Typography variant="body1">Párrafo con texto normal.</Typography>
+<Typography variant="caption" noWrap>Texto pequeño sin wrap</Typography>
+<Typography variant="code">const x = 42;</Typography>
+<Typography variant="h2" component="h3" align="center">H2 con tag h3 centrado</Typography>
+```
+
+---
+
 ## 5. Overlays
 
 ### Modal
@@ -1282,6 +1422,62 @@ Overlay full-screen con backdrop-filter y loader centrado.
 
 ---
 
+### OnlineBanner
+
+`src/components/online-banner/OnlineBanner.tsx`
+
+Banner fijo full-width que indica pérdida de conexión. Auto-desaparece al reconectarse.
+
+**Props:** Ninguna. El componente es auto-contenido.
+
+**Comportamiento:** Usa `useOnlineStatus()` que escucha eventos `online`/`offline` + `navigator.onLine`. Cuando está offline, muestra un banner fijo en la parte superior con ícono WarningIcon y mensaje traducido (`online_banner.message`). `role="alert"`. `z-index: 101` (por encima de Navbar). Animación slideDown.
+
+```tsx
+<OnlineBanner />
+```
+
+---
+
+### Toast
+
+`src/components/toast/Toast.tsx`
+
+Sistema de notificaciones stackeables con `ToastProvider` + `useToast()`.
+
+**ToastProvider props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **requerido** | App a envolver |
+| `defaultPosition` | `ToastPosition` | `"top-right"` | Posición por defecto |
+| `defaultDuration` | `number` | `5000` | Duración por defecto (ms, 0 = sin auto) |
+
+**useToast() returns:**
+
+| Método | Firma | Descripción |
+|--------|-------|-------------|
+| `addToast` | `(opts) => string` | Agrega toast. `opts: { message, variant?, duration?, position? }`. Retorna ID. |
+| `removeToast` | `(id: string) => void` | Elimina toast con animación |
+
+**ToastPosition:** `"top-right" | "top-left" | "bottom-right" | "bottom-left"`
+
+**Comportamiento:** El `ToastProvider` debe envolver la app. Los toasts se agrupan por posición y se renderizan en contenedores fijos con `z-index: 300`. Cada toast tiene: ícono semántico (InfoIcon, SuccessIcon, WarningIcon, ErrorIcon), mensaje, botón de cerrar, `role="alert"`. Auto-dismiss con animación de salida (250ms). Escape cierra el último toast. `aria-live="polite"` en cada grupo.
+
+```tsx
+// En App.tsx
+<ToastProvider defaultPosition="top-right">
+  <App />
+</ToastProvider>
+
+// En cualquier componente hijo
+const { addToast } = useToast();
+<Button onClick={() => addToast({ message: "Guardado", variant: "success" })}>
+  Guardar
+</Button>
+```
+
+---
+
 ## 6. Navegación
 
 ### Navbar
@@ -1337,6 +1533,22 @@ Navegación entre páginas con elipsis automática.
 
 ```tsx
 <Pagination current={page} total={10} onChange={setPage} />
+```
+
+---
+
+### LanguageSwitcher
+
+`src/components/language-switcher/LanguageSwitcher.tsx`
+
+Toggle para cambiar entre español e inglés. Usa `react-i18next`.
+
+**Props:** Ninguna. El componente es auto-contenido.
+
+**Comportamiento:** Lee el idioma actual de `i18n.language`. Al hacer clic, alterna entre `es` y `en`, persistiendo en `localStorage("lang")`. Muestra "ES" o "EN" según el idioma actual. Envuelto en Tooltip con texto traducido. Ideal para navbar.
+
+```tsx
+<LanguageSwitcher />
 ```
 
 ---
@@ -1454,6 +1666,124 @@ Los iconos UI usan `stroke="currentColor"` y los sociales `fill="currentColor"` 
 
 ---
 
+## 9. Business
+
+### TreeView
+
+`src/components/tree-view/TreeView.tsx`
+
+Árbol jerárquico con expand/colapse, keyboard navigation y ARIA tree.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `data` | `TreeNode[]` | **requerido** | Array de nodos `{ id, label, icon?, children?, disabled? }` |
+| `selectedId` | `string` | — | ID del nodo seleccionado |
+| `onSelect` | `(id: string) => void` | — | Callback al seleccionar |
+| `defaultExpandedIds` | `string[]` | `[]` | IDs expandidos inicialmente |
+| `className` | `string` | `""` | Clase adicional |
+
+**Comportamiento:** Usa `flattenTree()` para aplanar nodos visibles según `expandedIds`. Keyboard: ArrowDown/ArrowUp navega, ArrowRight expande, ArrowLeft colapsa, Enter/Space selecciona, Home/End va al primero/último. ARIA: `role="tree"`, `treeitem` con `aria-expanded`, `aria-selected`, `aria-disabled`, `aria-level`. Los nodos con hijos muestran un toggle ChevronRightIcon que rota 90° al expandir.
+
+```tsx
+<TreeView
+  data={[
+    { id: "1", label: "Documentos", children: [
+      { id: "1a", label: "Proyectos", children: [
+        { id: "1a1", label: "edukuk" },
+        { id: "1a2", label: "playground" },
+      ]},
+    ]},
+    { id: "2", label: "Imágenes" },
+  ]}
+  selectedId={selected}
+  onSelect={setSelected}
+/>
+```
+
+---
+
+### VirtualizedList
+
+`src/components/virtualized-list/VirtualizedList.tsx`
+
+Lista con renderizado virtualizado. Solo renderiza los items visibles + overscan, ideal para listas largas (1000+ items).
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `items` | `T[]` | **requerido** | Array de datos |
+| `itemHeight` | `number` | **requerido** | Altura fija de cada item (px) |
+| `renderItem` | `(item: T, index: number) => ReactNode` | **requerido** | Render de cada item |
+| `height` | `number` | `400` | Altura del contenedor (px) |
+| `overscan` | `number` | `3` | Items extras arriba/abajo del viewport |
+| `className` | `string` | `""` | Clase adicional |
+| `style` | `CSSProperties` | — | Estilos inline |
+
+**Comportamiento:** Calcula `startIdx`/`endIdx` según `scrollTop` + `height` + `overscan`. Renderiza items con `position: absolute` y `top: i * itemHeight`. Scroll listener pasivo. Contenedor con `overflow-y: auto`. Sin dependencias externas.
+
+```tsx
+<VirtualizedList
+  items={items}
+  itemHeight={50}
+  height={400}
+  renderItem={(item, i) => <div>Item {i}: {item.name}</div>}
+/>
+```
+
+---
+
+### CommandPalette
+
+`src/components/command-palette/CommandPalette.tsx`
+
+Paleta de comandos tipo Ctrl+K con búsqueda, agrupación y shortcuts.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `isOpen` | `boolean` | **requerido** | Visible o no |
+| `onClose` | `() => void` | **requerido** | Callback al cerrar |
+| `groups` | `CommandGroup[]` | **requerido** | Grupos de comandos |
+| `onExecute` | `(id: string) => void` | — | Callback al ejecutar |
+
+**CommandGroup:** `{ heading: string; items: Command[] }`
+
+**Command:**
+
+| Prop | Tipo | Descripción |
+|------|------|-------------|
+| `id` | `string` | Identificador único |
+| `label` | `string` | Texto visible |
+| `description` | `string` | Descripción opcional |
+| `icon` | `ReactNode` | Icono opcional |
+| `shortcut` | `string` | Shortcut (ej: "Ctrl+K") |
+| `category` | `string` | Categoría (no usado visualmente) |
+
+**Comportamiento:** Overlay modal con `z-index: 200`. Input con `role="combobox"`. Filtrado case-insensitive por label + description. ArrowDown/ArrowUp navega, Enter ejecuta, Escape cierra. `useBodyScrollLock`, `useFocusTrap`, `useClickOutside`. Muestra grupos con headings y shortcuts como `<kbd>`. Animación slideDown + fadeIn.
+
+```tsx
+<CommandPalette
+  isOpen={open}
+  onClose={() => setOpen(false)}
+  groups={[
+    {
+      heading: "Navegación",
+      items: [
+        { id: "home", label: "Ir a Inicio", icon: <HomeIcon />, shortcut: "Ctrl+1" },
+        { id: "complementos", label: "Ir a Complementos", icon: <GridIcon />, shortcut: "Ctrl+2" },
+      ],
+    },
+  ]}
+  onExecute={(id) => console.log("Ejecutar:", id)}
+/>
+```
+
+---
+
 ## CSS variables del sistema
 
 ```css
@@ -1488,6 +1818,7 @@ Los iconos UI usan `stroke="currentColor"` y los sociales `fill="currentColor"` 
 /* Z-index ladder */
 Navbar              100
 Tooltip             100
+OnlineBanner        101
 Select              150
 Autocomplete        150
 Popover             150
@@ -1513,6 +1844,5 @@ md:  768px
 lg: 1024px
 xl: 1280px
 ```
-
 
 

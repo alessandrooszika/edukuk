@@ -1,5 +1,5 @@
-import { Box } from "../box/Box";
-import type { BoxProps } from "../box/Box";
+import { Box } from "../box";
+import type { BoxProps } from "../box";
 
 interface VStackProps extends BoxProps {
   gap?: string | number;

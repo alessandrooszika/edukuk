@@ -7,7 +7,7 @@ import { Tooltip } from "../tooltip/Tooltip";
 import { Typography } from "../typography";
 import { GitHubIcon, TwitterIcon, YouTubeIcon, LinkedInIcon } from "../icons";
 import styles from "./Footer.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 
 interface FooterProps {
   onNavigate: (page: "home" | "complementos") => void;
@@ -44,6 +44,8 @@ export const Footer = ({ onNavigate }: FooterProps) => {
     { label: t("footer.complementos_link"), page: "complementos" as const },
   ];
 
+  const storybookUrl = "https://alessandrooszika.github.io/edukuk/storybook";
+
   return (
     <footer className={styles.footer}>
       <Box className={styles.inner}>
@@ -73,6 +75,11 @@ export const Footer = ({ onNavigate }: FooterProps) => {
                   </Button>
                 </Tooltip>
               ))}
+              <Tooltip content={t("footer.storybook_tooltip")}>
+                <a href={storybookUrl} target="_blank" rel="noopener noreferrer" className={styles.navLink}>
+                  Storybook
+                </a>
+              </Tooltip>
             </nav>
           </Box>
           <Box className={styles.col}>

@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import type { TreeNode } from "../../utils/tree";
 import { flattenTree } from "../../utils/tree";
 import { ChevronDownIcon, ChevronRightIcon } from "../icons";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 import { Typography } from "../typography";
-import { useDropdownPosition } from "../../hooks/useDropdownPosition";
+import { useFloatingUI } from "../../hooks/useFloatingUI";
 import { useClickOutside } from "../../hooks/useClickOutside";
 import { useFocusTrap } from "../../hooks/useFocusTrap";
 import styles from "./TreeSelect.module.css";
@@ -54,7 +54,7 @@ export const TreeSelect = ({
   const visibleNodes = useMemo(() => flattenTree(options, expandedIds), [options, expandedIds]);
   const selectedLabel = useMemo(() => getLabel(options, value), [options, value]);
 
-  useDropdownPosition(triggerRef, listRef, open);
+  useFloatingUI(triggerRef, listRef, open);
   useClickOutside([wrapperRef, listRef], useCallback(() => {
     setOpen(false);
     setHighlightIndex(0);

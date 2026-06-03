@@ -9,6 +9,32 @@
 >
 > 60 componentes, 0 dependencias de UI externas
 
+## Instalación
+
+```bash
+pnpm add edukuk react react-dom
+pnpm add -D @fontsource/inter  # opcional, tipografía Inter
+```
+
+```tsx
+import { Button, Card } from "edukuk";
+import "edukuk/styles";
+
+function App() {
+  return <Card><Button>Hola mundo</Button></Card>;
+}
+```
+
+> Si usás i18n, envolvés tu app con `I18nextProvider`:
+> ```tsx
+> import { I18nextProvider } from "react-i18next";
+> import i18n from "tu-config-de-i18n";
+> import { Button } from "edukuk";
+> createRoot(root).render(
+>   <I18nextProvider i18n={i18n}><App /></I18nextProvider>
+> );
+> ```
+
 ## Stack
 
 - **React 19** + TypeScript 6 + Vite 8
@@ -19,12 +45,13 @@
 
 | Categoría | Componentes |
 |-----------|------------|
+| **Botones** | Button |
 | **Layout** | Box, Card (Header/Body/Footer), Stack/HStack/VStack, AspectRatio, Divider, Stepper, Table, DataTable, SplitPane, Sidebar |
-| **Inputs** | Input, Textarea, Select, Autocomplete, PasswordInput, SearchInput, NumberInput, DateInput, ColorInput, RangeInput, FileInput, FormField, FormGroup |
+| **Inputs** | Input, Textarea, Select, Autocomplete, PasswordInput, SearchInput, NumberInput, DateInput, ColorInput, RangeInput, FileInput, FormField, FormGroup, TreeSelect |
 | **Display** | Badge, Chip, Switch, Progress, Skeleton, Tabs, Avatar, Rating, Timeline, EmptyState, Typography, Image, Meter, Accordion |
 | **Business** | TreeView, VirtualizedList, Toast, TreeSelect, CommandPalette |
-| **Overlays** | Modal, Drawer, Alert, Popover, Tooltip, Loader, LoaderBar, LoaderOverlay |
-| **Navegación** | Navbar, Footer, Pagination, Breadcrumbs |
+| **Overlays** | Modal, Drawer, Alert, Popover, Tooltip, Loader, LoaderBar, LoaderOverlay, OnlineBanner |
+| **Navegación** | Navbar, Footer, Pagination, Breadcrumbs, LanguageSwitcher |
 | **Theme** | ThemeToggle, LogoWatermark |
 | **Utils** | ErrorBoundary, 22 iconos SVG |
 
@@ -45,15 +72,18 @@ pnpm run build-storybook  # Export estático
 - 🌓 Tema claro/oscuro con variables CSS + `prefers-color-scheme`
 - ♿ ARIA completo, keyboard navigation, focus trapping
 - 📱 Touch + PointerEvents (hold-to-repeat, long-press tooltip)
+- 🌐 i18n multi-idioma (ES/EN) con LanguageSwitcher
 - 📦 Sin dependencias de UI externas
 - ⚡ React Compiler habilitado
 - 🧪 511 tests unitarios + 19 E2E con Playwright
+- 🪝 Hooks compartidos: useOnlineStatus, useToast, useFloatingUI, useFocusTrap
 - 🔧 Pre-commit hooks con lint-staged
 
 ## Docs
 
 - [Guía completa de componentes](docs/COMPONENTES.md)
-- Storybook: `pnpm run storybook` (puerto 6006 por defecto)
+- [Storybook online](https://alessandrooszika.github.io/edukuk/storybook) — catálogo visual de componentes
+- Storybook local: `pnpm run storybook` (puerto 6006 por defecto)
 
 ## Autor
 

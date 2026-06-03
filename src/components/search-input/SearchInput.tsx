@@ -2,7 +2,7 @@ import { type InputHTMLAttributes, useId } from "react";
 import type { Variant, Size } from "../../types";
 import { SearchIcon, ClearIcon } from "../icons";
 import styles from "./SearchInput.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 import { Button } from "../button/Button";
 
 interface SearchInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {

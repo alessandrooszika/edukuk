@@ -49,6 +49,7 @@
     "contact_text": "Ideas, suggestions or collaboration? Write us and we'll get back to you shortly.",
     "contact_tooltip": "Send email",
     "theme_tooltip": "Change theme",
+    "storybook_tooltip": "Visual component catalog",
     "copyright": "© {{year}} edukuk — Built with dedication for the dev community."
   },
   "notFound": {

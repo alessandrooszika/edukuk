@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Loader } from "./Loader";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";
 import styles from "./LoaderOverlay.module.css";
 

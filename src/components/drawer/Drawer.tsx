@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { CloseIcon } from "../icons";
 import { Button } from "../button/Button";
 import { Typography } from "../typography";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";
 import { useFocusTrap } from "../../hooks/useFocusTrap";
 import styles from "./Drawer.module.css";

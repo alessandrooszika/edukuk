@@ -1,7 +1,7 @@
 import { type TextareaHTMLAttributes, useId } from "react";
 import type { Variant, Size } from "../../types";
 import styles from "./Textarea.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 
 interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "size"> {
   variant?: Variant;

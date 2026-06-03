@@ -128,11 +128,6 @@
   font-size: 0.9rem;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
 @keyframes slideDown {
   from {
     opacity: 0;

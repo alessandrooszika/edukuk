@@ -1,12 +1,35 @@
 {
   "name": "edukuk",
-  "private": true,
-  "version": "0.3.0",
+  "version": "0.4.0",
+  "description": "edukuk — React component library",
   "packageManager": "pnpm@11.3.0",
   "type": "module",
+  "main": "./dist-lib/edukuk.cjs.js",
+  "module": "./dist-lib/edukuk.es.js",
+  "types": "./dist-lib/types/index.d.ts",
+  "files": [
+    "dist-lib"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist-lib/types/index.d.ts",
+      "import": "./dist-lib/edukuk.es.js",
+      "require": "./dist-lib/edukuk.cjs.js"
+    },
+    "./styles": {
+      "types": "./dist-lib/types/index.d.ts",
+      "import": "./dist-lib/index.css",
+      "require": "./dist-lib/index.css"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:lib": "vite build --config vite.lib.config.ts",
+    "build:types": "tsc -p tsconfig.lib.json",
+    "build:all": "pnpm build:lib && pnpm build:types",
+    "prepublishOnly": "pnpm build:all && pnpm test",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
@@ -23,16 +46,22 @@
     ]
   },
   "dependencies": {
-    "@fontsource/inter": "^5.2.8",
     "i18next": "^26.3.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-i18next": "^17.0.8"
   },
+  "peerDependencies": {
+    "i18next": "^26.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-i18next": "^17.0.0"
+  },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
     "@babel/core": "^7.29.0",
     "@eslint/js": "^10.0.1",
+    "@fontsource/inter": "^5.2.8",
     "@playwright/test": "^1.60.0",
     "@rolldown/plugin-babel": "^0.2.3",
     "@storybook/addon-links": "10.4.1",

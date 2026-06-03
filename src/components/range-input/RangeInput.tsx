@@ -1,7 +1,7 @@
 import { type InputHTMLAttributes, useId } from "react";
 import type { Variant, Size } from "../../types";
 import styles from "./RangeInput.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 
 interface RangeInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
   variant?: Variant;

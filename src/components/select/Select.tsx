@@ -2,9 +2,11 @@ import { useState, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import type { Variant, Size } from "../../types";
 import { ChevronDownIcon, CheckIcon } from "../icons";
-import { Box } from "../box/Box";
-import { useDropdownPosition } from "../../hooks/useDropdownPosition";
+import { Box } from "../box";
+import { useFloatingUI } from "../../hooks/useFloatingUI";
 import { useClickOutside } from "../../hooks/useClickOutside";
+import { useHighlightNavigation } from "../../hooks/useHighlightNavigation";
+import { getAccentColor } from "../../utils/variantColor";
 import styles from "./Select.module.css";
 
 interface SelectOption {
@@ -46,70 +48,62 @@ export const Select = ({
   className = "",
 }: SelectProps) => {
   const [open, setOpen] = useState(false);
-  const [highlightIndex, setHighlightIndex] = useState(-1);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const normalized = normalizeOptions(options);
   const selected = normalized.find((opt) => opt.value === value);
-  const variantVar = variant === "default" ? "var(--accent)" : `var(--${variant})`;
+  const accentColor = getAccentColor(variant);
 
-  useDropdownPosition(triggerRef, listRef, open);
+  const {
+    highlightIndex,
+    setHighlightIndex,
+    handleKeyDown,
+    onPointerEnter,
+  } = useHighlightNavigation({
+    itemCount: normalized.length,
+    isOpen: open,
+    listRef,
+    onEnter: () => {
+      if (highlightIndex >= 0 && highlightIndex < normalized.length) {
+        const optValue = normalized[highlightIndex].value;
+        onChange(optValue);
+        setOpen(false);
+        setHighlightIndex(-1);
+        triggerRef.current?.focus();
+      }
+    },
+    onEscape: () => {
+      setOpen(false);
+      setHighlightIndex(-1);
+      triggerRef.current?.focus();
+    },
+    wrapAround: true,
+    initialIndex: -1,
+  });
+
+  useFloatingUI(triggerRef, listRef, open);
   useClickOutside([wrapperRef, listRef], useCallback(() => {
     setOpen(false);
     setHighlightIndex(-1);
-  }, []), open);
+  }, [setHighlightIndex]), open);
 
-  const getInitialHighlight = () => {
+  const openAndHighlight = () => {
     const idx = normalized.findIndex((opt) => opt.value === value);
     setHighlightIndex(idx >= 0 ? idx : 0);
-  };
-
-  const selectOption = (optValue: string) => {
-    onChange(optValue);
-    setOpen(false);
-    setHighlightIndex(-1);
-    triggerRef.current?.focus();
+    setOpen(true);
   };
 
   const handleTriggerKeyDown = (e: React.KeyboardEvent) => {
     if (disabled) return;
     if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown" || e.key === "ArrowUp") {
       e.preventDefault();
-      setOpen(true);
-      getInitialHighlight();
+      openAndHighlight();
     }
     if (e.key === "Escape") {
       setOpen(false);
       setHighlightIndex(-1);
       triggerRef.current?.focus();
-    }
-  };
-
-  const handleListKeyDown = (e: React.KeyboardEvent) => {
-    e.preventDefault();
-    switch (e.key) {
-      case "Enter":
-      case " ":
-        if (highlightIndex >= 0) {
-          selectOption(normalized[highlightIndex].value);
-        }
-        break;
-      case "ArrowDown":
-        setHighlightIndex((prev) =>
-          prev < normalized.length - 1 ? prev + 1 : 0
-        );
-        break;
-      case "ArrowUp":
-        setHighlightIndex((prev) =>
-          prev > 0 ? prev - 1 : normalized.length - 1
-        );
-        break;
-      case "Escape":
-        setOpen(false);
-        setHighlightIndex(-1);
-        triggerRef.current?.focus();
-        break;
     }
   };
 
@@ -125,8 +119,8 @@ export const Select = ({
         className={`${styles.trigger} ${styles[size]} ${styles[variant]} ${error ? styles.hasError : ""} ${disabled ? styles.disabled : ""}`}
         onClick={() => {
           if (disabled) return;
-          if (!open) getInitialHighlight();
-          setOpen((prev) => !prev);
+          if (!open) openAndHighlight();
+          else setOpen(false);
         }}
         onKeyDown={handleTriggerKeyDown}
         aria-haspopup="listbox"
@@ -145,8 +139,8 @@ export const Select = ({
         <ul
           ref={listRef}
           className={`${styles.dropdown}`}
-          style={{ "--input-color": variantVar } as React.CSSProperties}
-          onKeyDown={handleListKeyDown}
+          style={{ "--input-color": accentColor } as React.CSSProperties}
+          onKeyDown={handleKeyDown}
           role="listbox"
           aria-label={label}
         >
@@ -157,8 +151,13 @@ export const Select = ({
               <li
                 key={opt.value}
                 className={`${styles.option} ${isSelected ? styles.optionSelected : ""} ${isHighlighted ? styles.optionHighlighted : ""}`}
-                onClick={() => selectOption(opt.value)}
-                onPointerEnter={() => setHighlightIndex(i)}
+                onClick={() => {
+                  onChange(opt.value);
+                  setOpen(false);
+                  setHighlightIndex(-1);
+                  triggerRef.current?.focus();
+                }}
+                onPointerEnter={() => onPointerEnter(i)}
                 role="option"
                 aria-selected={isSelected}
               >

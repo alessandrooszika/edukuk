@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import type { ReactNode } from "react";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 import { ChevronLeftIcon } from "../icons";
 import styles from "./Sidebar.module.css";
 

@@ -1,7 +1,7 @@
 import { useRef, type InputHTMLAttributes, useId } from "react";
 import type { Variant, Size } from "../../types";
 import styles from "./ColorInput.module.css";
-import { Box } from "../box/Box";
+import { Box } from "../box";
 
 interface ColorInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type" | "value"> {
   variant?: Variant;
@@ -53,7 +53,6 @@ export const ColorInput = ({
           {...(onChange ? { value } : { defaultValue: value })}
           onChange={onChange}
           className={styles.hidden}
-          aria-hidden="true"
           tabIndex={-1}
           {...rest}
         />

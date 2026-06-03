@@ -1,0 +1,29 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "declarationDir": "./dist-lib/types",
+    "emitDeclarationOnly": true,
+    "rootDir": "./src",
+    "outDir": "./dist-lib/types"
+  },
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "src/stories/**/*",
+    ".storybook/**/*",
+    "src/content/**/*",
+    "src/pages/**/*",
+    "src/data/**/*",
+    "src/i18n/**/*",
+    "src/test/**/*",
+    "src/styles/**/*",
+    "src/main.tsx",
+    "src/App.tsx",
+    "src/App.css",
+    "src/vite-env.d.ts"
+  ]
+}
