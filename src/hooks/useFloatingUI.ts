@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, type RefObject } from "react";
+import { useEffect, useLayoutEffect, useCallback, type RefObject } from "react";
 
 type FloatingPlacement = "bottom" | "top" | "left" | "right";
 
@@ -16,7 +16,7 @@ export function useFloatingUI(
 ) {
   const { placement = "bottom", gap = 4, matchWidth = true } = options;
 
-  const applyPosition = () => {
+  const applyPosition = useCallback(() => {
     if (!triggerRef.current || !floatingRef.current) return;
     const t = triggerRef.current.getBoundingClientRect();
     const el = floatingRef.current;
@@ -46,19 +46,20 @@ export function useFloatingUI(
     if (matchWidth && (placement === "bottom" || placement === "top")) {
       el.style.minWidth = `${t.width}px`;
     }
-  };
+  }, [placement, gap, matchWidth, triggerRef, floatingRef]);
 
   useLayoutEffect(() => {
     if (isOpen) applyPosition();
-  }, [isOpen, triggerRef, floatingRef, placement, gap, matchWidth]);
+  }, [isOpen, applyPosition]);
 
   useEffect(() => {
     if (!isOpen) return;
+    applyPosition();
     window.addEventListener("scroll", applyPosition, true);
     window.addEventListener("resize", applyPosition);
     return () => {
       window.removeEventListener("scroll", applyPosition, true);
       window.removeEventListener("resize", applyPosition);
     };
-  }, [isOpen, triggerRef, floatingRef, placement, gap, matchWidth]);
+  }, [isOpen, applyPosition]);
 }

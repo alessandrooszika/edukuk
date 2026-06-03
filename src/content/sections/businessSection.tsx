@@ -1,3 +1,5 @@
+/* eslint-disable react-refresh/only-export-components */
+
 import { useState } from "react";
 import { Box } from "../../components/box";
 import { Typography } from "../../components/typography";

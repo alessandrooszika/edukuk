@@ -22,7 +22,10 @@ export function useHighlightNavigation({
   const [highlightIndex, setHighlightIndex] = useState(initialIndex);
 
   useEffect(() => {
-    if (!isOpen) setHighlightIndex(initialIndex);
+    if (!isOpen) {
+      const id = setTimeout(() => setHighlightIndex(initialIndex), 0);
+      return () => clearTimeout(id);
+    }
   }, [isOpen, initialIndex]);
 
   useEffect(() => {
