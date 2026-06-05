@@ -3,6 +3,7 @@ import { Typography } from "../../components/typography";
 import { Card, CardHeader, CardBody, CardFooter } from "../../components/card";
 import { RevealCard } from "../../components/reveal-card";
 import { Image } from "../../components/image";
+import { ImageViewerProvider } from "../../components/image-viewer";
 import { Meter } from "../../components/meter";
 import { Accordion } from "../../components/accordion";
 import { Breadcrumbs } from "../../components/breadcrumbs";
@@ -13,7 +14,7 @@ import { AspectRatio } from "../../components/aspect-ratio";
 import { Stack, HStack, VStack } from "../../components/stack";
 import { DataTable } from "../../components/data-table";
 import type { Column as DataColumn } from "../../components/data-table";
-import { PaginationDemo } from "./demos";
+import { PaginationDemo, ViewerImg, ImageViewerActions } from "./demos";
 import htmlCodeImage from "../../assets/html-code-image.webp";
 import cssCodeImage from "../../assets/css-code-image.webp";
 import { misHabilidades } from "../../data/skills";
@@ -22,6 +23,7 @@ import type { T } from "./categories";
 
 export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<string, string>) {
   return (
+    <ImageViewerProvider>
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
       <RevealCard><Card>
         <CardHeader>
@@ -67,9 +69,9 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
           <Typography variant="h3" gutterBottom>{t("complementos.section_image")}</Typography>
         </CardHeader>
         <CardBody>
-          <Image src={htmlCodeImage} alt={t("complementos.image_caption_example")}
+          <Image src={htmlCodeImage} alt={t("complementos.image_caption_example")} viewer
             style={{ width: "100%", height: 192, objectFit: "cover", borderRadius: 12 }} />
-          <Image src={cssCodeImage} alt={t("complementos.image_caption_example")}
+          <Image src={cssCodeImage} alt={t("complementos.image_caption_example")} viewer
             caption={t("complementos.image_caption_example")}
             style={{ width: "100%", height: 192, objectFit: "cover", borderRadius: 12 }} />
         </CardBody>
@@ -77,6 +79,22 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               {t("complementos.figcaption.image")}
+            </Typography>
+          </figure>
+        </CardFooter>
+      </Card></RevealCard>
+      <RevealCard><Card>
+        <CardHeader>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_imageviewer")}</Typography>
+        </CardHeader>
+        <CardBody>
+          <Typography variant="body2" gutterBottom>{t("complementos.imageviewer_desc")}</Typography>
+          <ImageViewerActions t={t} />
+        </CardBody>
+        <CardFooter>
+          <figure className={bs.figure}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
+              {t("complementos.figcaption.imageviewer")}
             </Typography>
           </figure>
         </CardFooter>
@@ -243,18 +261,15 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
           <Box display="flex" flexDirection="column" gap="1rem">
             <Typography variant="body2">16:9</Typography>
             <AspectRatio>
-              <img src={htmlCodeImage} alt="16:9"
-                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 }} />
+              <ViewerImg src={htmlCodeImage} alt="16:9" />
             </AspectRatio>
             <Typography variant="body2">4:3</Typography>
             <AspectRatio ratio={4 / 3} maxWidth={400}>
-              <img src={cssCodeImage} alt="4:3"
-                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 }} />
+              <ViewerImg src={cssCodeImage} alt="4:3" />
             </AspectRatio>
             <Typography variant="body2">1:1 cuadrado</Typography>
             <AspectRatio ratio={1} maxWidth={200}>
-              <img src={htmlCodeImage} alt="1:1"
-                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 }} />
+              <ViewerImg src={htmlCodeImage} alt="1:1" />
             </AspectRatio>
           </Box>
         </CardBody>
@@ -332,5 +347,6 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
         </CardFooter>
       </Card></RevealCard>
     </Box>
+    </ImageViewerProvider>
   );
 }

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, type KeyboardEvent } from "react";
 import { Button } from "../../components/button";
 import { Box } from "../../components/box";
+import { HStack } from "../../components/stack";
 import { Rating } from "../../components/rating";
 import { Pagination } from "../../components/pagination";
 import { Card, CardHeader, CardBody, CardFooter } from "../../components/card";
@@ -13,9 +14,52 @@ import { SplitPane } from "../../components/split-pane";
 import { CommandPalette } from "../../components/command-palette";
 import type { Command } from "../../components/command-palette";
 import { Sidebar } from "../../components/sidebar";
+import { useImageViewer } from "../../components/image-viewer";
+import type { ImageViewerImage } from "../../components/image-viewer";
+import htmlCodeImage from "../../assets/html-code-image.webp";
+import cssCodeImage from "../../assets/css-code-image.webp";
+import jsCodeImage from "../../assets/js-code-image.webp";
 import type { TreeNode } from "../../utils/tree";
 import cardStyles from "../../components/card/Card.module.css";
 import type { T } from "./categories";
+
+export function ViewerImg({ src, alt }: { src: string; alt: string }) {
+  const { openViewer } = useImageViewer();
+  const handleClick = () => openViewer({ src, alt });
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleClick(); }
+  };
+  return (
+    <img
+      src={src}
+      alt={alt}
+      role="button"
+      tabIndex={0}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      style={{ cursor: "pointer", width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 }}
+    />
+  );
+}
+
+export function ImageViewerActions({ t }: { t: T }) {
+  const { openViewer } = useImageViewer();
+  const gallery: ImageViewerImage[] = [
+    { src: htmlCodeImage, alt: t("complementos.image_caption_example") },
+    { src: cssCodeImage, alt: t("complementos.image_caption_example") },
+    { src: jsCodeImage, alt: t("complementos.image_caption_example") },
+  ];
+  return (
+    <HStack gap="0.5rem" flexWrap="wrap">
+      <Button onClick={() => openViewer({ src: gallery[0].src, alt: gallery[0].alt })}>
+        {t("complementos.imageviewer_single")}
+      </Button>
+      <Button onClick={() => openViewer({ src: gallery[0].src, alt: gallery[0].alt, images: gallery })}>
+        {t("complementos.imageviewer_gallery")}
+      </Button>
+    </HStack>
+  );
+}
 
 export function PaginationDemo({ t }: { t?: T }) {
   const [page, setPage] = useState(1);

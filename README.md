@@ -7,7 +7,7 @@
 
 > Componentes UI en React 19 + TypeScript + Vite
 >
-> 60 componentes, 0 dependencias de UI externas
+> 61 componentes, 0 dependencias de UI externas
 
 ## Instalación
 
@@ -46,7 +46,7 @@ function App() {
 | Categoría | Componentes |
 |-----------|------------|
 | **Botones** | Button |
-| **Layout** | Box, Card (Header/Body/Footer), Stack/HStack/VStack, AspectRatio, Divider, Stepper, Table, DataTable, SplitPane, Sidebar |
+| **Layout** | Box, Card (Header/Body/Footer), Stack/HStack/VStack, AspectRatio, Divider, Stepper, Table, DataTable, SplitPane, Sidebar, Image, ImageViewer |
 | **Inputs** | Input, Textarea, Select, Autocomplete, PasswordInput, SearchInput, NumberInput, DateInput, ColorInput, RangeInput, FileInput, FormField, FormGroup, TreeSelect |
 | **Display** | Badge, Chip, Switch, Progress, Skeleton, Tabs, Avatar, Rating, Timeline, EmptyState, Typography, Image, Meter, Accordion |
 | **Business** | TreeView, VirtualizedList, Toast, TreeSelect, CommandPalette |

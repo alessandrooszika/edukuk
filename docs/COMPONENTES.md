@@ -127,6 +127,41 @@ Wrapper de `<img>` con `<figure>` y `figcaption` opcional.
 
 ---
 
+### ImageViewer
+
+`src/components/image-viewer/ImageViewer.tsx`
+
+Visor overlay (lightbox) para imágenes a pantalla completa, con navegación por teclado y gestos táctiles.
+
+**Componentes exportados:** `ImageViewerProvider`, `useImageViewer`, `ImageViewer`
+
+**Props de ImageViewerProvider:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **requerido** | Componentes que pueden abrir el visor |
+
+**Retorno de `useImageViewer()`:**
+
+```ts
+{ openViewer: (opts: { src?: string; alt?: string; images?: { src: string; alt?: string }[]; index?: number }) => void }
+```
+
+**Prop `viewer` en Image:** El componente `Image` acepta `viewer: boolean`. Al hacer clic, Enter o Space abre la imagen en el visor. Requiere `ImageViewerProvider` en un ancestro.
+
+**Comportamiento:** Overlay fixed con `z-index: 300` vía `createPortal`. Panel focusable con `useFocusTrap`. Keyboard: Escape cierra, ArrowLeft/ArrowRight navega (enfoque al botón correspondiente). Touch swipe (threshold 50px) en móvil. Botones de navegación ocultos en <1024px (`useMediaQuery`). Contador "2 / 5" para galería. Animaciones fadeIn overlay + scaleIn imagen.
+
+```tsx
+<ImageViewerProvider>
+  <Image src="/foto.webp" alt="Foto" viewer />
+  <button onClick={() => openViewer({ images: gallery, index: 2 })}>
+    Abrir galería
+  </button>
+</ImageViewerProvider>
+```
+
+---
+
 ### Meter
 
 `src/components/meter/Meter.tsx`
@@ -1641,6 +1676,8 @@ interface IconProps {
 | `MoonIcon` | 12px | stroke | ThemeToggle |
 | `ChevronUpIcon` | 8px | stroke | NumberInput |
 | `ChevronDownIcon` | 8px | stroke | NumberInput, Select |
+| `ChevronLeftIcon` | 14px | stroke | ImageViewer |
+| `ChevronRightIcon` | 8px | stroke | ImageViewer |
 | `CalendarIcon` | 15px | stroke | DateInput |
 | `UploadIcon` | 20px | stroke | FileInput |
 | `FileIcon` | 14px | stroke | FileInput |
@@ -1653,7 +1690,7 @@ interface IconProps {
 | `TwitterIcon` | 22px | fill | Footer |
 | `YouTubeIcon` | 22px | fill | Footer |
 | `LinkedInIcon` | 22px | fill | Footer |
-| `CloseIcon` | 14px | stroke | Modal, Drawer, Chip, Alert, FileInput |
+| `CloseIcon` | 14px | stroke | Modal, Drawer, Chip, Alert, FileInput, ImageViewer |
 
 **Importación:**
 ```tsx
@@ -1826,6 +1863,7 @@ Modal overlay       200
 Drawer overlay      250
 Drawer panel        260
 Alert               300
+ImageViewer         300
 LoaderOverlay      1000
 ```
 
