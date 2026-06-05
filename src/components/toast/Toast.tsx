@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useCallback, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import type { ReactNode } from "react";
 import type { Variant } from "../../types";
 import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from "../icons";
@@ -102,37 +103,41 @@ export const ToastProvider = ({
   return (
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      {Object.entries(grouped).map(([position, items]) => (
-        <div
-          key={position}
-          className={`${styles.provider} ${styles[position as ToastPosition]}`}
-          aria-live="polite"
-          aria-label="Notificaciones"
-        >
-          {items.map((t) => (
-            <div
-              key={t.id}
-              className={`${styles.toast} ${styles[t.variant]} ${t.exiting ? styles.exiting : ""}`}
-              role="alert"
-            >
-              <span className={styles.icon}>
-                {(t.variant === "default" || t.variant === "info") && <InfoIcon size={16} />}
-                {t.variant === "success" && <SuccessIcon size={16} />}
-                {t.variant === "warning" && <WarningIcon size={16} />}
-                {t.variant === "danger" && <ErrorIcon size={16} />}
-              </span>
-              <span className={styles.message}>{t.message}</span>
-              <button
-                className={styles.closeBtn}
-                onClick={() => removeToast(t.id)}
-                aria-label="Cerrar notificación"
+      {createPortal(
+        Object.entries(grouped).map(([position, items]) => (
+          <div
+            key={position}
+            className={`${styles.provider} ${styles[position as ToastPosition]}`}
+            aria-live="polite"
+            aria-label="Notificaciones"
+          >
+            {items.map((t) => (
+              <div
+                key={t.id}
+                className={`${styles.toast} ${styles[t.variant]} ${t.exiting ? styles.exiting : ""}`}
+                role="alert"
               >
-                ✕
-              </button>
-            </div>
-          ))}
-        </div>
-      ))}
+                <span className={styles.icon}>
+                  {(t.variant === "default" || t.variant === "info") && <InfoIcon size={16} />}
+                  {t.variant === "success" && <SuccessIcon size={16} />}
+                  {t.variant === "warning" && <WarningIcon size={16} />}
+                  {t.variant === "danger" && <ErrorIcon size={16} />}
+                </span>
+                <span className={styles.message}>{t.message}</span>
+                <button
+                  type="button"
+                  className={styles.closeBtn}
+                  onClick={() => removeToast(t.id)}
+                  aria-label="Cerrar notificación"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+        )),
+        document.body
+      )}
     </ToastContext.Provider>
   );
 };

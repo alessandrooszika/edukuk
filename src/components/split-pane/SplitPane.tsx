@@ -34,8 +34,9 @@ export const SplitPane = ({
   const handlePointerMove = useCallback((e: PointerEvent) => {
     if (!dragging.current || !containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
+    const containerSize = isHorizontal ? rect.width : rect.height;
     const next = isHorizontal ? e.clientX - rect.left : e.clientY - rect.top;
-    setSize(Math.max(minSize, Math.min(maxSize, next)));
+    setSize(Math.max(minSize, Math.min(maxSize, Math.min(next, containerSize - 4 - 80))));
   }, [isHorizontal, minSize, maxSize]);
 
   const handlePointerUp = useCallback(() => {
@@ -54,17 +55,25 @@ export const SplitPane = ({
   return (
     <Box
       ref={containerRef}
-      display="flex"
-      flexDirection={isHorizontal ? "row" : "column"}
-      gap={0}
+      display="grid"
       className={`${styles.container} ${isHorizontal ? styles.horizontal : styles.vertical} ${className}`}
-      style={isHorizontal ? { height: 300 } : undefined}
+      style={{
+        overflow: "hidden",
+        maxWidth: "100%",
+        minWidth: 0,
+        ...(isHorizontal
+          ? { height: 300, gridTemplateColumns: `${size}px 4px 1fr` }
+          : { gridTemplateRows: `${size}px 4px 1fr` }
+        ),
+      }}
     >
-      <Box className={styles.primary} width={isHorizontal ? size : undefined} style={isHorizontal ? undefined : { height: size }}>
+      <Box className={styles.primary} style={{ overflow: "hidden", minWidth: 0, minHeight: 0 }}>
         {primary}
       </Box>
       <Box className={styles.divider} onPointerDown={handlePointerDown} />
-      <Box className={styles.secondary}>{secondary}</Box>
+      <Box className={styles.secondary} style={{ overflow: "hidden", minWidth: 0, minHeight: 0 }}>
+        {secondary}
+      </Box>
     </Box>
   );
 };

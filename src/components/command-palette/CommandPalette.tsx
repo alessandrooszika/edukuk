@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo, useCallback, startTransition, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { Box } from "../box";
 import { Typography } from "../typography";
@@ -111,7 +112,7 @@ export const CommandPalette = ({
 
   let cmdIndex = 0;
 
-  return (
+  return createPortal(
     <Box ref={overlayRef} className={styles.overlay}>
       <Box ref={paletteRef} className={styles.palette}>
         <Box className={styles.inputWrapper}>
@@ -167,6 +168,7 @@ export const CommandPalette = ({
           )}
         </Box>
       </Box>
-    </Box>
+    </Box>,
+    document.body
   );
 };
