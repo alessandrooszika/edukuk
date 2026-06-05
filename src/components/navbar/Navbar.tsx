@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { LogoWatermark } from "../logo-watermark/LogoWatermark";
 import { ThemeToggle } from "../theme-toggle/ThemeToggle";
@@ -17,9 +18,17 @@ interface NavbarProps {
 export const Navbar = ({ currentPage, onNavigate }: NavbarProps) => {
   const { t } = useTranslation();
   const scrollProgress = useScrollProgress();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <nav className={styles.nav} aria-label={t("navbar.aria_label")}>
+    <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ""}`} aria-label={t("navbar.aria_label")}>
       <Box className={styles.inner}>
         <Tooltip content={t("navbar.home_tooltip")} position="bottom">
           <Button iconOnly className={styles.brand} onClick={() => onNavigate("home")}>

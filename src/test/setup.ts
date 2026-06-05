@@ -2,6 +2,13 @@ import "@testing-library/jest-dom/vitest";
 
 Element.prototype.scrollIntoView = vi.fn();
 
+class ResizeObserverMock {
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
+}
+vi.stubGlobal("ResizeObserver", ResizeObserverMock);
+
 const storage: Record<string, string> = {};
 Object.defineProperty(globalThis, "localStorage", {
   value: {

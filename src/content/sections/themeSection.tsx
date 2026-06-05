@@ -1,6 +1,7 @@
 import { Box } from "../../components/box";
 import { Typography } from "../../components/typography";
 import { Card, CardHeader, CardBody, CardFooter } from "../../components/card";
+import { RevealCard } from "../../components/reveal-card";
 import { ThemeToggle } from "../../components/theme-toggle";
 import { LogoWatermark } from "../../components/logo-watermark";
 import type { T } from "./categories";
@@ -31,7 +32,7 @@ const colorTokens = [
 export function renderThemeSection(t: T, s: Record<string, string>, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
-      <Card>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_theme")}</Typography>
         </CardHeader>
@@ -45,8 +46,8 @@ export function renderThemeSection(t: T, s: Record<string, string>, bs: Record<s
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_logo")}</Typography>
         </CardHeader>
@@ -60,8 +61,8 @@ export function renderThemeSection(t: T, s: Record<string, string>, bs: Record<s
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_tokens_colors")}</Typography>
         </CardHeader>
@@ -82,8 +83,8 @@ export function renderThemeSection(t: T, s: Record<string, string>, bs: Record<s
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_tokens_typography")}</Typography>
         </CardHeader>
@@ -105,8 +106,8 @@ export function renderThemeSection(t: T, s: Record<string, string>, bs: Record<s
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_tokens_sizes")}</Typography>
         </CardHeader>
@@ -126,7 +127,7 @@ export function renderThemeSection(t: T, s: Record<string, string>, bs: Record<s
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
+      </Card></RevealCard>
     </Box>
   );
 }

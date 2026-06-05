@@ -16,13 +16,27 @@ import { FormGroup } from "../components/form-group";
 export default { title: "Inputs" };
 
 export const InputDefault = () => <Input placeholder="Type something..." />;
-export const InputWithLabel = () => <Input label="Username" placeholder="Enter username" />;
-export const InputWithError = () => <Input label="Email" error="Invalid email" value="bad" onChange={() => {}} />;
+export const InputWithLabel = () => (
+  <FormField label="Username" htmlFor="input-label">
+    <Input id="input-label" placeholder="Enter username" />
+  </FormField>
+);
+export const InputWithError = () => (
+  <FormField label="Email" htmlFor="input-error" error="Invalid email">
+    <Input id="input-error" value="bad" onChange={() => {}} />
+  </FormField>
+);
 export const InputVariants = () => (
   <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-    <Input placeholder="Outlined" design="outlined" label="Outlined" />
-    <Input placeholder="Filled" design="filled" label="Filled" />
-    <Input placeholder="Standard" design="standard" label="Standard" />
+    <FormField label="Outlined" htmlFor="input-outlined">
+      <Input id="input-outlined" placeholder="Outlined" design="outlined" />
+    </FormField>
+    <FormField label="Filled" htmlFor="input-filled">
+      <Input id="input-filled" placeholder="Filled" design="filled" />
+    </FormField>
+    <FormField label="Standard" htmlFor="input-standard">
+      <Input id="input-standard" placeholder="Standard" design="standard" />
+    </FormField>
   </div>
 );
 

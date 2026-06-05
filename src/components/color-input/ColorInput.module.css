@@ -90,9 +90,9 @@
 .md.swatch { width: 24px; height: 24px; }
 .lg.swatch { width: 28px; height: 28px; }
 
-.sm.display { font-size: 0.8125rem; }
-.md.display { font-size: 0.9375rem; }
-.lg.display { font-size: 1.0625rem; }
+.sm.display { font-size: 0.875rem; }
+.md.display { font-size: 1rem; }
+.lg.display { font-size: 1.125rem; }
 
 .default { --input-color: var(--accent); }
 .info { --input-color: var(--info); }

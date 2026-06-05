@@ -1,6 +1,7 @@
 import { Box } from "../../components/box";
 import { Typography } from "../../components/typography";
 import { Card, CardHeader, CardBody, CardFooter } from "../../components/card";
+import { RevealCard } from "../../components/reveal-card";
 import {
   MenuIcon, SearchIcon, ClearIcon, EyeIcon, EyeOffIcon,
   SunIcon, MoonIcon, ChevronUpIcon, ChevronDownIcon,
@@ -38,7 +39,7 @@ const iconList = [
 export function renderIconsSection(t: T, s: Record<string, string>, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
-      <Card>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.icons_heading")}</Typography>
           <Typography variant="caption">
@@ -65,7 +66,7 @@ export function renderIconsSection(t: T, s: Record<string, string>, bs: Record<s
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
+      </Card></RevealCard>
     </Box>
   );
 }

@@ -70,7 +70,9 @@ export const ComplementoPageDrawer = ({ defaultTab = 0, onTabChange }: Complemen
         </Box>
       </Drawer>
 
-      {renderContent()}
+      <Box key={defaultTab} className={styles.contentFade}>
+        {renderContent()}
+      </Box>
 
       <FloatingOverlays
         modalSmall={st.modalSmall} setModalSmall={st.setModalSmall}

@@ -23,6 +23,7 @@ export const TreeView = ({
 }: TreeViewProps) => {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set(defaultExpandedIds));
   const [focusedIndex, setFocusedIndex] = useState(0);
+  const [isTreeFocused, setIsTreeFocused] = useState(false);
   const treeRef = useRef<HTMLDivElement>(null);
 
   const visibleNodes = useMemo(() => flattenTree(data, expandedIds), [data, expandedIds]);
@@ -36,7 +37,8 @@ export const TreeView = ({
     });
   }, []);
 
-  const selectNode = useCallback((id: string) => {
+  const selectNode = useCallback((id: string, index?: number) => {
+    if (index !== undefined) setFocusedIndex(index);
     if (onSelect) onSelect(id);
   }, [onSelect]);
 
@@ -105,6 +107,8 @@ export const TreeView = ({
       className={`${styles.tree} ${className}`}
       role="tree"
       tabIndex={0}
+      onFocus={() => setIsTreeFocused(true)}
+      onBlur={() => setIsTreeFocused(false)}
     >
       {visibleNodes.map(({ node, depth }, index) => {
         const hasChildren = !!node.children && node.children.length > 0;
@@ -128,12 +132,12 @@ export const TreeView = ({
               className={`${styles.nodeRow} ${isSelected ? styles.selected : ""} ${isDisabled ? styles.disabled : ""}`}
               onClick={() => {
                 if (!isDisabled) {
-                  selectNode(node.id);
+                  selectNode(node.id, index);
                   if (hasChildren) toggle(node.id);
                 }
               }}
               tabIndex={-1}
-              style={isFocused ? { outline: "2px solid var(--accent)", outlineOffset: "-2px" } : undefined}
+              style={isFocused && isTreeFocused ? { outline: "2px solid var(--accent)", outlineOffset: "-2px" } : undefined}
             >
               {hasChildren ? (
                 <Box className={`${styles.toggle} ${isExpanded ? styles.expanded : ""}`}>

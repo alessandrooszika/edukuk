@@ -37,7 +37,7 @@ src/
 - **Card**: compuesto por CardHeader, CardBody, CardFooter — extienden BoxProps
 - **Button**: extiende `ComponentPropsWithoutRef<"button">` con `...rest`
 - **Typography**: 10 variantes (h1–h6, body1, body2, caption, code), `component`, `gutterBottom`, `noWrap`
-- **Input**: `forwardRef<HTMLInputElement, InputProps>`, props: `variant`, `size`, `design`, `label`, `error`, `hideErrorText`
+- **Input**: `forwardRef<HTMLInputElement, InputProps>`, props: `variant`, `size`, `design`, `error`, `hideErrorText` — sin `label` (usar FormField). Todos los inputs-categoria comparten font-size (sm:0.875rem / md:1rem / lg:1.125rem), line-height:1.5, letter-spacing:0.01em, background:var(--bg), border-radius:8px, focus ring 3px color-mix, hover border-color:var(--accent)
 - **Select**: trigger `<button>`, dropdown via `createPortal`, `role="listbox"`
 - **Autocomplete**: input `role="combobox"`, dropdown via `createPortal`, `aria-activedescendant`
 - **TreeSelect**: árbol jerárquico en dropdown, `createPortal`, expand/colapse con toggle

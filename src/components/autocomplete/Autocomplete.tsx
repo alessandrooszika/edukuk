@@ -2,6 +2,7 @@ import { useState, useRef, useMemo, useCallback, useId } from "react";
 import { createPortal } from "react-dom";
 import { Input } from "../input";
 import type { Variant, Size } from "../../types";
+import { FormField } from "../form-field";
 import { Box } from "../box";
 import { useFloatingUI } from "../../hooks/useFloatingUI";
 import { useClickOutside } from "../../hooks/useClickOutside";
@@ -40,6 +41,7 @@ export const Autocomplete = ({
   const listRef = useRef<HTMLUListElement>(null);
   const listId = useId();
   const optionBaseId = useId();
+  const inputId = useId();
 
   const accentColor = getAccentColor(variant);
 
@@ -109,25 +111,26 @@ export const Autocomplete = ({
 
   return (
     <Box ref={wrapperRef} className={`${styles.wrapper} ${className}`}>
-      <Input
-        ref={inputRef}
-        value={value}
-        onChange={handleInputChange}
-        onKeyDown={handleInputKeyDown}
-        onFocus={handleFocus}
-        placeholder={placeholder}
-        variant={variant}
-        size={size}
-        label={label}
-        error={error}
-        disabled={disabled}
-        autoComplete="off"
-        role="combobox"
-        aria-expanded={open}
-        aria-controls={listId}
-        aria-activedescendant={activeDescendantId}
-        aria-autocomplete="list"
-      />
+      <FormField label={label} htmlFor={inputId} error={error}>
+        <Input
+          ref={inputRef}
+          id={inputId}
+          value={value}
+          onChange={handleInputChange}
+          onKeyDown={handleInputKeyDown}
+          onFocus={handleFocus}
+          placeholder={placeholder}
+          variant={variant}
+          size={size}
+          disabled={disabled}
+          autoComplete="off"
+          role="combobox"
+          aria-expanded={open}
+          aria-controls={listId}
+          aria-activedescendant={activeDescendantId}
+          aria-autocomplete="list"
+        />
+      </FormField>
       {open && createPortal(
         <ul
           ref={listRef}

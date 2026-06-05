@@ -1,4 +1,4 @@
-import { useState, useId, type ReactNode } from "react";
+import { useState, useId, useRef, useLayoutEffect, useCallback, type ReactNode } from "react";
 import type { Variant } from "../../types";
 import styles from "./Tabs.module.css";
 import { Box } from "../box";
@@ -24,9 +24,47 @@ export const Tabs = ({
   className = "",
 }: TabsProps) => {
   const [active, setActive] = useState(defaultIndex);
+  const prevIndex = useRef(defaultIndex);
+  const [direction, setDirection] = useState<"left" | "right">("right");
+  const tablistRef = useRef<HTMLDivElement>(null);
+  const [indicatorStyle, setIndicatorStyle] = useState<{ w: number; x: number } | null>(null);
   const uid = useId();
 
+  const measureIndicator = useCallback(() => {
+    const tablist = tablistRef.current;
+    if (!tablist) return;
+    const activeTab = tablist.querySelector('[role="tab"][aria-selected="true"]') as HTMLElement | null;
+    if (!activeTab) return;
+
+    const listRect = tablist.getBoundingClientRect();
+    const tabRect = activeTab.getBoundingClientRect();
+
+    setIndicatorStyle({
+      w: tabRect.width,
+      x: tabRect.left - listRect.left + tablist.scrollLeft,
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    measureIndicator();
+
+    const tablist = tablistRef.current;
+    if (!tablist) return;
+
+    const ro = new ResizeObserver(measureIndicator);
+    ro.observe(tablist);
+    window.addEventListener("resize", measureIndicator);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measureIndicator);
+    };
+  }, [measureIndicator, active]);
+
   const handleClick = (i: number) => {
+    if (i === active) return;
+    setDirection(i > prevIndex.current ? "right" : "left");
+    prevIndex.current = i;
     setActive(i);
     onChange?.(i);
   };
@@ -43,9 +81,12 @@ export const Tabs = ({
     handleClick(next);
   };
 
+  const slideClass = direction === "right" ? styles.slideFromRight : styles.slideFromLeft;
+
   return (
     <Box className={`${styles.wrapper} ${className}`}>
       <Box
+        ref={tablistRef}
         className={`${styles.tablist} ${styles[variant]}`}
         role="tablist"
         aria-orientation="horizontal"
@@ -66,14 +107,18 @@ export const Tabs = ({
         ))}
         <span
           className={styles.indicator}
-          style={{
+          style={indicatorStyle ? {
+            width: indicatorStyle.w,
+            transform: `translateX(${indicatorStyle.x}px)`,
+          } : {
             width: `${100 / tabs.length}%`,
             transform: `translateX(${active * 100}%)`,
           }}
         />
       </Box>
       <Box
-        className={styles.panel}
+        key={active}
+        className={`${styles.panel} ${slideClass}`}
         role="tabpanel"
         id={`${uid}-panel-${active}`}
         aria-labelledby={`${uid}-tab-${active}`}

@@ -5,3 +5,4 @@ export { useFocusTrap } from "./useFocusTrap";
 export { useHighlightNavigation } from "./useHighlightNavigation";
 export { useOnlineStatus } from "./useOnlineStatus";
 export { useScrollProgress } from "./useScrollProgress";
+export { useReveal } from "./useReveal";

@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { ErrorBoundary } from "./components/error-boundary";
 import { Navbar } from "./components/navbar/Navbar";
@@ -23,9 +24,24 @@ function getPageFromHash(): Page {
 function App() {
   const { t, i18n } = useTranslation();
   const [page, setPage] = useState<Page>(() => getPageFromHash());
+  const pageRef = useRef(page);
 
   useEffect(() => {
-    const onHashChange = () => setPage(getPageFromHash());
+    pageRef.current = page;
+  }, [page]);
+
+  useEffect(() => {
+    const onHashChange = () => {
+      const next = getPageFromHash();
+      if (next === pageRef.current) return;
+      if (document.startViewTransition) {
+        document.startViewTransition(() => {
+          flushSync(() => setPage(next));
+        });
+      } else {
+        setPage(next);
+      }
+    };
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);

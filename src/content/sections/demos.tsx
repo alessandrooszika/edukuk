@@ -73,7 +73,7 @@ export function TreeViewDemo({ t }: { t: T }) {
   ];
   return (
     <Box display="grid" gridTemplateColumns="1fr 1fr" gap="1rem" alignItems="start">
-      <TreeView data={treeData} selectedId={selectedId} onSelect={setSelectedId} defaultExpandedIds={["docs"]} />
+      <TreeView data={treeData} selectedId={selectedId} onSelect={setSelectedId} defaultExpandedIds={["docs", "projects"]} />
       <Typography variant="body2">{t("complementos.treeview_selected")} <code>{selectedId || t("complementos.treeview_none")}</code></Typography>
     </Box>
   );

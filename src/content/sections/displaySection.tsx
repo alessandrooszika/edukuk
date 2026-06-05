@@ -1,6 +1,7 @@
 import { Box } from "../../components/box";
 import { Typography } from "../../components/typography";
 import { Card, CardHeader, CardBody, CardFooter } from "../../components/card";
+import { RevealCard } from "../../components/reveal-card";
 import { Badge } from "../../components/badge";
 import { Button } from "../../components/button";
 import { Chip } from "../../components/chip";
@@ -23,7 +24,7 @@ import type { DisplayState } from "./types";
 export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
-      <Card>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_badge")}</Typography>
         </CardHeader>
@@ -57,8 +58,8 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_chip")}</Typography>
         </CardHeader>
@@ -88,8 +89,8 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_switch")}</Typography>
         </CardHeader>
@@ -120,8 +121,8 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_progress")}</Typography>
         </CardHeader>
@@ -145,8 +146,8 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_skeleton")}</Typography>
         </CardHeader>
@@ -168,8 +169,8 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_tabs")}</Typography>
         </CardHeader>
@@ -187,8 +188,8 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_avatar")}</Typography>
         </CardHeader>
@@ -218,8 +219,8 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_rating")}</Typography>
         </CardHeader>
@@ -256,8 +257,8 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_timeline")}</Typography>
         </CardHeader>
@@ -276,8 +277,8 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_emptystate")}</Typography>
         </CardHeader>
@@ -311,8 +312,8 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_typography")}</Typography>
         </CardHeader>
@@ -350,7 +351,7 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
+      </Card></RevealCard>
     </Box>
   );
 }

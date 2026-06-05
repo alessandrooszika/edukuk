@@ -17,18 +17,21 @@ import { RangeInput } from "../../components/range-input";
 import { FileInput } from "../../components/file-input";
 import { FormField } from "../../components/form-field";
 import { FormGroup } from "../../components/form-group";
+import { RevealCard } from "../../components/reveal-card";
 import type { T } from "./categories";
 import type { InputsState } from "./types";
 
 export function renderInputsSection(t: T, st: InputsState, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
-      <Card>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_input")}</Typography>
         </CardHeader>
         <CardBody>
-          <Input value={st.inputValue} onChange={(e) => st.setInputValue(e.target.value)} placeholder={t("complementos.input_placeholder")} label={t("complementos.input_label_base")} />
+          <FormField label={t("complementos.input_label_base")} htmlFor="input-base">
+            <Input id="input-base" value={st.inputValue} onChange={(e) => st.setInputValue(e.target.value)} placeholder={t("complementos.input_placeholder")} />
+          </FormField>
           <InputSizes />
           <InputVariants />
           <InputErrorDemo t={t} />
@@ -41,8 +44,8 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_autocomplete")}</Typography>
         </CardHeader>
@@ -58,8 +61,8 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_select")}</Typography>
         </CardHeader>
@@ -81,8 +84,8 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_textarea")}</Typography>
         </CardHeader>
@@ -99,8 +102,8 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_password")}</Typography>
         </CardHeader>
@@ -116,8 +119,8 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_search")}</Typography>
         </CardHeader>
@@ -133,8 +136,8 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_number")}</Typography>
         </CardHeader>
@@ -150,8 +153,8 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_date")}</Typography>
         </CardHeader>
@@ -166,8 +169,8 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_color")}</Typography>
         </CardHeader>
@@ -183,8 +186,8 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_range")}</Typography>
         </CardHeader>
@@ -200,8 +203,8 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_file")}</Typography>
         </CardHeader>
@@ -216,8 +219,8 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_form")}</Typography>
         </CardHeader>
@@ -231,7 +234,7 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
+      </Card></RevealCard>
     </Box>
   );
 }
@@ -281,9 +284,15 @@ function InputDesigns({ t }: { t: T }) {
   const [standard, setStandard] = useState("");
   return (
     <Box display="flex" gap="0.5rem" flexWrap="wrap">
-      <Input value={outlined} onChange={(e) => setOutlined(e.target.value)} label="Outlined" placeholder={t("complementos.input_placeholder_outlined")} />
-      <Input value={filled} onChange={(e) => setFilled(e.target.value)} design="filled" label="Filled" placeholder={t("complementos.input_placeholder_filled")} />
-      <Input value={standard} onChange={(e) => setStandard(e.target.value)} design="standard" label="Standard" placeholder={t("complementos.input_placeholder_standard")} />
+      <FormField label="Outlined" htmlFor="input-outlined">
+        <Input id="input-outlined" value={outlined} onChange={(e) => setOutlined(e.target.value)} placeholder={t("complementos.input_placeholder_outlined")} />
+      </FormField>
+      <FormField label="Filled" htmlFor="input-filled">
+        <Input id="input-filled" value={filled} onChange={(e) => setFilled(e.target.value)} design="filled" placeholder={t("complementos.input_placeholder_filled")} />
+      </FormField>
+      <FormField label="Standard" htmlFor="input-standard">
+        <Input id="input-standard" value={standard} onChange={(e) => setStandard(e.target.value)} design="standard" placeholder={t("complementos.input_placeholder_standard")} />
+      </FormField>
     </Box>
   );
 }

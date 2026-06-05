@@ -1,6 +1,7 @@
 import { Box } from "../../components/box";
 import { Typography } from "../../components/typography";
 import { Card, CardHeader, CardBody, CardFooter } from "../../components/card";
+import { RevealCard } from "../../components/reveal-card";
 import { Image } from "../../components/image";
 import { Meter } from "../../components/meter";
 import { Accordion } from "../../components/accordion";
@@ -22,7 +23,7 @@ import type { T } from "./categories";
 export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
-      <Card>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_box")}</Typography>
         </CardHeader>
@@ -39,8 +40,8 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_card")}</Typography>
         </CardHeader>
@@ -60,8 +61,8 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_image")}</Typography>
         </CardHeader>
@@ -79,8 +80,8 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_meter")}</Typography>
         </CardHeader>
@@ -104,8 +105,8 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_accordion")}</Typography>
         </CardHeader>
@@ -123,8 +124,8 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_breadcrumbs")}</Typography>
         </CardHeader>
@@ -142,9 +143,9 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
+      </Card></RevealCard>
       <PaginationDemo t={t} />
-      <Card>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_divider")}</Typography>
         </CardHeader>
@@ -173,8 +174,8 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_stepper")}</Typography>
         </CardHeader>
@@ -195,8 +196,8 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_table")}</Typography>
         </CardHeader>
@@ -233,8 +234,8 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_aspectratio")}</Typography>
         </CardHeader>
@@ -264,8 +265,8 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_stack")}</Typography>
         </CardHeader>
@@ -297,8 +298,8 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_datatable")}</Typography>
         </CardHeader>
@@ -329,7 +330,7 @@ export function renderLayoutSection(t: T, s: Record<string, string>, bs: Record<
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
+      </Card></RevealCard>
     </Box>
   );
 }

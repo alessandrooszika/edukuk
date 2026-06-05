@@ -3,12 +3,13 @@ import { Typography } from "../../components/typography";
 import { Card, CardHeader, CardBody, CardFooter } from "../../components/card";
 import { Button } from "../../components/button";
 import { Tooltip } from "../../components/tooltip";
+import { RevealCard } from "../../components/reveal-card";
 import type { T } from "./categories";
 
 export function renderButtonsSection(t: T, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
-      <Card>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_button")}</Typography>
         </CardHeader>
@@ -28,8 +29,8 @@ export function renderButtonsSection(t: T, bs: Record<string, string>) {
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_tooltip")}</Typography>
         </CardHeader>
@@ -50,7 +51,7 @@ export function renderButtonsSection(t: T, bs: Record<string, string>) {
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
+      </Card></RevealCard>
     </Box>
   );
 }

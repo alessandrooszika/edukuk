@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Box } from "../../components/box";
 import { Typography } from "../../components/typography";
 import { Card, CardHeader, CardBody, CardFooter } from "../../components/card";
+import { RevealCard } from "../../components/reveal-card";
 import { TreeView } from "../../components/tree-view";
 import type { TreeNode } from "../../utils/tree";
 import { VirtualizedList } from "../../components/virtualized-list";
@@ -20,7 +21,7 @@ import type { T } from "./categories";
 export function renderBusinessSection(t: T, _st: unknown, _bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
-      <Card>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_treeview")}</Typography>
         </CardHeader>
@@ -34,8 +35,8 @@ export function renderBusinessSection(t: T, _st: unknown, _bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_virtualized")}</Typography>
         </CardHeader>
@@ -49,8 +50,8 @@ export function renderBusinessSection(t: T, _st: unknown, _bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_toast")}</Typography>
         </CardHeader>
@@ -66,8 +67,8 @@ export function renderBusinessSection(t: T, _st: unknown, _bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_treeselect")}</Typography>
         </CardHeader>
@@ -81,8 +82,8 @@ export function renderBusinessSection(t: T, _st: unknown, _bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_splitpane")}</Typography>
         </CardHeader>
@@ -96,8 +97,8 @@ export function renderBusinessSection(t: T, _st: unknown, _bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_commandpalette")}</Typography>
         </CardHeader>
@@ -111,8 +112,8 @@ export function renderBusinessSection(t: T, _st: unknown, _bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_sidebar")}</Typography>
         </CardHeader>
@@ -126,7 +127,7 @@ export function renderBusinessSection(t: T, _st: unknown, _bs: Record<string, st
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
+      </Card></RevealCard>
     </Box>
   );
 }
@@ -241,7 +242,7 @@ function TreeViewDemo({ t }: { t: T }) {
   ];
   return (
     <Box display="grid" gridTemplateColumns="1fr 1fr" gap="1rem" alignItems="start">
-      <TreeView data={treeData} selectedId={selectedId} onSelect={setSelectedId} defaultExpandedIds={["docs"]} />
+      <TreeView data={treeData} selectedId={selectedId} onSelect={setSelectedId} defaultExpandedIds={["docs", "projects"]} />
       <Typography variant="body2">{t("complementos.treeview_selected")} <code>{selectedId || t("complementos.treeview_none")}</code></Typography>
     </Box>
   );

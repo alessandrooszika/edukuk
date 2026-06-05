@@ -1,6 +1,7 @@
 import { Box } from "../../components/box";
 import { Typography } from "../../components/typography";
 import { Card, CardHeader, CardBody, CardFooter } from "../../components/card";
+import { RevealCard } from "../../components/reveal-card";
 import { Button } from "../../components/button";
 import { Loader, LoaderBar } from "../../components/loader";
 import { Popover } from "../../components/popover";
@@ -10,7 +11,7 @@ import type { OverlaysState } from "./types";
 export function renderOverlaysSection(t: T, st: OverlaysState, bs: Record<string, string>) {
   return (
     <Box display="grid" gridTemplateColumns="1fr" gap="1.5rem" alignItems="start" width="100%" textAlign="left">
-      <Card>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_modal")}</Typography>
         </CardHeader>
@@ -29,8 +30,8 @@ export function renderOverlaysSection(t: T, st: OverlaysState, bs: Record<string
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_alert")}</Typography>
         </CardHeader>
@@ -53,8 +54,8 @@ export function renderOverlaysSection(t: T, st: OverlaysState, bs: Record<string
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_loader")}</Typography>
         </CardHeader>
@@ -81,8 +82,8 @@ export function renderOverlaysSection(t: T, st: OverlaysState, bs: Record<string
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_loaderoverylay")}</Typography>
         </CardHeader>
@@ -98,8 +99,8 @@ export function renderOverlaysSection(t: T, st: OverlaysState, bs: Record<string
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_popover")}</Typography>
         </CardHeader>
@@ -120,8 +121,8 @@ export function renderOverlaysSection(t: T, st: OverlaysState, bs: Record<string
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
-      <Card>
+      </Card></RevealCard>
+      <RevealCard><Card>
         <CardHeader>
           <Typography variant="h3" gutterBottom>{t("complementos.section_drawer")}</Typography>
         </CardHeader>
@@ -138,7 +139,7 @@ export function renderOverlaysSection(t: T, st: OverlaysState, bs: Record<string
             </Typography>
           </figure>
         </CardFooter>
-      </Card>
+      </Card></RevealCard>
     </Box>
   );
 }

@@ -8,16 +8,6 @@ describe("Input", () => {
     expect(screen.getByRole("textbox")).toBeInTheDocument();
   });
 
-  it("muestra label cuando se provee", () => {
-    render(<Input label="Nombre" />);
-    expect(screen.getByLabelText("Nombre")).toBeInTheDocument();
-  });
-
-  it("asocia label con input via htmlFor/id", () => {
-    render(<Input label="Email" id="my-email" />);
-    expect(screen.getByLabelText("Email")).toHaveAttribute("id", "my-email");
-  });
-
   it("muestra placeholder", () => {
     render(<Input placeholder="Escribe..." />);
     expect(screen.getByPlaceholderText("Escribe...")).toBeInTheDocument();
@@ -65,15 +55,5 @@ describe("Input", () => {
   it("aplica design class al field", () => {
     render(<Input design="filled" />);
     expect(screen.getByRole("textbox").parentElement?.className).toContain("filled");
-  });
-
-  it("label flota cuando hay valor", () => {
-    render(<Input label="Nombre" value="Juan" onChange={() => {}} />);
-    expect(screen.getByText("Nombre").className).toContain("float");
-  });
-
-  it("label no flota sin valor ni focus", () => {
-    render(<Input label="Nombre" value="" onChange={() => {}} />);
-    expect(screen.getByText("Nombre").className).not.toContain("float");
   });
 });
