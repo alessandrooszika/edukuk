@@ -79,3 +79,4 @@ export const Box = forwardRef<HTMLDivElement, BoxProps>(
     return <div ref={ref} className={className} style={merged} {...rest} />;
   }
 );
+Box.displayName = "Box";

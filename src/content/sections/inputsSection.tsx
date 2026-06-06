@@ -209,7 +209,7 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
           <Typography variant="h3" gutterBottom>{t("complementos.section_file")}</Typography>
         </CardHeader>
         <CardBody>
-          <FileInput label={t("complementos.file_label")} accept=".pdf,.jpg,.png" onChange={(files) => console.log("Archivos:", files)} />
+          <FileInput label={t("complementos.file_label")} accept=".pdf,.jpg,.png" />
           <FileMultipleDemo t={t} />
         </CardBody>
         <CardFooter>

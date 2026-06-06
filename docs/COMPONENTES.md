@@ -108,6 +108,27 @@ Contenedor elevado con borde redondeado, sombra y padding. Acepta **BoxProps** p
 
 ---
 
+### RevealCard
+
+`src/components/reveal-card/RevealCard.tsx`
+
+Wrapper que anima su contenido con fade-in + slide-up al hacer scroll (IntersectionObserver). Sin JavaScript necesario del lado del consumidor.
+
+**Props:**
+
+| Prop | Tipo | Default | Descripción |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **requerido** | Contenido a animar |
+| `className` | `string` | `""` | Clase adicional |
+
+**Comportamiento:** Usa `useReveal` hook con `threshold: 0.05`. Al entrar en viewport aplica clase `.visible` que dispara la animación CSS (opacity 0→1, translateY 20px→0). Sin dependencias externas.
+
+```tsx
+<RevealCard><Card><p>Aparece con scroll</p></Card></RevealCard>
+```
+
+---
+
 ### Image
 
 `src/components/image/Image.tsx`
@@ -217,7 +238,7 @@ Navegación de ruta jerárquica con `<nav aria-label="breadcrumb">` y `<ol>`. Si
 | Prop | Tipo | Default | Descripción |
 |------|------|---------|-------------|
 | `items` | `BreadcrumbItem[]` | **requerido** | Array de rutas `{ label: string; href?: string }` |
-| `separator` | `string` | `"/"` | Separador entre ítems |
+| `separator` | `ReactNode` | `"/"` | Separador entre ítems |
 
 **BreadcrumbItem:**
 
@@ -285,7 +306,7 @@ Línea divisoria horizontal (`<hr>`) o vertical (`<span>`). Sin JavaScript.
 |------|------|---------|-------------|
 | `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` | Dirección |
 | `variant` | `Variant` | `"default"` | Color de la línea |
-| `size` | `Size` | `"md"` | Grosor |
+| `size` | `Size` | `"sm"` | Grosor |
 | `label` | `string` | — | Texto opcional centrado (solo horizontal) |
 | `className` | `string` | `""` | Clase adicional |
 
@@ -531,7 +552,7 @@ Botón con variantes de color, ghost e icon-only. Extiende `<button>` nativo.
 
 `src/components/input/Input.tsx`
 
-Campo de texto base con label, error, variantes y tamaños.
+Campo de texto base con error, variantes, diseño y tamaños. (Usar `FormField` para label.)
 
 **Props:**
 
@@ -539,9 +560,8 @@ Campo de texto base con label, error, variantes y tamaños.
 |------|------|---------|-------------|
 | `variant` | `Variant` | `"default"` | Color de foco |
 | `size` | `Size` | `"md"` | Tamaño |
-| `label` | `string` | — | Texto del label (renderiza `<label htmlFor={id}>`) |
+| `design` | `"outlined" \| "filled" \| "standard"` | `"outlined"` | Variante visual |
 | `error` | `string` | — | Mensaje de error (aria-invalid, role="alert") |
-| `hideErrorText` | `boolean` | `false` | Suprime el texto de error pero mantiene borde rojo + aria-invalid |
 | `id` | `string` | `useId()` | ID auto-generado |
 | Resto | `Omit<InputHTMLAttributes<HTMLInputElement>, "size">` | — | Atributos nativos |
 
@@ -550,9 +570,9 @@ Campo de texto base con label, error, variantes y tamaños.
 **Error:** Borde `--danger` + glow rojo.
 
 ```tsx
-<Input label="Email" placeholder="tu@email.com" />
-<Input label="Nombre" error="Campo obligatorio" variant="danger" />
-<Input size="lg" variant="success" />
+<FormField label="Email"><Input placeholder="tu@email.com" /></FormField>
+<FormField label="Nombre" error="Campo obligatorio"><Input variant="danger" /></FormField>
+<Input size="lg" variant="success" design="filled" />
 ```
 
 ---
@@ -561,13 +581,18 @@ Campo de texto base con label, error, variantes y tamaños.
 
 `src/components/textarea/Textarea.tsx`
 
-Área de texto multilínea con misma API que Input.
+Área de texto multilínea con label, error, variantes y tamaños.
 
-**Props:** Mismas que Input, más:
+**Props:**
 
 | Prop | Tipo | Default | Descripción |
 |------|------|---------|-------------|
+| `variant` | `Variant` | `"default"` | Color de foco |
+| `size` | `Size` | `"md"` | Tamaño |
+| `label` | `string` | — | Texto del label |
+| `error` | `string` | — | Mensaje de error |
 | `rows` | `number` | `3` | Filas visibles |
+| `id` | `string` | `useId()` | ID auto-generado |
 | Resto | `Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "size">` | — | Atributos nativos |
 
 **Resize:** `vertical` solamente.
@@ -1074,14 +1099,14 @@ Representación visual de usuario con imagen o iniciales.
 | `src` | `string` | — | URL de imagen (si falla, muestra initials) |
 | `alt` | `string` | — | Texto alternativo (genera initials desde la primera letra) |
 | `size` | `Size` | `"md"` | Tamaño |
-| `variant` | `"circle" \| "rounded" \| "square"` | `"circle"` | Forma |
-| `color` | `Variant` | `"default"` | Color de borde en foco |
+| `shape` | `"circle" \| "rounded" \| "square"` | `"circle"` | Forma |
+| `variant` | `Variant` | `"default"` | Color semántico |
 
 **Tamaños:** `sm` (32px), `md` (48px), `lg` (64px).
 
 ```tsx
 <Avatar src="/user.jpg" alt="Ana García" />
-<Avatar alt="Luis Pérez" variant="rounded" size="lg" color="info" />
+<Avatar alt="Luis Pérez" shape="rounded" size="lg" variant="info" />
 ```
 
 ---
@@ -1097,10 +1122,13 @@ Selector de calificación por estrellas con hover y keyboard.
 | Prop | Tipo | Default | Descripción |
 |------|------|---------|-------------|
 | `value` | `number` | **requerido** | Valor actual |
-| `onChange` | `(value: number) => void` | **requerido** | Callback |
+| `onChange` | `(value: number) => void` | — | Callback (omitiendo = readOnly) |
 | `count` | `number` | `5` | Cantidad de estrellas |
 | `size` | `Size` | `"md"` | Tamaño |
 | `readOnly` | `boolean` | `false` | Solo lectura |
+| `icon` | `ReactNode` | — | Estrella llena custom |
+| `emptyIcon` | `ReactNode` | — | Estrella vacía custom |
+| `className` | `string` | `""` | Clase adicional |
 
 **Tamaños:** `sm` (16px), `md` (24px), `lg` (32px).
 
@@ -1653,7 +1681,7 @@ Logotipo con gradiente animado y efecto de watermark.
 
 `src/components/icons/Icons.tsx`
 
-22 iconos SVG listos para usar. Todos comparten `IconProps`:
+27 iconos SVG listos para usar. Todos comparten `IconProps`:
 
 ```ts
 interface IconProps {
@@ -1690,6 +1718,9 @@ interface IconProps {
 | `TwitterIcon` | 22px | fill | Footer |
 | `YouTubeIcon` | 22px | fill | Footer |
 | `LinkedInIcon` | 22px | fill | Footer |
+| `AddIcon` | 48px | stroke | EmptyState |
+| `PackageIcon` | 48px | stroke | EmptyState |
+| `BellIcon` | 48px | stroke | EmptyState |
 | `CloseIcon` | 14px | stroke | Modal, Drawer, Chip, Alert, FileInput, ImageViewer |
 
 **Importación:**
@@ -1859,6 +1890,8 @@ OnlineBanner        101
 Select              150
 Autocomplete        150
 Popover             150
+TreeSelect          150
+CommandPalette      200
 Modal overlay       200
 Drawer overlay      250
 Drawer panel        260
@@ -1870,7 +1903,8 @@ LoaderOverlay      1000
 ```css
 /* Border radius */
 Cards / Box       16px
-Imágenes, inputs  12px
+Imágenes           12px
+Inputs              8px
 Varios             8px
 Chips / Badges  9999px
 ```

@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.5.0 (2026-06-06)
+
+### Nuevos componentes
+- **ImageViewer:** visor overlay (lightbox) con provider, galería multi-imagen, keyboard nav (ArrowLeft/Right, Escape), touch swipe en móvil, createPortal, z-index 300
+- **useImageViewer / useImageViewerSafe:** hooks para abrir el visor desde cualquier componente dentro de ImageViewerProvider
+- **Prop `viewer` en Image:** permite abrir imagen en el visor con clic/Enter/Space
+
+### Mejoras
+- **RevealCard:** nuevo wrapper con animación scroll-reveal (IntersectionObserver, fade-in + slide-up)
+- **Input:** nueva prop `design` (`"outlined" | "filled" | "standard"`)
+- **Box e Input:** agregado `displayName` para mejor debugging en React DevTools
+- **Hooks barrel:** `useComplementosState` ahora exportado desde `src/hooks/index.ts`
+- **Export style:** `OnlineBanner`, `FloatingOverlays` y `VirtualizedList` convertidos a `export const` por consistencia
+
+### Refactorizaciones
+- **ImageViewer:** partido en `ImageViewer.tsx`, `ImageViewerContext.tsx` y `useImageViewer.ts` para cumplir react-refresh
+- **setState en useEffect reemplazado:** key-based remount con `Date.now()` en ImageViewerProvider
+- **Hook condicional eliminado:** `Image.tsx` usa `useImageViewerSafe()` en vez de try/catch
+- **ViewerImg/ImageViewerActions:** movidos de `layoutSection.tsx` a `demos.tsx`
+- **Código muerto eliminado:** `RevealSection` (sin uso), `Box.module.css` y `Stack.module.css` (vacíos), `react-hook-form.md` (huérfano)
+- **console.log eliminado:** `inputsSection.tsx` ya no logea archivos en FileInput
+
+### Documentación
+- `docs/COMPONENTES.md`: sección ImageViewer + RevealCard, iconos actualizados (22→27), z-index ladder completo, props de Input/Textarea/Rating/Breadcrumbs corregidas, border radius inputs 8px, Divider default "sm"
+- `README.md`: 61 componentes, Image e ImageViewer en Layout, sin duplicados (Image, TreeSelect)
+- `CHANGELOG.md`: actualizado con cambios post-0.4.0
+
+### Testing (507 tests, 59 archivos)
+
+---
+
 ## 0.4.0 (2026-06-03)
 
 ### Nuevos componentes

@@ -3,7 +3,7 @@ import { useOnlineStatus } from "../../hooks/useOnlineStatus";
 import { WarningIcon } from "../icons";
 import styles from "./OnlineBanner.module.css";
 
-export function OnlineBanner() {
+export const OnlineBanner = () => {
   const { t } = useTranslation();
   const isOnline = useOnlineStatus();
 

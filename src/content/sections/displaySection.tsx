@@ -196,10 +196,10 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
         <CardBody>
           <Box display="flex" gap="1rem" flexWrap="wrap" justifyContent="center" alignItems="center">
             <Avatar src={htmlCodeImage} alt="JP" />
-            <Avatar alt="JD" color="info" />
-            <Avatar alt="María García" color="success" size="lg" variant="rounded" />
-            <Avatar alt="AB" color="warning" />
-            <Avatar alt="CL" color="danger" />
+            <Avatar alt="JD" variant="info" />
+            <Avatar alt="María García" variant="success" size="lg" shape="rounded" />
+            <Avatar alt="AB" variant="warning" />
+            <Avatar alt="CL" variant="danger" />
           </Box>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center" alignItems="center" mt="0.5rem">
             <Avatar alt="SM" size="sm" />
@@ -207,9 +207,9 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
             <Avatar alt="LG" size="lg" />
           </Box>
           <Box display="flex" gap="0.5rem" flexWrap="wrap" justifyContent="center" alignItems="center" mt="0.5rem">
-            <Avatar alt="Circle" variant="circle" />
-            <Avatar alt="Rounded" variant="rounded" />
-            <Avatar alt="Square" variant="square" />
+            <Avatar alt="Circle" shape="circle" />
+            <Avatar alt="Rounded" shape="rounded" />
+            <Avatar alt="Square" shape="square" />
           </Box>
         </CardBody>
         <CardFooter>

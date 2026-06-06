@@ -46,14 +46,14 @@ function App() {
 | Categoría | Componentes |
 |-----------|------------|
 | **Botones** | Button |
-| **Layout** | Box, Card (Header/Body/Footer), Stack/HStack/VStack, AspectRatio, Divider, Stepper, Table, DataTable, SplitPane, Sidebar, Image, ImageViewer |
+| **Layout** | Box, Card (Header/Body/Footer), Stack/HStack/VStack, AspectRatio, Divider, Stepper, Table, DataTable, SplitPane, Sidebar, Image, ImageViewer, RevealCard |
 | **Inputs** | Input, Textarea, Select, Autocomplete, PasswordInput, SearchInput, NumberInput, DateInput, ColorInput, RangeInput, FileInput, FormField, FormGroup, TreeSelect |
-| **Display** | Badge, Chip, Switch, Progress, Skeleton, Tabs, Avatar, Rating, Timeline, EmptyState, Typography, Image, Meter, Accordion |
-| **Business** | TreeView, VirtualizedList, Toast, TreeSelect, CommandPalette |
+| **Display** | Badge, Chip, Switch, Progress, Skeleton, Tabs, Avatar, Rating, Timeline, EmptyState, Typography, Meter, Accordion |
+| **Business** | TreeView, VirtualizedList, Toast, CommandPalette |
 | **Overlays** | Modal, Drawer, Alert, Popover, Tooltip, Loader, LoaderBar, LoaderOverlay, OnlineBanner |
 | **Navegación** | Navbar, Footer, Pagination, Breadcrumbs, LanguageSwitcher |
 | **Theme** | ThemeToggle, LogoWatermark |
-| **Utils** | ErrorBoundary, 22 iconos SVG |
+| **Utils** | ErrorBoundary, 27 iconos SVG |
 
 ## Arrancar
 

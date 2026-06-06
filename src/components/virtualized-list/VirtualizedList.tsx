@@ -12,7 +12,7 @@ interface VirtualizedListProps<T> {
   height?: number;
 }
 
-export function VirtualizedList<T>({
+export const VirtualizedList = <T,>({
   items,
   itemHeight,
   renderItem,
@@ -20,7 +20,7 @@ export function VirtualizedList<T>({
   className = "",
   style,
   height = 400,
-}: VirtualizedListProps<T>) {
+}: VirtualizedListProps<T>) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [scrollTop, setScrollTop] = useState(0);
 
@@ -76,4 +76,4 @@ export function VirtualizedList<T>({
       </div>
     </div>
   );
-}
+};

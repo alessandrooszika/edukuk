@@ -80,9 +80,9 @@ src/
 | LoaderOverlay | 1000 |
 
 ## Tests
-- 511 tests unitarios, 59 archivos, todos pasando
+- 507 tests unitarios, 59 archivos, todos pasando
 - E2E: Playwright con Chromium, 3 specs, 19 tests (navegación, overlays, accesibilidad)
-- Componentes con test: Box, Button, Input, Select, Autocomplete, Chip, Switch, Alert, Tabs, Progress, Loader, Skeleton, Badge, Stack, FormField, FormGroup, DataTable, Modal, Drawer, FloatingOverlays, LanguageSwitcher, Typography, OnlineBanner, Toast, TreeView, TreeSelect, VirtualizedList, CommandPalette, SplitPane, Sidebar
+- Componentes con test: Box, Button, Input, Select, Autocomplete, Chip, Switch, Alert, Tabs, Progress, Loader, Skeleton, Badge, Stack, FormField, FormGroup, DataTable, Modal, Drawer, FloatingOverlays, LanguageSwitcher, Typography, Toast, TreeView, TreeSelect, VirtualizedList, CommandPalette, SplitPane, Sidebar
 - Setup: `Element.prototype.scrollIntoView = vi.fn()` en setup.ts
 - CSS modules: `classNameStrategy: "non-scoped"` en vitest.config.ts
 

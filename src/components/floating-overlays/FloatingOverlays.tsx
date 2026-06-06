@@ -21,7 +21,7 @@ export interface FloatingOverlaysProps {
   onCloseAlert: () => void;
 }
 
-export function FloatingOverlays(props: FloatingOverlaysProps) {
+export const FloatingOverlays = (props: FloatingOverlaysProps) => {
   const { t } = useTranslation();
   const { modalSmall, setModalSmall, modalMedium, setModalMedium, modalLarge, setModalLarge, modalXl, setModalXl, overlayOpen, setOverlayOpen, drawerOpen, setDrawerOpen, drawerPosition, alert, onCloseAlert } = props;
 
@@ -80,4 +80,4 @@ export function FloatingOverlays(props: FloatingOverlaysProps) {
       </Drawer>
     </>
   );
-}
+};

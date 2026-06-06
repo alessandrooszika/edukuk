@@ -48,3 +48,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
     </Box>
   );
 });
+Input.displayName = "Input";

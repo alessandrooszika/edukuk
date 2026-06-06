@@ -227,8 +227,6 @@ export const BellIcon = ({ size = 48, className, style }: IconProps) => (
   </svg>
 );
 
-/* ---- Close (migrated from CloseIcon.tsx) ---- */
-
 export const CloseIcon = ({ size = 14, className, style }: IconProps) => (
   <svg viewBox="0 0 12 12" strokeWidth="1.5" width={size} height={size} aria-hidden="true" className={className} style={style} {...strokeAttrs}>
     <line x1="2" y1="2" x2="10" y2="10" />

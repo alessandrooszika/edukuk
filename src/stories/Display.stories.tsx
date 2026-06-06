@@ -22,11 +22,11 @@ export const AvatarSizes = () => (
     <Avatar alt="L" size="lg" />
   </div>
 );
-export const AvatarVariants = () => (
+export const AvatarShapes = () => (
   <div style={{ display: "flex", gap: "1rem" }}>
-    <Avatar alt="Circle" variant="circle" />
-    <Avatar alt="Rounded" variant="rounded" />
-    <Avatar alt="Square" variant="square" />
+    <Avatar alt="Circle" shape="circle" />
+    <Avatar alt="Rounded" shape="rounded" />
+    <Avatar alt="Square" shape="square" />
   </div>
 );
 

@@ -6,8 +6,8 @@ interface AvatarProps {
   src?: string;
   alt?: string;
   size?: Size;
-  variant?: "circle" | "rounded" | "square";
-  color?: Variant;
+  shape?: "circle" | "rounded" | "square";
+  variant?: Variant;
   children?: ReactNode;
   className?: string;
 }
@@ -26,14 +26,14 @@ export const Avatar = ({
   src,
   alt = "",
   size = "md",
-  variant: shape = "circle",
-  color = "default",
+  shape = "circle",
+  variant = "default",
   children,
   className = "",
 }: AvatarProps) => {
   return (
     <span
-      className={`${styles.root} ${styles[size]} ${styles[shape]} ${styles[color]} ${className}`}
+      className={`${styles.root} ${styles[size]} ${styles[shape]} ${styles[variant]} ${className}`}
       role={src ? "img" : undefined}
       aria-label={src ? alt : undefined}
     >

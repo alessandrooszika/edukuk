@@ -37,13 +37,13 @@ describe("Avatar", () => {
     expect(container.firstChild).toHaveClass("lg");
   });
 
-  it("aplica variant class", () => {
-    const { container } = render(<Avatar variant="square" alt="U" />);
+  it("aplica shape class", () => {
+    const { container } = render(<Avatar shape="square" alt="U" />);
     expect(container.firstChild).toHaveClass("square");
   });
 
-  it("aplica color class", () => {
-    const { container } = render(<Avatar color="success" alt="U" />);
+  it("aplica variant class", () => {
+    const { container } = render(<Avatar variant="success" alt="U" />);
     expect(container.firstChild).toHaveClass("success");
   });
 
