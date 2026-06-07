@@ -10,7 +10,7 @@
   font-weight: 600;
   font-family: var(--sans);
   line-height: 1;
-  color: #fff;
+  color: var(--badge-text);
   pointer-events: none;
   z-index: 1;
   white-space: nowrap;
@@ -24,7 +24,7 @@
   font-weight: 600;
   font-family: var(--sans);
   line-height: 1;
-  color: #fff;
+  color: var(--badge-text);
 }
 
 .sm {

@@ -27,7 +27,14 @@
 - `README.md`: 61 componentes, Image e ImageViewer en Layout, sin duplicados (Image, TreeSelect)
 - `CHANGELOG.md`: actualizado con cambios post-0.4.0
 
-### Testing (507 tests, 59 archivos)
+### Mejoras posteriores
+- **CSS Input:** hover ahora respeta `--input-color` (variant) en vez de `var(--accent)`, background de filled tint con color variant
+- **CSS Button:** `:focus-visible`, `:active` con scale, `:disabled` explícito en ghost/iconOnly
+- **CSS Badge:** `color` usa `--badge-text` (`#fff` light / `#000` dark) para contraste adaptativo
+- **Switch Playground:** nuevo playground en Display con variant, size, label, checked, disabled
+- **Badge Playground:** agregado control `Label` (children), render condicional según standalone
+
+### Testing (521 tests, 62 archivos)
 
 ---
 

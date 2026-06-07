@@ -18,6 +18,7 @@ import { FileInput } from "../../components/file-input";
 import { FormField } from "../../components/form-field";
 import { FormGroup } from "../../components/form-group";
 import { RevealCard } from "../../components/reveal-card";
+import { Playground } from "../../components/playground";
 import type { T } from "./categories";
 import type { InputsState } from "./types";
 
@@ -41,6 +42,37 @@ export function renderInputsSection(t: T, st: InputsState, bs: Record<string, st
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               {t("complementos.figcaption.input")}
+            </Typography>
+          </figure>
+        </CardFooter>
+      </Card></RevealCard>
+      <RevealCard><Card>
+        <CardHeader>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_input_playground")}</Typography>
+        </CardHeader>
+        <CardBody>
+          <Playground
+            controls={[
+              { name: "label", type: "text", label: "Label" },
+              { name: "variant", type: "select", label: "Variant", options: ["default", "info", "success", "warning", "danger"] },
+              { name: "size", type: "select", label: "Size", options: ["sm", "md", "lg"] },
+              { name: "design", type: "select", label: "Design", options: ["outlined", "filled", "standard"] },
+              { name: "error", type: "text", label: "Error" },
+              { name: "disabled", type: "boolean", label: "Disabled" },
+            ]}
+            defaultValues={{ label: t("complementos.input_playground_label"), variant: "default", size: "md", design: "outlined", error: "", disabled: false }}
+          >
+            {(p) => {
+              const { label, error, ...inputProps } = p as Record<string, string>;
+              const input = <Input {...inputProps} placeholder={t("complementos.input_playground_placeholder")} error={error || undefined} />;
+              return label ? <FormField label={label} htmlFor="">{input}</FormField> : input;
+            }}
+          </Playground>
+        </CardBody>
+        <CardFooter>
+          <figure className={bs.figure}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
+              {t("complementos.figcaption.input_playground")}
             </Typography>
           </figure>
         </CardFooter>

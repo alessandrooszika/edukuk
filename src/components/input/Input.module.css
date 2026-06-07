@@ -29,6 +29,7 @@
 .input:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transition: opacity 0.2s ease;
 }
 
 .error {
@@ -59,12 +60,20 @@
 }
 
 .outlined:hover {
-  border-color: var(--accent);
+  border-color: var(--input-color);
+}
+
+.outlined.hasError:hover {
+  border-color: var(--danger);
 }
 
 .outlined:focus-within {
   border-color: var(--input-color);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--input-color) 20%, transparent);
+}
+
+.outlined:active {
+  border-color: color-mix(in srgb, var(--input-color) 70%, transparent);
 }
 
 /* — design: filled — */
@@ -77,9 +86,22 @@
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
+.filled:hover {
+  border-bottom-color: var(--input-color);
+  background: color-mix(in srgb, var(--input-color) 12%, var(--bg));
+}
+
+.filled.hasError:hover {
+  border-bottom-color: var(--danger);
+}
+
 .filled:focus-within {
   border-bottom-color: var(--input-color);
-  background: color-mix(in srgb, var(--bg) 78%, var(--text));
+  background: color-mix(in srgb, var(--input-color) 18%, var(--bg));
+}
+
+.filled:active {
+  background: color-mix(in srgb, var(--input-color) 22%, var(--bg));
 }
 
 /* — design: standard — */
@@ -89,9 +111,21 @@
   transition: border-color 0.2s ease;
 }
 
+.standard:hover {
+  border-bottom-color: var(--input-color);
+}
+
+.standard.hasError:hover {
+  border-bottom-color: var(--danger);
+}
+
 .standard:focus-within {
   border-bottom-color: var(--input-color);
   border-bottom-width: 2px;
+}
+
+.standard:active {
+  border-bottom-color: color-mix(in srgb, var(--input-color) 70%, transparent);
 }
 
 /* — error — */

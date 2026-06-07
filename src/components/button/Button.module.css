@@ -11,7 +11,22 @@
   background: transparent;
   border-radius: 8px;
   padding: 0.5rem 1rem;
-  transition: background 0.2s ease, border-color 0.2s, color 0.2s;
+  transition: background 0.2s ease, border-color 0.2s, color 0.2s, transform 0.1s ease, opacity 0.2s;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.btn:active {
+  transform: scale(0.97);
 }
 
 .btn:hover {
@@ -29,6 +44,10 @@
   border-color: var(--danger);
 }
 
+.danger:active {
+  background: color-mix(in srgb, var(--danger-bg) 90%, black);
+}
+
 .success {
   color: var(--success);
   border-color: color-mix(in srgb, var(--success) 40%, transparent);
@@ -37,6 +56,10 @@
 .success:hover {
   background: var(--success-bg);
   border-color: var(--success);
+}
+
+.success:active {
+  background: color-mix(in srgb, var(--success-bg) 90%, black);
 }
 
 .info {
@@ -49,6 +72,10 @@
   border-color: var(--info);
 }
 
+.info:active {
+  background: color-mix(in srgb, var(--info-bg) 90%, black);
+}
+
 .warning {
   color: var(--warning);
   border-color: color-mix(in srgb, var(--warning) 40%, transparent);
@@ -57,6 +84,10 @@
 .warning:hover {
   background: var(--warning-bg);
   border-color: var(--warning);
+}
+
+.warning:active {
+  background: color-mix(in srgb, var(--warning-bg) 90%, black);
 }
 
 .iconOnly {
@@ -77,6 +108,12 @@
   color: var(--accent);
 }
 
+.iconOnly:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .ghost {
   border: none;
   background: none;
@@ -89,4 +126,10 @@
 .ghost:hover {
   background: var(--accent-bg);
   color: var(--accent);
+}
+
+.ghost:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
 }

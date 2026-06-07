@@ -11,6 +11,7 @@ import { Breadcrumbs } from "../components/breadcrumbs";
 import { AspectRatio } from "../components/aspect-ratio";
 import { Typography } from "../components/typography";
 import { LanguageSwitcher } from "../components/language-switcher";
+import { RevealCard } from "../components/reveal-card";
 
 export default { title: "Layout" };
 
@@ -117,4 +118,12 @@ export const AspectRatioDefault = () => (
       16:9
     </div>
   </AspectRatio>
+);
+
+export const RevealCardDefault = () => (
+  <RevealCard>
+    <Card>
+      <CardBody><Typography>This card fades in on scroll</Typography></CardBody>
+    </Card>
+  </RevealCard>
 );

@@ -24,6 +24,7 @@
   --skeleton-shine: #d1d5db;
   --meter-bg: #e5e7eb;
   --meter-value: #2563eb;
+  --badge-text: #fff;
 
   --sans: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
   --heading: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
@@ -60,6 +61,7 @@
   --skeleton-shine: #3c3e48;
   --meter-bg: #2e303a;
   --meter-value: #60a5fa;
+  --badge-text: #000;
 }
 
 

@@ -15,6 +15,7 @@ import { Timeline } from "../../components/timeline";
 import { EmptyState } from "../../components/empty-state";
 import { Divider } from "../../components/divider";
 import { AddIcon, PackageIcon, BellIcon } from "../../components/icons";
+import { Playground } from "../../components/playground";
 import { RatingDemo } from "./demos";
 import htmlCodeImage from "../../assets/html-code-image.webp";
 import cardStyles from "../../components/card/Card.module.css";
@@ -55,6 +56,45 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               {t("complementos.figcaption.badge")}
+            </Typography>
+          </figure>
+        </CardFooter>
+      </Card></RevealCard>
+      <RevealCard><Card>
+        <CardHeader>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_badge_playground")}</Typography>
+        </CardHeader>
+        <CardBody>
+          <Playground
+            controls={[
+              { name: "variant", type: "select", label: "Variant", options: ["default", "info", "success", "warning", "danger"] },
+              { name: "size", type: "select", label: "Size", options: ["sm", "md", "lg"] },
+              { name: "children", type: "text", label: "Label" },
+              { name: "standalone", type: "boolean", label: "Standalone" },
+            ]}
+            defaultValues={{ variant: "info", size: "md", children: "99+", standalone: false }}
+          >
+            {(p) => {
+              const { children, standalone, ...badgeProps } = p as Record<string, unknown>;
+              const isStandalone = standalone as boolean;
+              const badge = <Badge {...badgeProps} standalone={isStandalone}>{children as string}</Badge>;
+              return isStandalone
+                ? badge
+                : (
+                    <div style={{ position: "relative", display: "inline-block" }}>
+                      <span style={{ display: "inline-block", padding: "0.5rem 1.75rem 0.5rem 0.75rem", border: "1px solid var(--border)", borderRadius: "8px", fontSize: "0.875rem" }}>
+                        Notifications
+                      </span>
+                      {badge}
+                    </div>
+                  );
+            }}
+          </Playground>
+        </CardBody>
+        <CardFooter>
+          <figure className={bs.figure}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
+              {t("complementos.figcaption.badge_playground")}
             </Typography>
           </figure>
         </CardFooter>
@@ -118,6 +158,35 @@ export function renderDisplaySection(t: T, st: DisplayState, bs: Record<string, 
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               {t("complementos.figcaption.switch")}
+            </Typography>
+          </figure>
+        </CardFooter>
+      </Card></RevealCard>
+      <RevealCard><Card>
+        <CardHeader>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_switch_playground")}</Typography>
+        </CardHeader>
+        <CardBody>
+          <Playground
+            controls={[
+              { name: "variant", type: "select", label: "Variant", options: ["default", "info", "success", "warning", "danger"] },
+              { name: "size", type: "select", label: "Size", options: ["sm", "md", "lg"] },
+              { name: "label", type: "text", label: "Label" },
+              { name: "checked", type: "boolean", label: "Checked" },
+              { name: "disabled", type: "boolean", label: "Disabled" },
+            ]}
+            defaultValues={{ variant: "info", size: "md", label: "", checked: true, disabled: false }}
+          >
+            {(p) => {
+              const { checked, ...rest } = p as Record<string, unknown>;
+              return <Switch checked={Boolean(checked)} onChange={() => {}} {...rest} />;
+            }}
+          </Playground>
+        </CardBody>
+        <CardFooter>
+          <figure className={bs.figure}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
+              {t("complementos.figcaption.switch_playground")}
             </Typography>
           </figure>
         </CardFooter>

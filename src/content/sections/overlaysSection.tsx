@@ -5,6 +5,7 @@ import { RevealCard } from "../../components/reveal-card";
 import { Button } from "../../components/button";
 import { Loader, LoaderBar } from "../../components/loader";
 import { Popover } from "../../components/popover";
+import { Playground } from "../../components/playground";
 import type { T } from "./categories";
 import type { OverlaysState } from "./types";
 
@@ -51,6 +52,30 @@ export function renderOverlaysSection(t: T, st: OverlaysState, bs: Record<string
           <figure className={bs.figure}>
             <Typography variant="caption" component="figcaption" className={bs.figcaption}>
               {t("complementos.figcaption.alert")}
+            </Typography>
+          </figure>
+        </CardFooter>
+      </Card></RevealCard>
+      <RevealCard><Card>
+        <CardHeader>
+          <Typography variant="h3" gutterBottom>{t("complementos.section_loader_playground")}</Typography>
+        </CardHeader>
+        <CardBody>
+          <Playground
+            controls={[
+              { name: "variant", type: "select", label: "Variant", options: ["default", "info", "success", "warning", "danger"] },
+              { name: "size", type: "select", label: "Size", options: ["sm", "md", "lg"] },
+              { name: "label", type: "text", label: "Label" },
+            ]}
+            defaultValues={{ variant: "info", size: "md", label: "" }}
+          >
+            {(p) => <Loader {...p} />}
+          </Playground>
+        </CardBody>
+        <CardFooter>
+          <figure className={bs.figure}>
+            <Typography variant="caption" component="figcaption" className={bs.figcaption}>
+              {t("complementos.figcaption.loader_playground")}
             </Typography>
           </figure>
         </CardFooter>

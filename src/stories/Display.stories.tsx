@@ -3,6 +3,8 @@ import { Avatar } from "../components/avatar";
 import { Badge } from "../components/badge";
 import { Divider } from "../components/divider";
 import { Image } from "../components/image/Image";
+import { Progress } from "../components/progress";
+import { Switch } from "../components/switch";
 import { Meter } from "../components/meter/Meter";
 import { Skeleton } from "../components/skeleton";
 import { Typography } from "../components/typography";
@@ -10,6 +12,7 @@ import { Rating } from "../components/rating";
 import { Timeline } from "../components/timeline";
 import { EmptyState } from "../components/empty-state";
 import { LogoWatermark } from "../components/logo-watermark/LogoWatermark";
+import { ImageViewerProvider } from "../components/image-viewer";
 
 export default { title: "Display" };
 
@@ -48,6 +51,36 @@ export const DividerVertical = () => <div style={{ height: 100 }}><Divider orien
 export const ImageDefault = () => (
   <Image src="https://picsum.photos/300/200" alt="Random" caption="A random image" />
 );
+
+export const ImageWithViewer = () => (
+  <ImageViewerProvider>
+    <Image src="https://picsum.photos/300/200" alt="Click to view" caption="Click image to open viewer" viewer />
+  </ImageViewerProvider>
+);
+
+export const ProgressDefault = () => <Progress value={65} />;
+export const ProgressVariants = () => (
+  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+    <Progress value={75} variant="default" label="Default" />
+    <Progress value={60} variant="info" label="Info" />
+    <Progress value={80} variant="success" label="Success" />
+    <Progress value={40} variant="warning" label="Warning" />
+    <Progress value={25} variant="danger" label="Danger" />
+  </div>
+);
+
+export const SwitchDefault = () => {
+  const [v, setV] = useState(false);
+  return <Switch checked={v} onChange={setV} />;
+};
+export const SwitchChecked = () => {
+  const [v, setV] = useState(true);
+  return <Switch checked={v} onChange={setV} />;
+};
+export const SwitchWithLabel = () => {
+  const [v, setV] = useState(true);
+  return <Switch checked={v} onChange={setV} label="Enable notifications" />;
+};
 
 export const MeterDefault = () => <Meter value={65} />;
 
